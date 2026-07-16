@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The person behind Confyro</title>
+<meta name="description" content="Confyro is designed and built by Adam Peőcz — a Princeton economics student with a finance background who believes document verification should be checkable, private, and honest.">
+<meta name="theme-color" content="#f7f5f0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Crect x='1' y='1' width='24' height='24' fill='%23fdfcf9' stroke='%231b1d22' stroke-width='1.5'/%3E%3Cline x1='6' y1='8' x2='20' y2='8' stroke='%231b1d22' stroke-width='1.6'/%3E%3Cline x1='6' y1='13' x2='20' y2='13' stroke='%231b1d22' stroke-width='1.6'/%3E%3Cline x1='6' y1='16.5' x2='20' y2='16.5' stroke='%23b3261e' stroke-width='2'/%3E%3Cpath d='M6 21.5 l3 -3' stroke='%23b3261e' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,450;0,9..144,600;0,9..144,700;1,9..144,450;1,9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400;1,6..72,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --paper: #f7f5f0; --sheet: #fdfcf9; --ink: #1b1d22; --margin: #565a52;
+    --rule: #dcd9d0; --verdict: #b3261e; --evidence: #3f7a45; --ledger: #31589c;
+    --display: "Fraunces", Charter, "Iowan Old Style", Georgia, serif;
+    --serif: "Newsreader", Charter, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, Menlo, monospace;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    border-top: 3px solid var(--verdict);
+    font: 400 17.5px/1.68 var(--serif);
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  ::selection { background: rgba(179, 38, 30, 0.16); }
+  a { color: var(--ledger); text-underline-offset: 2px; }
+  .mono { font-family: var(--mono); }
+  .wrap { max-width: 1104px; margin: 0 auto; padding: 0 28px; }
+
+  .topbar { position: sticky; top: 0; z-index: 50; background: var(--paper); border-bottom: 1px solid var(--rule); }
+  .masthead { display: flex; align-items: center; gap: 28px; padding: 18px 0; }
+  .wordmark {
+    display: inline-flex; align-items: center; gap: 11px;
+    font: 600 20px var(--display); color: var(--ink); text-decoration: none; letter-spacing: 0.005em;
+  }
+  .wordmark svg { display: block; }
+  .masthead nav { margin-left: auto; display: flex; gap: 26px; align-items: center; }
+  .masthead nav a { font: 500 12.5px var(--mono); color: var(--margin); text-decoration: none; letter-spacing: 0.03em; }
+  .masthead nav a:hover { color: var(--verdict); }
+  .masthead nav a[aria-current] { color: var(--ink); border-bottom: 2px solid var(--verdict); padding-bottom: 2px; }
+  .masthead nav a.navcta { color: var(--ink); border: 1px solid var(--ink); padding: 7px 14px; }
+  .masthead nav a.navcta:hover { background: var(--ink); color: var(--paper); }
+
+  .hero { padding: 66px 0 26px; }
+  .kicker { font: 500 11.5px var(--mono); color: var(--margin); letter-spacing: 0.12em; margin: 0 0 14px; }
+  h1 { font: 600 clamp(34px, 5vw, 52px)/1.12 var(--display); letter-spacing: -0.012em; margin: 0 0 18px; max-width: 20ch; }
+  h1 em { font-style: italic; color: var(--verdict); }
+  .lede { font-size: 20px; line-height: 1.6; color: #33363c; max-width: 58ch; margin: 0 0 8px; }
+
+  .duo { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 58px; align-items: start; padding: 34px 0 20px; }
+
+  .sheet {
+    background: var(--sheet); border: 1px solid var(--rule); padding: 38px 42px 30px; position: relative;
+    box-shadow: 0 1px 2px rgba(27,29,34,0.04), 0 8px 28px -18px rgba(27,29,34,0.18);
+  }
+  .doc-kicker {
+    font: 500 11.5px/1.4 var(--mono); color: var(--margin); letter-spacing: 0.09em;
+    margin: 0 0 22px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+  .sheet p { margin: 0 0 15px; font-size: 16.5px; line-height: 1.78; text-align: justify; hyphens: auto; }
+  .sheet p.sign { text-align: right; font: italic 500 17px var(--display); margin-top: 22px; }
+  .ev {
+    padding: 2px 5px; background: #eef3ee; border-bottom: 2px solid var(--evidence);
+    font: 500 0.86em var(--mono); color: #2c5631; white-space: nowrap;
+  }
+
+  .rail { display: grid; gap: 18px; align-content: start; }
+  .portrait {
+    background: var(--sheet); border: 1px solid var(--rule); padding: 26px; text-align: center;
+    box-shadow: 0 1px 2px rgba(27,29,34,0.04);
+  }
+  .monogram {
+    width: 116px; height: 116px; margin: 6px auto 14px; border: 1.5px solid var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    font: 600 40px var(--display); background: var(--paper); position: relative;
+  }
+  .monogram::after {
+    content: ""; position: absolute; inset: 6px; border: 1px solid var(--rule);
+  }
+  .pname { font: 600 21px var(--display); margin: 0 0 2px; }
+  .prole { font: 500 12px var(--mono); color: var(--margin); letter-spacing: 0.08em; margin: 0 0 12px; }
+  .plinks { font: 500 13px var(--mono); }
+  .plinks a { margin: 0 7px; }
+
+  .facts { background: var(--sheet); border: 1px solid var(--rule); border-left: 3px solid var(--evidence); padding: 18px 22px; }
+  .facts h3 { font: 600 11.5px var(--mono); letter-spacing: 0.12em; color: var(--margin); margin: 0 0 12px; }
+  .facts ul { list-style: none; margin: 0; padding: 0; }
+  .facts li { font: 500 13.5px/1.75 var(--mono); color: var(--ink); padding: 5px 0; border-top: 1px solid var(--rule); }
+  .facts li:first-child { border-top: 0; }
+  .facts li span { color: var(--margin); }
+
+  .pillars { padding: 30px 0 72px; }
+  .pillars h2 { font: 600 30px var(--display); margin: 26px 0 8px; }
+  .pillars .sub { color: var(--margin); margin: 0 0 26px; max-width: 62ch; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .pillar {
+    background: var(--sheet); border: 1px solid var(--rule); border-left: 3px solid var(--verdict);
+    padding: 17px 20px 18px;
+  }
+  .pillar .chip {
+    display: inline-block; font: 600 11px var(--mono); letter-spacing: 0.1em;
+    background: var(--verdict); color: #fff; padding: 3px 9px 2px; margin-bottom: 10px; transform: rotate(-1deg);
+  }
+  .pillar:nth-child(2) .chip { transform: none; }
+  .pillar h4 { font: 700 16px var(--serif); margin: 0 0 6px; }
+  .pillar p { margin: 0; font-size: 14.5px; color: var(--margin); line-height: 1.65; }
+
+  footer { border-top: 1px solid var(--rule); padding: 42px 0 60px; }
+  .colophon { font: 500 12.5px/2 var(--mono); color: var(--margin); }
+  .colophon a { color: var(--margin); }
+
+  @media (max-width: 900px) {
+    .duo { grid-template-columns: 1fr; gap: 26px; }
+    .grid3 { grid-template-columns: 1fr; }
+    .masthead nav a:not(.navcta):not([aria-current]) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <header class="masthead">
+      <a class="wordmark" href="index.html">
+        <svg width="27" height="27" viewBox="0 0 26 26" aria-hidden="true" focusable="false">
+          <rect x="1" y="1" width="24" height="24" fill="#fdfcf9" stroke="#1b1d22" stroke-width="1.5"/>
+          <line x1="6" y1="8" x2="20" y2="8" stroke="#1b1d22" stroke-width="1.6"/>
+          <line x1="6" y1="13" x2="20" y2="13" stroke="#1b1d22" stroke-width="1.6"/>
+          <line x1="6" y1="16.5" x2="20" y2="16.5" stroke="#b3261e" stroke-width="2"/>
+          <path d="M6 21.5 l3 -3" stroke="#b3261e" stroke-width="2" fill="none"/>
+        </svg>
+        Confyro
+      </a>
+      <nav aria-label="Sections">
+        <a href="index.html#how">How it works</a>
+        <a href="index.html#report">The report</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="team.html" aria-current="page">Team</a>
+        <a class="navcta" href="index.html#selfhost">Install</a>
+      </nav>
+    </header>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+
+    <section class="hero">
+      <p class="kicker">THE PERSON BEHIND IT</p>
+      <h1>Built by one person who <em>answers every email.</em></h1>
+      <p class="lede">Confyro doesn't have a sales team, a support queue, or a "your call is important to us."
+      It has a builder with a finance background, a strong opinion about evidence — and a product
+      whose every promise you can verify yourself.</p>
+    </section>
+
+    <section class="duo">
+      <article class="sheet">
+        <p class="doc-kicker"><span>ORIGIN — WHY THIS EXISTS</span><span>EST. 2026</span></p>
+        <p>Confyro started at Princeton. The idea came earlier, in a controlling department in
+        Budapest, where as a finance intern I reconciled <span class="ev">100+ invoices a month</span>
+        by hand — checking every rate, every date, every total against the contracts they came from.
+        What I learned: the errors that cost real money are small, they hide in documents everyone
+        has already read, and finding them is exactly the kind of work people are worst at —
+        repetitive, detail-critical, endless.</p>
+        <p>Then I spent a summer as a research assistant on a Nobel-laureate economics project,
+        cleaning a historical dataset of <span class="ev">10,000 bondholders</span> from Alexander
+        Hamilton's 1790 refinancing plan. Financial history is unforgiving: a transcription error is
+        the difference between evidence and noise. That project set my standard for what "verified"
+        should mean.</p>
+        <p>Confyro is that discipline, automated. It reads your outgoing document, checks every claim
+        against your own reference library, and cites its evidence <span class="ev">verbatim</span> —
+        on your server, under your control. It flags; humans decide. And when it cannot prove
+        something, it says so, because unverifiable is not verified.</p>
+        <p>I'm building Confyro at Princeton, where I study economics — under the same rule I train
+        with as a Division&nbsp;I athlete: show up every day, verify everything, no shortcuts.</p>
+        <p class="sign">— Adam Peőcz</p>
+      </article>
+
+      <aside class="rail">
+        <div class="portrait">
+          <div class="monogram" aria-hidden="true">AP</div>
+          <p class="pname">Adam Peőcz</p>
+          <p class="prole">DESIGN · CODE · SUPPORT</p>
+          <p class="plinks">
+            <a href="https://www.linkedin.com/in/adampeocz/" rel="me noopener" target="_blank">LinkedIn</a> ·
+            <a href="mailto:hello@confyro.com">hello@confyro.com</a>
+          </p>
+        </div>
+        <div class="facts">
+          <h3>ON THE RECORD</h3>
+          <ul>
+            <li>Princeton University — <span>B.A. Economics, minors in Finance &amp; Entrepreneurship (Class of 2028)</span></li>
+            <li>Budapest → Princeton — <span>born and raised in Hungary</span></li>
+            <li>Also built — <span><a href="https://labyro.com" rel="me noopener" target="_blank">Labyro</a>, a platform that helps students find research opportunities</span></li>
+            <li>Finance controlling &amp; research background — <span>invoice reconciliation, budget variance analysis, historical financial data</span></li>
+            <li>Division I water polo — <span>Princeton men's team; Hungarian U19/U20 national teams</span></li>
+            <li>Languages — <span>Hungarian, English, German</span></li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+    <section class="pillars">
+      <h2>Why you can trust a product this young</h2>
+      <p class="sub">Not because of a logo wall — we don't have one yet. Because the architecture makes
+      the promises checkable, and every one of them is enforced by the code you run yourself.</p>
+      <div class="grid3">
+        <div class="pillar">
+          <span class="chip">CHECKABLE</span>
+          <h4>Your documents never reach us</h4>
+          <p>Confyro runs on your server. Your files, your reference library and your reports stay
+          there — we couldn't read them if we wanted to. Watch the network traffic and verify it.</p>
+        </div>
+        <div class="pillar">
+          <span class="chip">CHECKABLE</span>
+          <h4>Evidence or it doesn't count</h4>
+          <p>Every finding cites its source verbatim, down to the file and line. Anything the system
+          cannot prove is flagged as unverifiable — never quietly marked as fine.</p>
+        </div>
+        <div class="pillar">
+          <span class="chip">CHECKABLE</span>
+          <h4>A human you can reach</h4>
+          <p>Support is the person who wrote the code. Questions, bugs, feature requests — you'll get
+          an answer from me, usually the same day. That's the advantage of being early.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="colophon">CONFYRO — designed and built by Adam Peőcz · <a href="index.html">confyro.com</a> ·
+    <a href="https://www.linkedin.com/in/adampeocz/" rel="me noopener">LinkedIn</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
