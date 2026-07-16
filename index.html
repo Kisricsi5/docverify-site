@@ -486,7 +486,7 @@
       <h1>Your documents make claims. We check <em>every one.</em></h1>
       <p class="sub">DocVerify verifies drafted documents against your own contracts, rate
       cards, and policies &mdash; every finding cited to its source, on your own
-      server. Nothing leaves your infrastructure.</p>
+      server. Your documents never leave your infrastructure.</p>
       <p class="ctas">
         <a class="btn primary" href="#report">See a live report&ensp;&rarr;</a>
         <a class="btn" href="#selfhost">Install on your server</a>
@@ -689,8 +689,10 @@
           <span class="qm" aria-hidden="true">Q.</span>
           <p class="q">Can the vendor read them?</p>
           <p class="a"><span class="qm-inline" aria-hidden="true">A.</span>No. The
-          software has no connection back to us &mdash; no usage reporting, no
-          &ldquo;phone home.&rdquo; We could not see your documents if we wanted to.</p>
+          software&rsquo;s only contact with us is a one-time license check &mdash;
+          it sends your license key and an anonymous machine ID, and gets back a
+          signed license. No document content is ever transmitted, and there is no
+          usage tracking. We could not see your documents if we wanted to.</p>
         </li>
         <li class="rv">
           <span class="qm" aria-hidden="true">Q.</span>
@@ -698,8 +700,8 @@
           <p class="a"><span class="qm-inline" aria-hidden="true">A.</span>It reads
           your documents through an account your company owns and pays for directly
           &mdash; under your provider agreement, not ours. If policy requires, the AI
-          itself can run on your own hardware, and then nothing leaves the building
-          at all.</p>
+          itself can run on your own hardware, so your document content stays entirely
+          in-house.</p>
         </li>
         <li class="rv">
           <span class="qm" aria-hidden="true">Q.</span>
@@ -729,9 +731,12 @@ curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</s
         <li class="rv">Everything lives in <span class="mono">./data/</span> next to the compose
         file. That one directory is your backup, your migration, and your audit scope.</li>
         <li class="rv">Bring Anthropic, OpenAI-compatible, Azure, or Bedrock keys &mdash; or point
-        at a local vLLM/Ollama server for zero egress.</li>
+        at a local vLLM/Ollama server so document content never leaves your network.</li>
         <li class="rv">Optional retention rule purges uploaded documents after checking;
-        reports are kept. No telemetry, no phone-home.</li>
+        reports are kept. No telemetry, no usage tracking.</li>
+        <li class="rv">Licensing uses a one-time online activation (license key + machine ID
+        out, a signed license back) &mdash; never any document content. Air-gapped
+        deployments activate from a signed license file instead, with no network at all.</li>
       </ul>
       <p class="hostline rv">The security review is short because there is nothing to
       review. It runs on your server.</p>
