@@ -1,0 +1,36 @@
+# Confyro — customer deployment.
+#
+# This file is all you need:   docker compose up -d
+# Then open http://localhost:8000 and paste your activation key.
+#
+# The image is public; it is useless without a valid license. Licensing,
+# machine binding and metering are enforced by your activation key — there
+# is nothing to log in to and no token to manage.
+services:
+  confyro:
+    image: ${CONFYRO_IMAGE:-ghcr.io/kisricsi5/confyro:latest}
+    restart: unless-stopped
+    # Bound to THIS machine only. To share it on your intranet, keep this
+    # binding and put a TLS reverse proxy in front (https://confyro.com/#selfhost).
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      # UI password (username: admin). Optional while the app is only
+      # reachable from this machine; REQUIRED before you expose it further.
+      # Put CONFYRO_ADMIN_PASSWORD=... in a .env file next to this one.
+      CONFYRO_ADMIN_PASSWORD: ${CONFYRO_ADMIN_PASSWORD:-}
+      # A license is required; activate in the browser with your key.
+      CONFYRO_REQUIRE_LICENSE: ${CONFYRO_REQUIRE_LICENSE:-1}
+      # Enterprise / bring-your-own-key plans only — AI-included plans
+      # receive their model key automatically at activation; leave blank.
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    volumes:
+      # ALL your data lives here, on your disk. Back up this directory.
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=4).status == 200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3

@@ -902,9 +902,9 @@
           <span class="stepno">1</span>
           <h3>Install it once</h3>
           <p>One container on any server you control &mdash; a cloud machine, an
-          office computer, anything that runs Docker. Your welcome kit has the
-          file and a copy-paste guide; whoever looks after your computers has it
-          running in about ten minutes. After that, nobody touches a terminal
+          office computer, anything that runs Docker. Your welcome email carries
+          the exact copy-paste commands; whoever looks after your computers has
+          it running in about ten minutes. After that, nobody touches a terminal
           again.</p>
         </li>
         <li class="step">
@@ -927,9 +927,10 @@
       <div class="specpanel">
         <details class="techinstall rv">
           <summary>For whoever runs your servers &mdash; the commands</summary>
-          <pre class="inkblock" tabindex="0"><code><span class="cm"># your welcome kit provides the compose file, config and image access</span>
-cp .env.example .env          <span class="cm"># set an admin password</span>
-docker compose up -d          <span class="cm"># pull and start</span>
+          <pre class="inkblock" tabindex="0"><code><span class="cm"># the same commands your activation email carries</span>
+mkdir confyro &amp;&amp; cd confyro
+curl -fsSO https://confyro.com/get/docker-compose.yml
+docker compose up -d          <span class="cm"># pull and start (public image, license-gated)</span>
 curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</span></code></pre>
         </details>
         <ul class="hostlist">
