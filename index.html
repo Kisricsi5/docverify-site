@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -8,16 +8,108 @@
 <meta property="og:title" content="Confyro — Your documents make claims. We check every one.">
 <meta property="og:description" content="Self-hosted AI document verification. Every finding cited to its source, on your own server.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#f7f5f0">
+<meta name="theme-color" content="#f7f5f0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#16171a" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Crect x='1' y='1' width='24' height='24' fill='%23fdfcf9' stroke='%231b1d22' stroke-width='1.5'/%3E%3Cline x1='6' y1='8' x2='20' y2='8' stroke='%231b1d22' stroke-width='1.6'/%3E%3Cline x1='6' y1='13' x2='20' y2='13' stroke='%231b1d22' stroke-width='1.6'/%3E%3Cline x1='6' y1='16.5' x2='20' y2='16.5' stroke='%23b3261e' stroke-width='2'/%3E%3Cpath d='M6 21.5 l3 -3' stroke='%23b3261e' stroke-width='2' fill='none'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,450;0,9..144,600;0,9..144,700;1,9..144,450;1,9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400;1,6..72,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="canonical" href="https://confyro.com/">
+<meta property="og:url" content="https://confyro.com/">
+<meta property="og:image" content="https://confyro.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Confyro — Your documents make claims. We check every one.">
+<meta name="twitter:description" content="Self-hosted AI document verification. Every finding cited to its source, on your own server.">
+<meta name="twitter:image" content="https://confyro.com/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Confyro",
+  "applicationCategory": "BusinessApplication",
+  "applicationSubCategory": "Document verification",
+  "operatingSystem": "Self-hosted (Docker)",
+  "url": "https://confyro.com/",
+  "description": "Self-hosted AI document verification. Confyro checks the claims in drafted documents against your own contracts, rate cards, and policies — every finding cited verbatim to its source, on your own server. Flags for human review; never auto-edits.",
+  "offers": [
+    {"@type": "Offer", "name": "Team", "price": "490", "priceCurrency": "USD", "description": "Per server / month. One server, unlimited documents and users."},
+    {"@type": "Offer", "name": "Business", "price": "1290", "priceCurrency": "USD", "description": "Per month. Up to three servers, priority support."},
+    {"@type": "Offer", "name": "Enterprise", "priceCurrency": "USD", "description": "Custom. Air-gapped installs, local-model deployment, procurement-ready."}
+  ]
+}
+</script>
 <style>
+  /* Self-hosted fonts — no third-party requests, no cookies (see colophon). Latin subset, woff2. */
+  @font-face {
+    font-family: 'Fraunces'; font-style: italic; font-weight: 450;
+    font-display: swap; src: url(fonts/fraunces-450-italic.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Fraunces'; font-style: italic; font-weight: 600;
+    font-display: swap; src: url(fonts/fraunces-600-italic.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Fraunces'; font-style: normal; font-weight: 450;
+    font-display: swap; src: url(fonts/fraunces-450.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Fraunces'; font-style: normal; font-weight: 600;
+    font-display: swap; src: url(fonts/fraunces-600.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Fraunces'; font-style: normal; font-weight: 700;
+    font-display: swap; src: url(fonts/fraunces-700.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 400;
+    font-display: swap; src: url(fonts/ibmplexmono-400.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 500;
+    font-display: swap; src: url(fonts/ibmplexmono-500.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 600;
+    font-display: swap; src: url(fonts/ibmplexmono-600.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Newsreader'; font-style: italic; font-weight: 400;
+    font-display: swap; src: url(fonts/newsreader-400-italic.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Newsreader'; font-style: italic; font-weight: 600;
+    font-display: swap; src: url(fonts/newsreader-600-italic.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Newsreader'; font-style: normal; font-weight: 400;
+    font-display: swap; src: url(fonts/newsreader-400.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Newsreader'; font-style: normal; font-weight: 500;
+    font-display: swap; src: url(fonts/newsreader-500.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: 'Newsreader'; font-style: normal; font-weight: 700;
+    font-display: swap; src: url(fonts/newsreader-700.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
   :root {
     --paper: #f7f5f0;      /* the page */
     --sheet: #fdfcf9;      /* the document under review */
+    --card: #ffffff;       /* finding cards inside the report */
     --ink: #1b1d22;        /* iron-gall blue-black */
+    --body2: #33363c;      /* long-form body on sheet */
     --margin: #565a52;     /* marginalia gray, warm-biased */
     --rule: #dcd9d0;       /* hairline */
     --verdict: #b3261e;    /* proofreader's red — conflicts only */
@@ -25,10 +117,47 @@
     --ledger: #31589c;     /* links, focus */
     --flag-bg: #f6dfdc;
     --miss-bg: #f3e7c4;
+    --hi-text: #8c1d16;
+    --md-text: #6e5613;
+    --miss-ul: #a8842a;
+    --ev-bg: #eef3ee;
+    --ev-text: #2c5631;
+    --ink-on-ink: #e9e7df; /* text on the ink block */
+    --ink-cm: #999f8e;
+    --ink-ok: #97c99d;
+    --shadow-1: 0 1px 2px rgba(27,29,34,0.04), 0 8px 28px -18px rgba(27,29,34,0.18);
+    --shadow-2: 0 1px 2px rgba(27,29,34,0.04), 0 12px 36px -24px rgba(27,29,34,0.2);
     --display: "Fraunces", Charter, "Iowan Old Style", Georgia, serif;
     --serif: "Newsreader", Charter, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
     --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, Menlo, monospace;
     color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #16171a;
+      --sheet: #1d1f24;
+      --card: #22242a;
+      --ink: #e7e4da;
+      --body2: #c6c3b9;
+      --margin: #9a9d92;
+      --rule: #33363c;
+      --verdict: #d64a3f;
+      --evidence: #7fbf88;
+      --ledger: #8fa9dd;
+      --flag-bg: #3a2422;
+      --miss-bg: #383018;
+      --hi-text: #e8968e;
+      --md-text: #d3b35e;
+      --miss-ul: #b6923a;
+      --ev-bg: #223026;
+      --ev-text: #a8d3ae;
+      --ink-on-ink: #d9d6cc;
+      --ink-cm: #8a8f81;
+      --ink-ok: #8fc498;
+      --shadow-1: none;
+      --shadow-2: none;
+      color-scheme: dark;
+    }
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -38,7 +167,7 @@
     font: 400 17.5px/1.68 var(--serif);
     -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
   }
-  ::selection { background: rgba(179, 38, 30, 0.16); }
+  ::selection { background: rgba(179, 38, 30, 0.18); }
   .skip {
     position: absolute; left: 12px; top: -52px; z-index: 60;
     background: var(--ink); color: var(--paper); padding: 8px 14px;
@@ -65,6 +194,8 @@
     letter-spacing: 0.005em;
   }
   .wordmark svg { display: block; }
+  .wordmark svg rect { fill: var(--sheet); stroke: var(--ink); }
+  .wordmark svg .wl { stroke: var(--ink); }
   .masthead nav { margin-left: auto; display: flex; gap: 26px; align-items: center; }
   .masthead nav a {
     font: 500 12.5px var(--mono); color: var(--margin);
@@ -85,7 +216,7 @@
   .sheet {
     margin: 0; background: var(--sheet); border: 1px solid var(--rule);
     padding: 38px 42px 26px; position: relative;
-    box-shadow: 0 1px 2px rgba(27,29,34,0.04), 0 8px 28px -18px rgba(27,29,34,0.18);
+    box-shadow: var(--shadow-1);
   }
   .doc-kicker {
     font: 500 11.5px/1.4 var(--mono); color: var(--margin);
@@ -115,7 +246,7 @@
   .finding {
     position: relative; background: var(--sheet); border: 1px solid var(--rule);
     border-left: 3px solid var(--verdict); padding: 15px 19px 16px;
-    opacity: 0; box-shadow: 0 1px 2px rgba(27,29,34,0.04);
+    opacity: 0; box-shadow: var(--shadow-1);
   }
   .f1 { animation: stamp 0.34s cubic-bezier(0.2, 0.9, 0.3, 1.15) 1.75s forwards; }
   .f2 { animation: stamp 0.34s cubic-bezier(0.2, 0.9, 0.3, 1.15) 3.9s forwards; }
@@ -141,7 +272,7 @@
   .fsrc { font: 500 12.5px var(--mono); color: var(--ink); margin: 0 0 7px; }
   .fev {
     margin: 0; padding: 8px 12px; border-left: 3px solid var(--evidence);
-    background: #eef3ee; font: 500 12.5px/1.6 var(--mono); color: #2c5631;
+    background: var(--ev-bg); font: 500 12.5px/1.6 var(--mono); color: var(--ev-text);
   }
   .fnote { margin: 7px 0 0; font-size: 14.5px; color: var(--margin); }
   .receipt {
@@ -175,7 +306,7 @@
   }
   .btn.primary { background: var(--ink); color: var(--paper); }
   .btn:hover { transform: translateY(-1px); box-shadow: 0 3px 10px -4px rgba(27,29,34,0.35); }
-  .btn.primary:hover { background: #2c2f36; }
+  .btn.primary:hover { opacity: 0.92; }
   .btn:active { transform: none; box-shadow: none; }
   .trustline {
     font: 500 12.5px var(--mono); color: var(--margin);
@@ -193,9 +324,11 @@
     margin: 0 0 16px; letter-spacing: -0.015em; text-wrap: balance;
     max-width: 26ch; font-variation-settings: "opsz" 60;
   }
+  h3 { font: 600 19px var(--display); margin: 0 0 8px; letter-spacing: -0.005em; }
   .lede { font-size: 18.5px; color: var(--ink); margin: 0 0 40px; max-width: 60ch; }
 
   /* the trust problem: hanging pull-quotes */
+  .citednote { margin: 30px 0 0; font: 500 12px var(--mono); color: var(--margin); letter-spacing: 0.04em; }
   .pulls { display: grid; gap: 0; margin: 14px 0 30px; }
   .pull {
     display: grid; grid-template-columns: 250px 1fr; gap: 30px;
@@ -228,7 +361,8 @@
   .relay .st-num { font: 500 11px var(--mono); color: var(--margin); display: block; }
   .relay .st-name { font: 600 17px var(--mono); display: block; margin: 4px 0 8px; }
   .relay .chip { margin-right: 5px; }
-  .relay .st-sub { font-size: 14px; color: var(--margin); margin: 6px 0 0; line-height: 1.55; max-width: 24ch; }
+  .relay .st-sub { font-size: 14px; color: var(--margin); margin: 6px 0 0; line-height: 1.55; max-width: 26ch; }
+  .relay .st-sub .so { color: var(--ink); font-style: italic; }
   .chip {
     display: inline-block; font: 600 10px var(--mono); letter-spacing: 0.08em;
     text-transform: uppercase; padding: 2.5px 7px; vertical-align: 2px;
@@ -239,25 +373,25 @@
   .legend .m { color: var(--ledger); font-style: normal; }
   .legend .c { color: var(--margin); font-style: normal; }
 
-  /* constitution */
-  .clauses { list-style: none; margin: 14px 0 0; padding: 0; max-width: 72ch; }
-  .clauses li {
-    display: grid; grid-template-columns: 84px 1fr; gap: 24px;
-    border-top: 1px solid var(--rule); padding: 26px 0;
+  /* constitution — the four rules, given the most weight on the page */
+  .clausegrid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 34px 0 0; }
+  .clause {
+    background: var(--sheet); border: 1px solid var(--rule);
+    border-top: 3px solid var(--verdict); padding: 28px 30px 26px;
+    box-shadow: var(--shadow-1);
   }
-  .clauses li:last-child { border-bottom: 1px solid var(--rule); }
-  .clauses .cn {
-    font: 600 26px var(--display); color: var(--ink);
-    font-variation-settings: "opsz" 40;
+  .clause .cn {
+    display: block; font: 600 30px var(--display); color: var(--ink);
+    font-variation-settings: "opsz" 40; margin-bottom: 12px;
   }
-  .clauses .ct { font-weight: 700; font-size: 18px; display: block; margin-bottom: 5px; }
-  .clauses p { margin: 0; font-size: 16px; color: #33363c; }
+  .clause .ct { font-weight: 700; font-size: 19px; display: block; margin-bottom: 8px; font-family: var(--display); letter-spacing: -0.005em; }
+  .clause p { margin: 0; font-size: 15.5px; color: var(--body2); line-height: 1.66; }
 
   /* report still — functional */
   .report {
     background: var(--sheet); border: 1px solid var(--rule);
     margin: 30px 0 0;
-    box-shadow: 0 1px 2px rgba(27,29,34,0.04), 0 12px 36px -24px rgba(27,29,34,0.2);
+    box-shadow: var(--shadow-2);
   }
   .rp-head {
     display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px;
@@ -267,9 +401,9 @@
   .rp-file { font: 500 12px var(--mono); color: var(--margin); }
   .rp-chips { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
   .rchip { font: 600 11px var(--mono); padding: 3px 9px; letter-spacing: 0.04em; }
-  .rchip.hi { background: var(--flag-bg); color: #8c1d16; }
-  .rchip.md { background: var(--miss-bg); color: #6e5613; }
-  .rchip.ok { background: #eef3ee; color: #2c5631; }
+  .rchip.hi { background: var(--flag-bg); color: var(--hi-text); }
+  .rchip.md { background: var(--miss-bg); color: var(--md-text); }
+  .rchip.ok { background: var(--ev-bg); color: var(--ev-text); }
   .rp-body { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
   .rp-doc {
     padding: 26px 28px; border-right: 1px solid var(--rule);
@@ -279,7 +413,7 @@
   .rp-doc .doc-h:first-child { margin-top: 0; }
   .rp-doc p { margin: 0 0 10px; text-align: justify; hyphens: auto; }
   .hl-c { background: var(--flag-bg); box-shadow: inset 0 -2px 0 var(--verdict); padding: 0 1px; }
-  .hl-m { background: var(--miss-bg); box-shadow: inset 0 -2px 0 #a8842a; padding: 0 1px; }
+  .hl-m { background: var(--miss-bg); box-shadow: inset 0 -2px 0 var(--miss-ul); padding: 0 1px; }
   .hl-c.lit, .hl-m.lit { animation: lit 1.1s ease; }
   @keyframes lit {
     0% { background: var(--verdict); color: #fff; }
@@ -288,14 +422,14 @@
   .rp-findings { padding: 20px 22px; display: grid; gap: 14px; align-content: start; }
   .rp-card {
     border: 1px solid var(--rule); border-left: 3px solid var(--verdict);
-    padding: 13px 16px; background: #fff; text-align: left; width: 100%;
+    padding: 13px 16px; background: var(--card); text-align: left; width: 100%;
     font: inherit; color: inherit;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
   .js button.rp-card { cursor: pointer; }
-  .js button.rp-card:hover { border-color: #bdb9ae; border-left-color: var(--verdict); box-shadow: 0 2px 8px -4px rgba(27,29,34,0.25); }
+  .js button.rp-card:hover { border-color: var(--margin); border-left-color: var(--verdict); box-shadow: 0 2px 8px -4px rgba(27,29,34,0.25); }
   .rp-card .fhead { margin-bottom: 6px; }
-  .rp-card .k { font: 600 11px var(--mono); letter-spacing: 0.07em; color: #8c1d16; }
+  .rp-card .k { font: 600 11px var(--mono); letter-spacing: 0.07em; color: var(--hi-text); }
   .rp-card .q { display: block; font: italic 500 14.5px var(--serif); margin: 0 0 7px; }
   .rp-card .x { display: block; font-size: 14px; margin: 0 0 8px; }
   .rp-card .fev { display: block; font-size: 11.5px; }
@@ -305,75 +439,107 @@
     font-size: 14px; color: var(--margin);
   }
   .report figcaption .hint { color: var(--verdict); font-weight: 600; }
+  .sectas { margin: 30px 0 0; }
 
-  /* self-hosted: plain-english deposition */
-  .qa { list-style: none; margin: 10px 0 0; padding: 0; max-width: 72ch; }
-  .qa li {
-    display: grid; grid-template-columns: 36px 1fr; gap: 3px 18px;
-    border-top: 1px solid var(--rule); padding: 20px 0;
+  /* personas */
+  .personas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 34px 0 0; }
+  .persona { border: 1px solid var(--rule); background: var(--sheet); padding: 26px 28px; box-shadow: var(--shadow-1); }
+  .persona .plabel {
+    font: 600 10.5px var(--mono); letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--margin); display: block; margin-bottom: 14px;
   }
-  .qa .qm {
-    font: 600 13px/1.9 var(--mono); color: var(--margin); text-align: right;
-  }
-  .qa .q { margin: 0; font-weight: 700; font-size: 17.5px; }
-  .qa .a { margin: 6px 0 0; grid-column: 2; font-size: 16px; color: #33363c; }
-  .qa .a .qm-inline { font: 600 13px var(--mono); color: var(--margin); margin-right: 10px; }
-  .sublabel {
-    font: 600 11.5px var(--mono); letter-spacing: 0.16em;
-    text-transform: uppercase; color: var(--margin); margin: 56px 0 14px;
-  }
+  .persona p { margin: 0; font-size: 15.5px; color: var(--body2); line-height: 1.66; }
+  .persona .out { display: block; margin-top: 14px; font: 500 12.5px var(--mono); color: var(--ink); letter-spacing: 0.01em; }
+  .persona .out::before { content: "\2192 "; color: var(--verdict); }
 
-  /* self-hosted */
+  /* self-hosted spec panel */
+  .specpanel { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 30px; margin: 30px 0 0; align-items: start; }
   .inkblock {
-    background: var(--ink); color: #e9e7df;
-    padding: 24px 28px; margin: 30px 0; overflow-x: auto;
+    background: #14161a; color: var(--ink-on-ink); border: 1px solid #2a2d33;
+    padding: 24px 28px; margin: 0; overflow-x: auto;
     font: 500 13.5px/1.8 var(--mono);
-    box-shadow: 0 12px 32px -22px rgba(27,29,34,0.5);
+    box-shadow: var(--shadow-2);
   }
-  .inkblock .cm { color: #999f8e; }
-  .inkblock .ok { color: #97c99d; }
-  .hostlist { margin: 26px 0 0; padding: 0; list-style: none; max-width: 68ch; }
+  .inkblock .cm { color: var(--ink-cm); }
+  .inkblock .ok { color: var(--ink-ok); }
+  .hostlist { margin: 0; padding: 0; list-style: none; }
   .hostlist li {
-    padding: 12px 0 12px 28px; position: relative; font-size: 16px;
+    padding: 12px 0 12px 28px; position: relative; font-size: 15.5px;
     border-top: 1px solid var(--rule);
   }
+  .hostlist li:first-child { border-top: 0; padding-top: 0; }
   .hostlist li::before {
     content: "\00a7"; position: absolute; left: 2px; top: 12px;
     font: 600 14px var(--mono); color: var(--margin);
   }
+  .hostlist li:first-child::before { top: 0; }
   .hostline {
     font: 600 clamp(20px, 2.4vw, 26px) var(--display); font-style: italic;
     margin: 36px 0 0; max-width: 52ch; letter-spacing: -0.005em;
   }
 
-  /* pricing: a rate card */
-  .ratecard {
-    border: 1px solid var(--rule); background: var(--sheet);
-    margin: 30px 0 0; max-width: 780px;
-    box-shadow: 0 1px 2px rgba(27,29,34,0.04), 0 10px 30px -22px rgba(27,29,34,0.18);
+  /* references — reserved, deliberately */
+  .refslot {
+    border: 1px dashed var(--rule); background: transparent;
+    padding: 40px 36px; margin: 30px 0 0; text-align: center;
   }
-  .ratecard .rc-head {
+  .refslot p { margin: 0; font: italic 500 18px var(--display); color: var(--margin); }
+  .refslot .why { display: block; margin-top: 10px; font: 400 14px var(--serif); font-style: normal; }
+
+  /* pricing: rate-card cards */
+  .rc-head {
     font: 600 11.5px var(--mono); letter-spacing: 0.13em; color: var(--margin);
-    padding: 15px 24px; border-bottom: 1px solid var(--rule);
+    margin: 30px 0 14px;
   }
-  .ratecard table { width: 100%; border-collapse: collapse; }
-  .ratecard th, .ratecard td { text-align: left; padding: 18px 24px; border-top: 1px solid var(--rule); vertical-align: baseline; }
-  .ratecard thead th {
-    border-top: 0; font: 600 11px var(--mono); letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--margin); padding: 13px 24px;
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .plan {
+    border: 1px solid var(--rule); background: var(--sheet);
+    padding: 28px 30px; display: flex; flex-direction: column;
+    box-shadow: var(--shadow-1); position: relative;
   }
-  .ratecard .tier { font: 600 20px var(--display); white-space: nowrap; }
-  .ratecard .price { font: 600 18px var(--mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
-  .ratecard .per { font: 500 11.5px var(--mono); color: var(--margin); display: block; font-weight: 400; }
-  .ratecard td.inc { font-size: 15px; color: #33363c; }
-  .ratenote { margin: 20px 0 0; font-size: 15px; color: var(--margin); max-width: 66ch; }
+  .plan.hot { border: 1.5px solid var(--ink); }
+  .plan .flag {
+    position: absolute; top: -11px; left: 24px;
+    font: 600 10px var(--mono); letter-spacing: 0.1em; text-transform: uppercase;
+    background: var(--ink); color: var(--paper); padding: 3px 10px 2px;
+  }
+  .plan .tier { font: 600 21px var(--display); margin: 0 0 12px; }
+  .plan .price { font: 600 30px var(--mono); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+  .plan .per { display: block; font: 500 11.5px var(--mono); color: var(--margin); margin: 4px 0 18px; letter-spacing: 0.04em; }
+  .plan ul { list-style: none; margin: 0 0 22px; padding: 0; flex: 1; }
+  .plan li { padding: 8px 0 8px 22px; position: relative; font-size: 15px; color: var(--body2); border-top: 1px solid var(--rule); }
+  .plan li::before { content: "\2713"; position: absolute; left: 2px; font: 600 12px var(--mono); color: var(--evidence); }
+  .plan .btn { text-align: center; }
+  .ratenote { margin: 24px 0 0; font-size: 15px; color: var(--margin); max-width: 70ch; }
+
+  /* FAQ */
+  .faq { max-width: 76ch; margin: 14px 0 0; }
+  .faq details { border-top: 1px solid var(--rule); }
+  .faq details:last-child { border-bottom: 1px solid var(--rule); }
+  .faq summary {
+    cursor: pointer; list-style: none; padding: 19px 34px 19px 0;
+    font-weight: 700; font-size: 17.5px; position: relative;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: "+"; position: absolute; right: 4px; top: 16px;
+    font: 400 22px var(--mono); color: var(--margin);
+  }
+  .faq details[open] summary::after { content: "\2212"; color: var(--verdict); }
+  .faq summary:hover { color: var(--verdict); }
+  .faq .a { margin: 0; padding: 0 0 22px; font-size: 16px; color: var(--body2); max-width: 66ch; }
+
+  /* final call */
+  .finale { padding: 96px 0 100px; }
+  .finale h2 { max-width: 22ch; }
+  .finale .lede { margin-bottom: 34px; }
 
   /* footer */
   footer { border-top: 1px solid var(--rule); padding: 52px 0 64px; }
   .disclaimer {
     border: 1px solid var(--rule); border-left: 3px solid var(--margin);
     background: var(--sheet); padding: 18px 22px; max-width: 72ch;
-    font: italic 400 16px/1.65 var(--serif); color: #33363c; margin: 0 0 30px;
+    font: italic 400 16px/1.65 var(--serif); color: var(--body2); margin: 0 0 30px;
   }
   .colophon { font: 500 12.5px/2 var(--mono); color: var(--margin); }
   .colophon a { color: var(--margin); }
@@ -390,18 +556,21 @@
     .rp-body { grid-template-columns: 1fr; }
     .rp-doc { border-right: 0; border-bottom: 1px solid var(--rule); }
     .pull { grid-template-columns: 1fr; gap: 8px; }
+    .clausegrid { grid-template-columns: 1fr; }
+    .personas { grid-template-columns: 1fr; }
+    .specpanel { grid-template-columns: 1fr; }
+    .plans { grid-template-columns: 1fr; }
   }
   @media (max-width: 700px) {
-    .masthead nav a:not(.navcta) { display: none; }
+    .masthead { flex-wrap: wrap; gap: 12px 18px; }
+    .masthead nav { margin-left: auto; gap: 14px 16px; flex-wrap: wrap; row-gap: 8px; }
+    .masthead nav a { font-size: 12px; letter-spacing: 0.02em; }
     .sheet { padding: 26px 22px 20px; }
     .hero { padding: 40px 0 56px; }
     main section { padding: 56px 0; }
     .relay li { flex-basis: 100%; padding-right: 0; border-top: 1px solid var(--rule); }
     .relay li:not(:last-child)::after { content: none; }
-    .ratecard thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-    .ratecard tr { display: grid; grid-template-columns: 1fr auto; gap: 2px 14px; padding: 16px 20px; border-top: 1px solid var(--rule); }
-    .ratecard td, .ratecard th { display: block; border-top: 0; padding: 0; }
-    .ratecard td.inc { grid-column: 1 / -1; padding-top: 7px; }
+    .finale { padding: 64px 0 72px; }
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -413,7 +582,7 @@
     * { animation: none !important; transition: none !important; }
   }
   @media print {
-    .topbar, .ctas, .skip, .replay { display: none; }
+    .topbar, .ctas, .skip, .replay, .sectas { display: none; }
     body { border-top: 0; background: #fff; font-size: 12pt; }
     main section { page-break-inside: avoid; border-top-color: #ccc; padding: 28pt 0; }
     .inkblock { background: #fff; color: #000; border: 1pt solid #000; box-shadow: none; }
@@ -429,9 +598,9 @@
     <header class="masthead">
       <a class="wordmark" href="#main">
         <svg width="27" height="27" viewBox="0 0 26 26" aria-hidden="true" focusable="false">
-          <rect x="1" y="1" width="24" height="24" fill="#fdfcf9" stroke="#1b1d22" stroke-width="1.5"/>
-          <line x1="6" y1="8" x2="20" y2="8" stroke="#1b1d22" stroke-width="1.6"/>
-          <line x1="6" y1="13" x2="20" y2="13" stroke="#1b1d22" stroke-width="1.6"/>
+          <rect x="1" y="1" width="24" height="24" stroke-width="1.5"/>
+          <line class="wl" x1="6" y1="8" x2="20" y2="8" stroke-width="1.6"/>
+          <line class="wl" x1="6" y1="13" x2="20" y2="13" stroke-width="1.6"/>
           <line x1="6" y1="16.5" x2="20" y2="16.5" stroke="#b3261e" stroke-width="2"/>
           <path d="M6 21.5 l3 -3" stroke="#b3261e" stroke-width="2" fill="none"/>
         </svg>
@@ -441,6 +610,7 @@
         <a href="#how">How it works</a>
         <a href="#report">The report</a>
         <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
         <a href="team.html">Team</a>
         <a class="navcta" href="#selfhost">Install</a>
       </nav>
@@ -502,39 +672,29 @@
         <div class="pull rv">
           <span class="num">58&ndash;82%</span>
           <p>of legal queries drew hallucinated answers from general-purpose
-          chatbots in Stanford&rsquo;s benchmark of the field.
-          <span class="src">Dahl et al., &ldquo;Large Legal Fictions,&rdquo; Stanford RegLab, 2024</span></p>
+          chatbots &mdash; across 800,000+ queries in Stanford&rsquo;s benchmark
+          of the field.
+          <span class="src">Dahl et al., J. Legal Analysis 16(1), 2024 &mdash; Stanford HAI</span></p>
         </div>
         <div class="pull rv">
-          <span class="num">17&ndash;33%</span>
-          <p>hallucination rate of the leading legal AI research tools &mdash;
-          the ones marketed as &ldquo;hallucination-free.&rdquo; Purpose-built
-          beats general-purpose; neither is evidence.
-          <span class="src">Magesh et al., &ldquo;Hallucination-Free?&rdquo;, Stanford RegLab &mdash; peer-reviewed, J. Empirical Legal Studies, 2025</span></p>
-        </div>
-        <div class="pull rv">
-          <span class="num">66%</span>
-          <p>of wrong-word errors is all human proofreaders catch. Obvious
-          typos get caught 81% of the time &mdash; but a plausible wrong number
-          or word, the $185 that should be $165, is exactly what slips.
-          <span class="src">Daneman &amp; Stainton (1993) and four further peer-reviewed proofreading studies</span></p>
-        </div>
-        <div class="pull rv">
-          <span class="num">$2,130,000</span>
-          <p>put in dispute by a single comma in one 2006 telecom contract.
+          <span class="num">$2.13M</span>
+          <p>put in dispute by a single comma in one telecom contract.
           Documents fail on details &mdash; and details are exactly what fluent
           summaries skip.
-          <span class="src">Rogers Communications v. Bell Aliant, CRTC 2006</span></p>
+          <span class="src">Rogers v. Bell Aliant, CRTC 2006</span></p>
         </div>
         <div class="pull rv">
           <span class="num">1 letter</span>
-          <p>in a government register &mdash; the wrong company recorded as
-          liquidated &mdash; collapsed a 124-year-old engineering firm within
-          months, 250 jobs with it. The High Court held the registrar liable.
-          <span class="src">Sebry v Companies House, High Court (England &amp; Wales), 2015</span></p>
+          <p>dropped from a name in the official register recorded Taylor &amp;
+          Sons as wound up &mdash; the wrong firm. The 124-year-old business
+          collapsed in 2009, 250 jobs with it; the High Court held the registrar
+          liable.
+          <span class="src">Sebry v Companies House, 2015 &middot; Channel 4 News</span></p>
         </div>
       </div>
-      <p class="verdictline rv">You cannot ship documents on vibes.</p>
+      <p class="citednote rv">EVERY NUMBER ON THIS PAGE IS CITED. THE PRODUCT WORKS THE SAME WAY.</p>
+      <p class="verdictline rv">You cannot ship documents on vibes. So we built the
+      part of AI review that can be held to account.</p>
     </section>
 
     <section id="how" aria-labelledby="how-h">
@@ -547,27 +707,32 @@
         <li class="rv">
           <span class="st-num">1</span>
           <span class="st-name">parsing</span><span class="chip codechip">code</span>
-          <p class="st-sub">Sandboxed text extraction; every character position tracked.</p>
+          <p class="st-sub">Sandboxed text extraction; every character position tracked.
+          <span class="so">So findings cite exact offsets, not vague areas.</span></p>
         </li>
         <li class="rv">
           <span class="st-num">2</span>
           <span class="st-name">extracting</span><span class="chip model">model</span>
-          <p class="st-sub">Every checkable claim pulled as a verbatim quote.</p>
+          <p class="st-sub">Every checkable claim pulled as a verbatim quote.
+          <span class="so">So nothing is paraphrased before it is judged.</span></p>
         </li>
         <li class="rv">
           <span class="st-num">3</span>
           <span class="st-name">verifying</span><span class="chip model">model &times;N</span>
-          <p class="st-sub">Each claim judged against retrieved reference excerpts, in parallel.</p>
+          <p class="st-sub">Each claim judged against retrieved reference excerpts, in parallel.
+          <span class="so">So a long contract still checks in minutes.</span></p>
         </li>
         <li class="rv">
           <span class="st-num">4</span>
           <span class="st-name">reviewing</span><span class="chip codechip">code</span><span class="chip model">model</span>
-          <p class="st-sub">Deterministic checks, evidence validation, severity grading.</p>
+          <p class="st-sub">Deterministic checks, evidence validation, severity grading.
+          <span class="so">So fabricated evidence never reaches your report.</span></p>
         </li>
         <li class="rv">
           <span class="st-num">5</span>
           <span class="st-name">rendering</span><span class="chip codechip">code</span>
-          <p class="st-sub">One self-contained report file, fully auditable.</p>
+          <p class="st-sub">One self-contained report file, fully auditable.
+          <span class="so">So you can archive it, diff it, print it to PDF.</span></p>
         </li>
       </ol>
       <p class="legend rv"><span class="m">Models propose</span> &mdash; <span class="c">code disposes.</span></p>
@@ -576,43 +741,37 @@
     <section id="constitution" aria-labelledby="con-h">
       <p class="slabel rv">The trust architecture</p>
       <h2 id="con-h" class="rv">Enforced in code. Not requested in prompts.</h2>
-      <ol class="clauses">
-        <li class="rv">
+      <p class="lede rv">Four rules stand between the models and your report. None of
+      them is a prompt. All of them are code, and every one fails in your favor.</p>
+      <div class="clausegrid">
+        <article class="clause rv">
           <span class="cn">&sect;1</span>
-          <div>
-            <span class="ct">Evidence must be verbatim.</span>
-            <p>A conflict&rsquo;s cited sentence is checked character-for-character
-            against the excerpts the verifier was shown. No match &mdash; the finding
-            is downgraded, automatically. Fabricated evidence cannot reach a report.</p>
-          </div>
-        </li>
-        <li class="rv">
+          <span class="ct">Evidence must be verbatim.</span>
+          <p>A conflict&rsquo;s cited sentence is checked character-for-character
+          against the excerpts the verifier was shown. No match &mdash; the finding
+          is downgraded, automatically. Fabricated evidence cannot reach a report.</p>
+        </article>
+        <article class="clause rv">
           <span class="cn">&sect;2</span>
-          <div>
-            <span class="ct">Unverifiable is not verified.</span>
-            <p>Claims no reference document addresses are counted and displayed on
-            every report. Silence about unknowns is not permitted.</p>
-          </div>
-        </li>
-        <li class="rv">
+          <span class="ct">Unverifiable is not verified.</span>
+          <p>Claims no reference document addresses are counted and displayed on
+          every report. Silence about unknowns is not permitted.</p>
+        </article>
+        <article class="clause rv">
           <span class="cn">&sect;3</span>
-          <div>
-            <span class="ct">Injection findings outrank the model.</span>
-            <p>Instructions embedded in a document are detected by code and appended
-            after the model review &mdash; a document cannot talk the pipeline out of
-            reporting them.</p>
-          </div>
-        </li>
-        <li class="rv">
+          <span class="ct">Injection findings outrank the model.</span>
+          <p>Instructions embedded in a document are detected by code and appended
+          after the model review &mdash; a document cannot talk the pipeline out of
+          reporting them.</p>
+        </article>
+        <article class="clause rv">
           <span class="cn">&sect;4</span>
-          <div>
-            <span class="ct">Malformed output fails loudly.</span>
-            <p>Every model response is validated against a strict schema. Failures
-            are retried, then surfaced as warnings on the report itself. Nothing
-            passes silently.</p>
-          </div>
-        </li>
-      </ol>
+          <span class="ct">Malformed output fails loudly.</span>
+          <p>Every model response is validated against a strict schema. Failures
+          are retried, then surfaced as warnings on the report itself. Nothing
+          passes silently.</p>
+        </article>
+      </div>
     </section>
 
     <section id="report" aria-labelledby="report-h">
@@ -669,56 +828,51 @@
         to its highlight, exactly like the product.</span> The report is one
         self-contained HTML file: archive it, diff it, print it to PDF.</figcaption>
       </figure>
+      <!-- ASSET SLOT: when a hosted sample report exists, add below the figure:
+           <p class="sectas"><a class="btn" href="/sample-report.html">Open the full sample report</a></p> -->
+    </section>
+
+    <section id="who" aria-labelledby="who-h">
+      <p class="slabel rv">Who it&rsquo;s for</p>
+      <h2 id="who-h" class="rv">Three desks, one deliverable.</h2>
+      <div class="personas">
+        <article class="persona rv">
+          <span class="plabel">For legal &amp; contract teams</span>
+          <h3>The second reader that never skims.</h3>
+          <p>Every outgoing draft checked against the rate cards, MSAs, and policies
+          you already maintain &mdash; with the exact sentence that proves each
+          finding. It flags; your lawyer decides.</p>
+          <span class="out">a 10-page draft cross-checked in ~2 minutes</span>
+        </article>
+        <article class="persona rv">
+          <span class="plabel">For agencies &amp; consultancies</span>
+          <h3>Client deliverables, checked against client rules.</h3>
+          <p>Keep one workspace per client. Proposals, SOWs, and reports are verified
+          against that client&rsquo;s own rate card and terms before they go out &mdash;
+          on your server, not a cloud tool you would have to disclose.</p>
+          <span class="out">one workspace per client, one reference library each</span>
+        </article>
+        <article class="persona rv">
+          <span class="plabel">For security &amp; IT</span>
+          <h3>Approve it in an afternoon.</h3>
+          <p>One container behind your reverse proxy. All state in
+          <span class="mono">./data/</span>. Outbound traffic only to the model API
+          you configure &mdash; or none at all with local models. The license check
+          sends a key and a machine ID; never content.</p>
+          <span class="out">the audit scope is one directory</span>
+        </article>
+      </div>
     </section>
 
     <section id="selfhost" aria-labelledby="host-h">
       <p class="slabel rv">Self-hosted &mdash; in plain English</p>
       <h2 id="host-h" class="rv">Your server. Your keys. Your documents stay home.</h2>
       <p class="lede rv">Confyro is software you install on a computer your company
-      controls &mdash; not a website you upload contracts to. There is no cloud copy,
-      no account with us, and no way for us to see your documents. The questions that
-      decide it, answered plainly:</p>
-      <ul class="qa">
-        <li class="rv">
-          <span class="qm" aria-hidden="true">Q.</span>
-          <p class="q">Where do my documents go?</p>
-          <p class="a"><span class="qm-inline" aria-hidden="true">A.</span>Nowhere.
-          They are checked and stored on your own machine. You can have uploads
-          deleted automatically after every check; the reports are kept.</p>
-        </li>
-        <li class="rv">
-          <span class="qm" aria-hidden="true">Q.</span>
-          <p class="q">Can the vendor read them?</p>
-          <p class="a"><span class="qm-inline" aria-hidden="true">A.</span>No. The
-          software&rsquo;s only contact with us is a one-time license check &mdash;
-          it sends your license key and an anonymous machine ID, and gets back a
-          signed license. No document content is ever transmitted, and there is no
-          usage tracking. We could not see your documents if we wanted to.</p>
-        </li>
-        <li class="rv">
-          <span class="qm" aria-hidden="true">Q.</span>
-          <p class="q">What does the AI see?</p>
-          <p class="a"><span class="qm-inline" aria-hidden="true">A.</span>It reads
-          your documents through an account your company owns and pays for directly
-          &mdash; under your provider agreement, not ours. If policy requires, the AI
-          itself can run on your own hardware, so your document content stays entirely
-          in-house.</p>
-        </li>
-        <li class="rv">
-          <span class="qm" aria-hidden="true">Q.</span>
-          <p class="q">Can it change or send anything?</p>
-          <p class="a"><span class="qm-inline" aria-hidden="true">A.</span>No. It
-          cannot edit, forward, or file your documents. It only marks problems &mdash;
-          with the exact sentence that proves each one &mdash; and leaves every
-          decision to a person.</p>
-        </li>
-      </ul>
-
-      <p class="sublabel rv" id="for-it">The part for your IT team</p>
-      <p class="lede rv">One container behind your reverse proxy. Documents are parsed,
-      indexed, checked, and stored on your machine; the only outbound traffic is to
-      the model API you configure &mdash; or none at all with local models.</p>
-      <pre class="inkblock rv" tabindex="0"><code><span class="cm"># 1. authenticate against the vendor registry (token from your kit)</span>
+      controls &mdash; not a website you upload contracts to. There is no cloud copy
+      of your documents, and no way for us to see them. Four commands, then it&rsquo;s
+      yours:</p>
+      <div class="specpanel">
+        <pre class="inkblock rv" tabindex="0"><code><span class="cm"># 1. authenticate against the vendor registry (token from your kit)</span>
 echo "&lt;PULL-TOKEN&gt;" | docker login ghcr.io -u &lt;user&gt; --password-stdin
 <span class="cm"># 2. configure: image tag, model API key, admin password</span>
 cp config.example.yaml config.yaml &amp;&amp; cp .env.example .env
@@ -726,57 +880,158 @@ cp config.example.yaml config.yaml &amp;&amp; cp .env.example .env
 docker compose pull &amp;&amp; docker compose up -d
 <span class="cm"># 4. verify</span>
 curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</span></code></pre>
-      <ul class="hostlist">
-        <li class="rv">Bound to localhost by default; expose via your own TLS proxy &mdash; a
-        two-line Caddy or nginx recipe ships in the kit.</li>
-        <li class="rv">Everything lives in <span class="mono">./data/</span> next to the compose
-        file. That one directory is your backup, your migration, and your audit scope.</li>
-        <li class="rv">Bring Anthropic, OpenAI-compatible, Azure, or Bedrock keys &mdash; or point
-        at a local vLLM/Ollama server so document content never leaves your network.</li>
-        <li class="rv">Optional retention rule purges uploaded documents after checking;
-        reports are kept. No telemetry, no usage tracking.</li>
-        <li class="rv">Licensing uses a one-time online activation (license key + machine ID
-        out, a signed license back) &mdash; never any document content. Air-gapped
-        deployments activate from a signed license file instead, with no network at all.</li>
-      </ul>
+        <ul class="hostlist">
+          <li class="rv">Bound to localhost by default; expose via your own TLS proxy &mdash; a
+          two-line Caddy or nginx recipe ships in the kit.</li>
+          <li class="rv">Everything lives in <span class="mono">./data/</span> next to the compose
+          file. That one directory is your backup, your migration, and your audit scope.</li>
+          <li class="rv">Bring Anthropic, OpenAI-compatible, Azure, or Bedrock keys &mdash; or point
+          at a local vLLM/Ollama server so document content never leaves your network.</li>
+          <li class="rv">Optional retention rule purges uploaded documents after checking;
+          reports are kept. No telemetry, no usage tracking.</li>
+          <li class="rv">Licensing talks to us exactly once per renewal: license key and machine
+          ID out, a signed license back &mdash; never any document content. Air-gapped
+          deployments activate from a signed license file instead, with no network at all.</li>
+        </ul>
+      </div>
       <p class="hostline rv">The security review is short because there is nothing to
       review. It runs on your server.</p>
+    </section>
+
+    <section id="references" aria-labelledby="ref-h">
+      <p class="slabel rv">References</p>
+      <h2 id="ref-h" class="rv">Reserved for named customers.</h2>
+      <div class="refslot rv">
+        <p>This section ships empty.
+        <span class="why">We don&rsquo;t print invented testimonials or borrowed logos.
+        When customers agree to be named, they will appear here &mdash; with their
+        real words and real results. The rest of this page is held to the same
+        standard.</span></p>
+      </div>
+      <!-- ASSET SLOT: real references go here as they land. Format per entry:
+           <blockquote class="refquote">
+             <p>"QUOTE"</p>
+             <footer>NAME — ROLE, COMPANY <img src="headshot" alt="NAME"></footer>
+           </blockquote>
+           Monochrome SVG logos in a .logorow strip above the quotes. -->
     </section>
 
     <section id="pricing" aria-labelledby="price-h">
       <p class="slabel rv">Pricing</p>
       <h2 id="price-h" class="rv">Flat, per server. Set like a rate card, because it is one.</h2>
-      <div class="ratecard rv">
-        <p class="rc-head">DOCVERIFY &mdash; RATE CARD &middot; EFFECTIVE 2026</p>
-        <table>
-          <thead>
-            <tr><th scope="col">Tier</th><th scope="col">Rate</th><th scope="col">Includes</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="tier">Team</td>
-              <td class="price">$490<span class="per">per server / month</span></td>
-              <td class="inc">One server, unlimited documents and users, all features, updates, email support.</td>
-            </tr>
-            <tr>
-              <td class="tier">Business</td>
-              <td class="price">$1,290<span class="per">per month</span></td>
-              <td class="inc">Up to three servers, priority support, assisted onboarding of your reference library.</td>
-            </tr>
-            <tr>
-              <td class="tier">Enterprise</td>
-              <td class="price">Talk to us</td>
-              <td class="inc">Air-gapped installs, local-model deployment, custom terms and procurement paperwork.</td>
-            </tr>
-          </tbody>
-        </table>
+      <p class="rc-head rv">CONFYRO &mdash; RATE CARD &middot; EFFECTIVE 2026</p>
+      <div class="plans">
+        <article class="plan rv" aria-label="Team plan">
+          <h3 class="tier">Team</h3>
+          <p class="price">$490<span class="per">PER SERVER / MONTH</span></p>
+          <ul>
+            <li>One server, unlimited documents and users</li>
+            <li>All features, all formats &mdash; Word, Excel, PowerPoint, PDF</li>
+            <li>Updates and email support</li>
+          </ul>
+          <a class="btn primary" href="#selfhost">Install on your server</a>
+        </article>
+        <article class="plan hot rv" aria-label="Business plan">
+          <span class="flag">Most teams land here</span>
+          <h3 class="tier">Business</h3>
+          <p class="price">$1,290<span class="per">PER MONTH</span></p>
+          <ul>
+            <li>Up to three servers</li>
+            <li>Priority support</li>
+            <li>Assisted onboarding of your reference library</li>
+          </ul>
+          <a class="btn primary" href="#selfhost">Install on your server</a>
+        </article>
+        <article class="plan rv" aria-label="Enterprise plan">
+          <h3 class="tier">Enterprise</h3>
+          <p class="price">Custom<span class="per">ANNUAL &middot; PROCUREMENT-READY</span></p>
+          <ul>
+            <li>Air-gapped installs, offline license files</li>
+            <li>Local-model deployment &mdash; nothing leaves your network</li>
+            <li>Custom terms and procurement paperwork</li>
+          </ul>
+          <a class="btn" href="mailto:hello@confyro.com?subject=Confyro%20Enterprise%20enquiry">Talk to us</a>
+        </article>
       </div>
       <p class="ratenote rv">Model spend runs on your own keys &mdash; about 1&cent; per dense
-      page. Word, Excel, PowerPoint, and PDF are all supported: a slide deck
-      checks in about two minutes for cents, while a pricing spreadsheet costs
-      more than its page count suggests &mdash; nearly every cell is a checkable
+      page. A slide deck checks in about two minutes for cents; a pricing spreadsheet
+      costs more than its page count suggests &mdash; nearly every cell is a checkable
       value. These figures are modeled, and the product ships the harness that
       measures them on your documents; we quote the measured numbers, not these.</p>
+    </section>
+
+    <section id="faq" aria-labelledby="faq-h">
+      <p class="slabel rv">Questions a careful buyer asks</p>
+      <h2 id="faq-h" class="rv">Asked and answered. On the record.</h2>
+      <div class="faq rv">
+        <details>
+          <summary>Where do my documents go?</summary>
+          <p class="a">Nowhere. They are checked and stored on your own machine. You
+          can have uploads deleted automatically after every check; the reports are
+          kept.</p>
+        </details>
+        <details>
+          <summary>Can the vendor read them?</summary>
+          <p class="a">No. The software&rsquo;s only contact with us is the license
+          check &mdash; it sends your license key and an anonymous machine ID, and
+          gets back a signed license. No document content is ever transmitted, and
+          there is no usage tracking. We could not see your documents if we wanted
+          to.</p>
+        </details>
+        <details>
+          <summary>What does the AI see?</summary>
+          <p class="a">It reads your documents through an account your company owns
+          and pays for directly &mdash; under your provider agreement, not ours. If
+          policy requires, the AI itself can run on your own hardware, so your
+          document content stays entirely in-house.</p>
+        </details>
+        <details>
+          <summary>Can it change or send anything?</summary>
+          <p class="a">No. It cannot edit, forward, or file your documents. It only
+          marks problems &mdash; with the exact sentence that proves each one &mdash;
+          and leaves every decision to a person.</p>
+        </details>
+        <details>
+          <summary>What does it cost to run?</summary>
+          <p class="a">The license is flat per server. Model usage runs on your own
+          API keys at your provider&rsquo;s rates &mdash; modeled at about 1&cent;
+          per dense page, roughly 10&ndash;15&cent; for a ten-page contract. The
+          product ships an evaluation harness that measures the real numbers on your
+          own documents.</p>
+        </details>
+        <details>
+          <summary>Can it run fully air-gapped?</summary>
+          <p class="a">Yes. Point it at a local vLLM or Ollama server for the models,
+          activate it with a signed license file instead of the online check, and it
+          runs with no outbound network connection at all.</p>
+        </details>
+        <details>
+          <summary>What file formats does it check?</summary>
+          <p class="a">Word (.docx and legacy .doc), Excel (.xlsx), PowerPoint
+          (.pptx and legacy .ppt), PDF &mdash; including scanned PDFs via OCR &mdash;
+          and plain text or Markdown.</p>
+        </details>
+        <details>
+          <summary>What happens if you disappear?</summary>
+          <p class="a">Your installation keeps running on your server through its
+          licensed term &mdash; it does not depend on our infrastructure to check
+          documents. Every report is a self-contained file, and everything the
+          product knows lives in one directory you own and back up.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="finale" aria-labelledby="fin-h">
+      <p class="slabel rv">The next step</p>
+      <h2 id="fin-h" class="rv">Run it on a document you already shipped.</h2>
+      <p class="lede rv">Install it, point it at last quarter&rsquo;s contracts, and
+      read the findings. If it catches nothing, you bought reassurance. If it catches
+      something, you know exactly what it&rsquo;s worth.</p>
+      <p class="ctas">
+        <a class="btn primary" href="#report">See a live report&ensp;&rarr;</a>
+        <a class="btn" href="#selfhost">Install on your server</a>
+        <a class="btn" href="mailto:hello@confyro.com?subject=Confyro%20%E2%80%94%20talk%20to%20a%20human">Talk to a human</a>
+      </p>
     </section>
   </div>
 </main>
