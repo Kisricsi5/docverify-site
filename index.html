@@ -492,6 +492,8 @@
     margin: 30px 0 14px;
   }
   .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .plans.plans4 { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 1060px) { .plans.plans4 { grid-template-columns: 1fr 1fr; } }
   .plan {
     border: 1px solid var(--rule); background: var(--sheet);
     padding: 28px 30px; display: flex; flex-direction: column;
@@ -559,7 +561,7 @@
     .clausegrid { grid-template-columns: 1fr; }
     .personas { grid-template-columns: 1fr; }
     .specpanel { grid-template-columns: 1fr; }
-    .plans { grid-template-columns: 1fr; }
+    .plans, .plans.plans4 { grid-template-columns: 1fr; }
   }
   @media (max-width: 700px) {
     .masthead { flex-wrap: wrap; gap: 12px 18px; }
@@ -662,7 +664,7 @@
         <a class="btn primary" href="#report">See a live report&ensp;&rarr;</a>
         <a class="btn" href="#selfhost">Install on your server</a>
       </p>
-      <p class="trustline">Self-hosted &nbsp;&middot;&nbsp; Your API keys &nbsp;&middot;&nbsp; Flags, never auto-edits</p>
+      <p class="trustline">Self-hosted &nbsp;&middot;&nbsp; AI included, or bring your own keys &nbsp;&middot;&nbsp; Flags, never auto-edits</p>
     </section>
 
     <section id="problem" aria-labelledby="problem-h">
@@ -885,13 +887,17 @@ curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</s
           two-line Caddy or nginx recipe ships in the kit.</li>
           <li class="rv">Everything lives in <span class="mono">./data/</span> next to the compose
           file. That one directory is your backup, your migration, and your audit scope.</li>
-          <li class="rv">Bring Anthropic, OpenAI-compatible, Azure, or Bedrock keys &mdash; or point
-          at a local vLLM/Ollama server so document content never leaves your network.</li>
+          <li class="rv">On AI-included plans a dedicated model key arrives automatically at
+          activation &mdash; nothing to configure. On Enterprise, bring Anthropic,
+          OpenAI-compatible, Azure, or Bedrock keys &mdash; or point at a local
+          vLLM/Ollama server so document content never leaves your network.</li>
           <li class="rv">Optional retention rule purges uploaded documents after checking;
           reports are kept. No telemetry, no usage tracking.</li>
-          <li class="rv">Licensing talks to us exactly once per renewal: license key and machine
-          ID out, a signed license back &mdash; never any document content. Air-gapped
-          deployments activate from a signed license file instead, with no network at all.</li>
+          <li class="rv">Licensing talks to us once per renewal: license key and machine ID out,
+          a signed license back &mdash; plus, on AI-included plans, numeric usage
+          counters (pages, checks, token totals). Never any document content.
+          Air-gapped deployments activate from a signed license file instead,
+          with no network at all.</li>
         </ul>
       </div>
       <p class="hostline rv">The security review is short because there is nothing to
@@ -920,44 +926,57 @@ curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</s
       <p class="slabel rv">Pricing</p>
       <h2 id="price-h" class="rv">Flat, per server. Set like a rate card, because it is one.</h2>
       <p class="rc-head rv">CONFYRO &mdash; RATE CARD &middot; EFFECTIVE 2026</p>
-      <div class="plans">
-        <article class="plan rv" aria-label="Team plan">
-          <h3 class="tier">Team</h3>
-          <p class="price">$490<span class="per">PER SERVER / MONTH</span></p>
+      <div class="plans plans4">
+        <article class="plan rv" aria-label="Solo plan">
+          <h3 class="tier">Solo</h3>
+          <p class="price">$50<span class="per">PER MONTH &middot; $500 / YEAR</span></p>
           <ul>
-            <li>One server, unlimited documents and users</li>
-            <li>All features, all formats &mdash; Word, Excel, PowerPoint, PDF</li>
-            <li>Updates and email support</li>
+            <li>20 checks a month &mdash; up to 500 pages</li>
+            <li>AI included &mdash; no AI account needed</li>
+            <li>One server, all formats</li>
           </ul>
-          <a class="btn primary" href="#selfhost">Install on your server</a>
+          <a class="btn" href="#selfhost">Install on your server</a>
         </article>
-        <article class="plan hot rv" aria-label="Business plan">
-          <span class="flag">Most teams land here</span>
-          <h3 class="tier">Business</h3>
-          <p class="price">$1,290<span class="per">PER MONTH</span></p>
+        <article class="plan rv" aria-label="Starter plan">
+          <h3 class="tier">Starter</h3>
+          <p class="price">$190<span class="per">PER MONTH &middot; $1,900 / YEAR</span></p>
           <ul>
-            <li>Up to three servers</li>
-            <li>Priority support</li>
-            <li>Assisted onboarding of your reference library</li>
+            <li>50 checks a month &mdash; up to 1,250 pages</li>
+            <li>AI included &mdash; no AI account needed</li>
+            <li>One server, email support</li>
+          </ul>
+          <a class="btn" href="#selfhost">Install on your server</a>
+        </article>
+        <article class="plan hot rv" aria-label="Team plan">
+          <span class="flag">Most teams land here</span>
+          <h3 class="tier">Team</h3>
+          <p class="price">$490<span class="per">PER MONTH &middot; $4,900 / YEAR</span></p>
+          <ul>
+            <li>200 checks a month &mdash; up to 5,000 pages</li>
+            <li>AI included &mdash; no AI account needed</li>
+            <li>Two servers, priority support</li>
           </ul>
           <a class="btn primary" href="#selfhost">Install on your server</a>
         </article>
         <article class="plan rv" aria-label="Enterprise plan">
           <h3 class="tier">Enterprise</h3>
-          <p class="price">Custom<span class="per">ANNUAL &middot; PROCUREMENT-READY</span></p>
+          <p class="price">$1,490<span class="per">PER MONTH &middot; $14,900 / YEAR</span></p>
           <ul>
-            <li>Air-gapped installs, offline license files</li>
-            <li>Local-model deployment &mdash; nothing leaves your network</li>
-            <li>Custom terms and procurement paperwork</li>
+            <li>Bring your own key &mdash; nothing metered, nothing reported</li>
+            <li>Unlimited checks, no document-size cap, five servers</li>
+            <li>Air-gap installs, local models, offline licenses, procurement
+            paperwork</li>
           </ul>
           <a class="btn" href="mailto:hello@confyro.com?subject=Confyro%20Enterprise%20enquiry">Talk to us</a>
         </article>
       </div>
-      <p class="ratenote rv">Model spend runs on your own keys &mdash; about 1&cent; per dense
-      page. A slide deck checks in about two minutes for cents; a pricing spreadsheet
-      costs more than its page count suggests &mdash; nearly every cell is a checkable
-      value. These figures are modeled, and the product ships the harness that
-      measures them on your documents; we quote the measured numbers, not these.</p>
+      <p class="ratenote rv">A <strong>check</strong> covers one document up to 25
+      pages &mdash; a 60-page contract is 3 checks; documents up to 200 pages per
+      check on AI-included plans. Monthly checks reset each billing period; top-up
+      packs never expire and apply within a minute of purchase. On AI-included
+      plans the subscription is the whole bill &mdash; no separate AI account, no
+      usage invoice. Enterprise runs on your own keys at your provider&rsquo;s
+      rates.</p>
     </section>
 
     <section id="faq" aria-labelledby="faq-h">
@@ -972,18 +991,23 @@ curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</s
         </details>
         <details>
           <summary>Can the vendor read them?</summary>
-          <p class="a">No. The software&rsquo;s only contact with us is the license
-          check &mdash; it sends your license key and an anonymous machine ID, and
-          gets back a signed license. No document content is ever transmitted, and
-          there is no usage tracking. We could not see your documents if we wanted
-          to.</p>
+          <p class="a">No. On every plan, the software&rsquo;s contact with us is
+          the license check &mdash; your license key and an anonymous machine ID
+          out, a signed license back. On AI-included plans it also reports
+          <em>numeric usage counters</em>: pages, checks, token totals. Counters,
+          never content &mdash; no document text, no filenames. Bring-your-own-key
+          installs send only the license ping. We could not see your documents if
+          we wanted to.</p>
         </details>
         <details>
           <summary>What does the AI see?</summary>
-          <p class="a">It reads your documents through an account your company owns
-          and pays for directly &mdash; under your provider agreement, not ours. If
-          policy requires, the AI itself can run on your own hardware, so your
-          document content stays entirely in-house.</p>
+          <p class="a">On AI-included plans your server sends document text
+          directly to Anthropic using a dedicated key we provision for your
+          company &mdash; the content never passes through our servers, and each
+          customer runs in an isolated workspace. On Enterprise it reads your
+          documents through an account your company owns, under your own provider
+          agreement &mdash; or the AI runs on your own hardware, so document
+          content stays entirely in-house.</p>
         </details>
         <details>
           <summary>Can it change or send anything?</summary>
@@ -993,11 +1017,11 @@ curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</s
         </details>
         <details>
           <summary>What does it cost to run?</summary>
-          <p class="a">The license is flat per server. Model usage runs on your own
-          API keys at your provider&rsquo;s rates &mdash; modeled at about 1&cent;
-          per dense page, roughly 10&ndash;15&cent; for a ten-page contract. The
-          product ships an evaluation harness that measures the real numbers on your
-          own documents.</p>
+          <p class="a">On Solo, Starter, and Team, the subscription is the whole
+          bill &mdash; AI usage is included, measured in checks, and you never
+          create an AI account. On Enterprise, model usage runs on your own API
+          keys at your provider&rsquo;s rates; the product ships an evaluation
+          harness that measures the real numbers on your own documents.</p>
         </details>
         <details>
           <summary>Can it run fully air-gapped?</summary>
