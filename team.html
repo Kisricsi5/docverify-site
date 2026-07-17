@@ -7,10 +7,30 @@
 <meta name="description" content="Confyro is designed and built by Adam Peőcz — a Princeton economics student with a finance background who believes document verification should be checkable, private, and honest.">
 <meta name="theme-color" content="#f7f5f0">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Crect x='1' y='1' width='24' height='24' fill='%23fdfcf9' stroke='%231b1d22' stroke-width='1.5'/%3E%3Cline x1='6' y1='8' x2='20' y2='8' stroke='%231b1d22' stroke-width='1.6'/%3E%3Cline x1='6' y1='13' x2='20' y2='13' stroke='%231b1d22' stroke-width='1.6'/%3E%3Cline x1='6' y1='16.5' x2='20' y2='16.5' stroke='%23b3261e' stroke-width='2'/%3E%3Cpath d='M6 21.5 l3 -3' stroke='%23b3261e' stroke-width='2' fill='none'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,450;0,9..144,600;0,9..144,700;1,9..144,450;1,9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400;1,6..72,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
+  /* Self-hosted fonts — same files as the landing page, no third-party requests. */
+  @font-face { font-family: 'Fraunces'; font-style: italic; font-weight: 450;
+    font-display: swap; src: url(fonts/fraunces-450-italic.woff2) format('woff2'); }
+  @font-face { font-family: 'Fraunces'; font-style: italic; font-weight: 600;
+    font-display: swap; src: url(fonts/fraunces-600-italic.woff2) format('woff2'); }
+  @font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 450;
+    font-display: swap; src: url(fonts/fraunces-450.woff2) format('woff2'); }
+  @font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 600;
+    font-display: swap; src: url(fonts/fraunces-600.woff2) format('woff2'); }
+  @font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 700;
+    font-display: swap; src: url(fonts/fraunces-700.woff2) format('woff2'); }
+  @font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 400;
+    font-display: swap; src: url(fonts/ibmplexmono-400.woff2) format('woff2'); }
+  @font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 500;
+    font-display: swap; src: url(fonts/ibmplexmono-500.woff2) format('woff2'); }
+  @font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 600;
+    font-display: swap; src: url(fonts/ibmplexmono-600.woff2) format('woff2'); }
+  @font-face { font-family: 'Newsreader'; font-style: italic; font-weight: 400;
+    font-display: swap; src: url(fonts/newsreader-400-italic.woff2) format('woff2'); }
+  @font-face { font-family: 'Newsreader'; font-style: normal; font-weight: 400;
+    font-display: swap; src: url(fonts/newsreader-400.woff2) format('woff2'); }
+  @font-face { font-family: 'Newsreader'; font-style: normal; font-weight: 700;
+    font-display: swap; src: url(fonts/newsreader-700.woff2) format('woff2'); }
   :root {
     --paper: #f7f5f0; --sheet: #fdfcf9; --ink: #1b1d22; --margin: #565a52;
     --rule: #dcd9d0; --verdict: #b3261e; --evidence: #3f7a45; --ledger: #31589c;
@@ -139,7 +159,9 @@
         <a href="index.html#how">How it works</a>
         <a href="index.html#report">The report</a>
         <a href="index.html#pricing">Pricing</a>
+        <a href="index.html#faq">FAQ</a>
         <a href="team.html" aria-current="page">Team</a>
+        <a href="mailto:hello@confyro.com?subject=Confyro%20inquiry">Contact</a>
         <a class="navcta" href="index.html#selfhost">Install</a>
       </nav>
     </header>
