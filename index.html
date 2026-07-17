@@ -510,6 +510,9 @@
   .plan li { padding: 8px 0 8px 22px; position: relative; font-size: 15px; color: var(--body2); border-top: 1px solid var(--rule); }
   .plan li::before { content: "\2713"; position: absolute; left: 2px; font: 600 12px var(--mono); color: var(--evidence); }
   .plan .btn { text-align: center; }
+  .plan .planalt { margin: 10px 0 0; text-align: center; font: 500 11.5px var(--mono); letter-spacing: 0.04em; }
+  .plan .planalt a { color: var(--margin); }
+  .plan .planalt a:hover { color: var(--verdict); }
   .ratenote { margin: 24px 0 0; font-size: 15px; color: var(--margin); max-width: 70ch; }
 
   /* FAQ */
@@ -936,7 +939,9 @@ curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</s
             <li>AI included &mdash; no AI account needed</li>
             <li>One server, all formats</li>
           </ul>
-          <a class="btn" href="#selfhost">Install on your server</a>
+          <!-- TEST-mode Stripe links — swap to live links before real launch -->
+          <a class="btn" href="https://buy.stripe.com/test_dRm00bdNG57M9PnfqH1B601">Start 7-day free trial</a>
+          <p class="planalt"><a href="https://buy.stripe.com/test_4gM14fbFy6bQ0eN0vN1B602">or $500 / year &mdash; two months free</a></p>
         </article>
         <article class="plan rv" aria-label="Team plan">
           <h3 class="tier">Team</h3>
