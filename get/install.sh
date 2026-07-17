@@ -3,18 +3,18 @@
 #
 # What this script does (read it — it is short on purpose):
 #   1. checks that Docker is installed and running
-#   2. creates a ./confyro directory
-#   3. downloads the official docker-compose.yml from confyro.com
+#   2. signs in to pull the image (token from your activation email)
+#   3. creates a ./confyro directory and downloads the official compose file
 #   4. generates a local admin password into .env (printed once, below)
 #   5. starts Confyro with `docker compose up -d`
 #
-# Prefer doing it by hand? The whole install is just:
-#   mkdir confyro && cd confyro
-#   curl -fsSO https://confyro.com/get/docker-compose.yml
-#   docker compose up -d
+# The full copy-paste commands are in your activation email. This script is
+# the guided alternative. The image sign-in token is NOT stored in this public
+# file — you paste it (from your email) when prompted.
 set -eu
 
 BASE_URL="${CONFYRO_INSTALL_BASE:-https://confyro.com/get}"
+REGISTRY_USER="kisricsi5"
 
 # 1. Docker present and running?
 if ! command -v docker >/dev/null 2>&1; then
@@ -28,11 +28,22 @@ if ! docker info >/dev/null 2>&1; then
     exit 1
 fi
 
-# 2. A directory of its own
+# 2. Sign in to pull the image. The read-only token is in your activation
+#    email; paste it when prompted, or set CONFYRO_PULL_TOKEN before running.
+if [ -n "${CONFYRO_PULL_TOKEN:-}" ]; then
+    echo "$CONFYRO_PULL_TOKEN" | docker login ghcr.io -u "$REGISTRY_USER" --password-stdin
+else
+    printf 'Paste the image token from your activation email: '
+    stty -echo 2>/dev/null || true
+    read -r TOKEN
+    stty echo 2>/dev/null || true
+    echo
+    echo "$TOKEN" | docker login ghcr.io -u "$REGISTRY_USER" --password-stdin
+fi
+
+# 3. A directory of its own + the official compose file
 mkdir -p confyro
 cd confyro
-
-# 3. The official compose file
 echo "Downloading docker-compose.yml from ${BASE_URL} ..."
 curl -fsS -o docker-compose.yml "${BASE_URL}/docker-compose.yml"
 

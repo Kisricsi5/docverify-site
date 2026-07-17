@@ -927,10 +927,11 @@
       <div class="specpanel">
         <details class="techinstall rv">
           <summary>For whoever runs your servers &mdash; the commands</summary>
-          <pre class="inkblock" tabindex="0"><code><span class="cm"># the same commands your activation email carries</span>
+          <pre class="inkblock" tabindex="0"><code><span class="cm"># the same commands your activation email carries (with your token)</span>
+echo &lt;TOKEN&gt; | docker login ghcr.io -u kisricsi5 --password-stdin
 mkdir confyro &amp;&amp; cd confyro
 curl -fsSO https://confyro.com/get/docker-compose.yml
-docker compose up -d          <span class="cm"># pull and start (public image, license-gated)</span>
+docker compose up -d          <span class="cm"># pull and start (private image, license-gated)</span>
 curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</span></code></pre>
         </details>
         <ul class="hostlist">

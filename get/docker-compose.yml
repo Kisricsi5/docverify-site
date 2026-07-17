@@ -3,9 +3,10 @@
 # This file is all you need:   docker compose up -d
 # Then open http://localhost:8000 and paste your activation key.
 #
-# The image is public; it is useless without a valid license. Licensing,
-# machine binding and metering are enforced by your activation key — there
-# is nothing to log in to and no token to manage.
+# The image is private. Sign in once with the read-only token from your
+# activation email (docker login ghcr.io), then `docker compose up -d`.
+# The image is useless without a valid license — machine binding, metering
+# and the payment kill switch are enforced by your activation key.
 services:
   confyro:
     image: ${CONFYRO_IMAGE:-ghcr.io/kisricsi5/confyro:latest}
