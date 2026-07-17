@@ -451,6 +451,23 @@
   .persona .out::before { content: "\2192 "; color: var(--verdict); }
 
   /* self-hosted spec panel */
+  .steps { list-style: none; margin: 26px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; counter-reset: none; }
+  .step { border-top: 2px solid var(--verdict); padding-top: 16px; }
+  .stepno {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; margin-bottom: 12px;
+    border: 1.5px solid var(--verdict); color: var(--verdict);
+    font: 600 15px var(--mono); border-radius: 50%;
+  }
+  .step h3 { font: 600 18px var(--display); margin: 0 0 7px; }
+  .step p { margin: 0; font-size: 15px; color: var(--body2); line-height: 1.62; }
+  .techinstall { margin: 30px 0 0; grid-column: 1 / -1; }
+  .techinstall summary {
+    cursor: pointer; font: 500 13px var(--mono); color: var(--margin);
+    letter-spacing: 0.02em; padding: 6px 0;
+  }
+  .techinstall summary:hover { color: var(--verdict); }
+  .techinstall[open] summary { margin-bottom: 14px; }
   .specpanel { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 30px; margin: 30px 0 0; align-items: start; }
   .inkblock {
     background: #14161a; color: var(--ink-on-ink); border: 1px solid #2a2d33;
@@ -562,6 +579,10 @@
     .clausegrid { grid-template-columns: 1fr; }
     .personas { grid-template-columns: 1fr; }
     .specpanel { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; gap: 4px; }
+    .step { border-top: none; padding-top: 0; padding-left: 44px; position: relative; min-height: 40px; padding-bottom: 18px; }
+    .step .stepno { position: absolute; left: 0; top: 0; margin: 0; }
+    .step h3 { margin-top: 2px; }
     .plans, .plans.plans4 { grid-template-columns: 1fr; }
   }
   @media (max-width: 700px) {
@@ -873,19 +894,44 @@
     <section id="selfhost" aria-labelledby="host-h">
       <p class="slabel rv">Self-hosted &mdash; in plain English</p>
       <h2 id="host-h" class="rv">Your server. Your keys. Your documents stay home.</h2>
-      <p class="lede rv">Confyro is software you install on a computer your company
-      controls &mdash; not a website you upload contracts to. There is no cloud copy
-      of your documents, and no way for us to see them. Four commands, then it&rsquo;s
-      yours:</p>
+      <p class="lede rv">Confyro is software you run on a computer your company
+      controls &mdash; not a website you upload contracts to. Getting started is
+      three steps:</p>
+      <ol class="steps rv">
+        <li class="step">
+          <span class="stepno">1</span>
+          <h3>Install it once</h3>
+          <p>One container on any server you control &mdash; a cloud machine, an
+          office computer, anything that runs Docker. Your welcome kit has the
+          file and a copy-paste guide; whoever looks after your computers has it
+          running in about ten minutes. After that, nobody touches a terminal
+          again.</p>
+        </li>
+        <li class="step">
+          <span class="stepno">2</span>
+          <h3>Enter your key</h3>
+          <p>Open Confyro in your browser, go to the License page, and paste the
+          activation key from your welcome email. On AI-included plans your AI
+          access switches on by itself &mdash; nothing to set up, no AI account
+          to create.</p>
+        </li>
+        <li class="step">
+          <span class="stepno">3</span>
+          <h3>Check your first document</h3>
+          <p>Upload your reference library &mdash; contracts, rate cards,
+          policies &mdash; then drop in a document to check. Confyro cites the
+          evidence for every finding, flags anything it cannot verify, and never
+          edits your file.</p>
+        </li>
+      </ol>
       <div class="specpanel">
-        <pre class="inkblock rv" tabindex="0"><code><span class="cm"># 1. authenticate against the vendor registry (token from your kit)</span>
-echo "&lt;PULL-TOKEN&gt;" | docker login ghcr.io -u &lt;user&gt; --password-stdin
-<span class="cm"># 2. configure: image tag, model API key, admin password</span>
-cp config.example.yaml config.yaml &amp;&amp; cp .env.example .env
-<span class="cm"># 3. pull and start</span>
-docker compose pull &amp;&amp; docker compose up -d
-<span class="cm"># 4. verify</span>
+        <details class="techinstall rv">
+          <summary>For whoever runs your servers &mdash; the commands</summary>
+          <pre class="inkblock" tabindex="0"><code><span class="cm"># your welcome kit provides the compose file, config and image access</span>
+cp .env.example .env          <span class="cm"># set an admin password</span>
+docker compose up -d          <span class="cm"># pull and start</span>
 curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</span></code></pre>
+        </details>
         <ul class="hostlist">
           <li class="rv">Bound to localhost by default; expose via your own TLS proxy &mdash; a
           two-line Caddy or nginx recipe ships in the kit.</li>
@@ -1045,11 +1091,11 @@ curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</s
           <summary>Do I need to be technical to install it?</summary>
           <p class="a">You need a server and about fifteen minutes. If you (or
           anyone at your company) have installed anything with Docker before,
-          the four-command install will feel routine; if not, it is a single
-          copy-paste job for whoever manages your machines. After that one-time
-          step, everything is a web page in the browser &mdash; nobody else
-          ever touches a terminal. A one-click installer for solo
-          professionals is on the roadmap.</p>
+          the install will feel routine; if not, it is a single copy-paste job
+          for whoever manages your machines, and your welcome kit walks through
+          it step by step. After that one-time setup, everything is a web page
+          in the browser &mdash; nobody else ever touches a terminal. A
+          one-click installer for solo professionals is on the roadmap.</p>
         </details>
         <details>
           <summary>What happens if you disappear?</summary>
