@@ -32,8 +32,8 @@
   "description": "Self-hosted AI document verification. Confyro checks the claims in drafted documents against your own contracts, rate cards, and policies — every finding cited verbatim to its source, on your own server. Flags for human review; never auto-edits.",
   "offers": [
     {"@type": "Offer", "name": "Individual", "price": "50", "priceCurrency": "USD", "description": "Per month. 20 checks included, AI included — no AI account needed."},
-    {"@type": "Offer", "name": "Starter", "price": "190", "priceCurrency": "USD", "description": "Per month. 50 checks included, AI included."},
-    {"@type": "Offer", "name": "Team", "price": "490", "priceCurrency": "USD", "description": "Per month. 200 checks included, two servers, AI included."},
+    {"@type": "Offer", "name": "Team", "price": "190", "priceCurrency": "USD", "description": "Per month. 50 checks included, AI included."},
+    {"@type": "Offer", "name": "Business", "price": "490", "priceCurrency": "USD", "description": "Per month. 200 checks included, two servers, AI included."},
     {"@type": "Offer", "name": "Enterprise", "price": "1490", "priceCurrency": "USD", "description": "Per month. Bring your own key — unmetered, nothing reported; air-gap and local models."}
   ]
 }
@@ -938,8 +938,8 @@ curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</s
           </ul>
           <a class="btn" href="#selfhost">Install on your server</a>
         </article>
-        <article class="plan rv" aria-label="Starter plan">
-          <h3 class="tier">Starter</h3>
+        <article class="plan rv" aria-label="Team plan">
+          <h3 class="tier">Team</h3>
           <p class="price">$190<span class="per">PER MONTH &middot; $1,900 / YEAR</span></p>
           <ul>
             <li>50 checks a month &mdash; up to 1,250 pages</li>
@@ -948,9 +948,9 @@ curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</s
           </ul>
           <a class="btn" href="#selfhost">Install on your server</a>
         </article>
-        <article class="plan hot rv" aria-label="Team plan">
+        <article class="plan hot rv" aria-label="Business plan">
           <span class="flag">Most teams land here</span>
-          <h3 class="tier">Team</h3>
+          <h3 class="tier">Business</h3>
           <p class="price">$490<span class="per">PER MONTH &middot; $4,900 / YEAR</span></p>
           <ul>
             <li>200 checks a month &mdash; up to 5,000 pages</li>
@@ -1018,7 +1018,7 @@ curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</s
         </details>
         <details>
           <summary>What does it cost to run?</summary>
-          <p class="a">On Individual, Starter, and Team, the subscription is the whole
+          <p class="a">On Individual, Team, and Business, the subscription is the whole
           bill &mdash; AI usage is included, measured in checks, and you never
           create an AI account. On Enterprise, model usage runs on your own API
           keys at your provider&rsquo;s rates; the product ships an evaluation
