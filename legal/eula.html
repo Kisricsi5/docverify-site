@@ -1054,7 +1054,7 @@ footer { padding: 56px 0 64px; border-top: 1px solid var(--rule); }
             <li>It flags; you decide &mdash; <span>it never edits, sends, or files documents</span></li>
             <li>Machine-bound license &mdash; <span>signed, auto-refreshed roughly every 12 hours</span></li>
             <li>If payments stop &mdash; <span>14-day grace, then new checks are blocked; your data stays with you</span></li>
-            <li>Sold as is &mdash; <span>no warranty; liability capped (see sections 11&ndash;12)</span></li>
+            <li>Reliable by design, not guaranteed &mdash; <span>no warranty of completeness or correctness; human review required; liability capped (sections 11&ndash;12)</span></li>
           </ul>
         </div>
 
@@ -1170,16 +1170,55 @@ footer { padding: 56px 0 64px; border-top: 1px solid var(--rule); }
         This draft promises no response times or uptime levels
         [OWNER DECISION: whether to commit to a support SLA, and its terms].</p>
 
-        <h2 id="s11">11. No warranty</h2>
-        <p>THE SOFTWARE IS PROVIDED &ldquo;AS IS&rdquo; AND &ldquo;AS
-        AVAILABLE&rdquo;, WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED,
-        INCLUDING WITHOUT LIMITATION ANY IMPLIED WARRANTIES OF MERCHANTABILITY,
-        FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT. WE DO NOT
-        WARRANT THAT THE SOFTWARE WILL FIND EVERY INCONSISTENCY, THAT ITS FINDINGS
-        WILL BE COMPLETE OR CORRECT, OR THAT ITS OPERATION WILL BE UNINTERRUPTED OR
-        ERROR-FREE.</p>
+        <h2 id="s11">11. Accuracy and reliability &mdash; no warranty</h2>
+        <p>Confyro is engineered for reliability. Findings are gated by code:
+        a conflict&rsquo;s cited source sentence is validated
+        character-for-character against the reference excerpts the verifier
+        was shown, evidence that fails validation is downgraded
+        automatically, and claims no reference addresses are reported as
+        unverifiable rather than silently passed. These controls are real,
+        they are enforced in code rather than requested in prompts, and they
+        make the Software unusually dependable for its category.</p>
+        <p><strong>They do not make it perfect, and we do not claim they
+        do.</strong> By purchasing, activating, or using the Software you
+        acknowledge and agree to all of the following:</p>
+        <ul>
+          <li><strong>No guarantee of completeness.</strong> The Software may
+          fail to identify an inconsistency, error, omission, or risk that is
+          present in a document (a false negative). A report that lists no
+          findings is not a representation that a document is correct,
+          compliant, or safe to use.</li>
+          <li><strong>No guarantee of correctness.</strong> The Software may
+          flag an issue where none exists (a false positive), may assign an
+          inappropriate severity, or may attach evidence that is verbatim yet
+          contextually incomplete. Parts of the analysis are produced by
+          probabilistic language models whose behavior can vary between runs,
+          document types, languages, and model versions.</li>
+          <li><strong>Output depends on your reference library.</strong>
+          Findings are only as good as the reference documents you provide.
+          Outdated, incomplete, or incorrect references produce outdated,
+          incomplete, or incorrect findings. Curating the library is your
+          responsibility.</li>
+          <li><strong>Human review is required.</strong> The Software is a
+          review aid. Every finding &mdash; and every absence of a finding
+          &mdash; must be evaluated by a qualified person before a document is
+          signed, sent, filed, or relied upon. The Software is not a lawyer,
+          does not provide legal, financial, tax, or compliance advice, and
+          does not replace professional review.</li>
+          <li><strong>No liability for decisions.</strong> Decisions made, or
+          not made, on the basis of the Software&rsquo;s output are yours. You
+          agree not to rely on the Software as the sole basis for any decision
+          with legal, financial, or regulatory consequences.</li>
+        </ul>
+        <p>ACCORDINGLY, THE SOFTWARE IS PROVIDED &ldquo;AS IS&rdquo; AND
+        &ldquo;AS AVAILABLE&rdquo;, WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED WARRANTIES OF
+        MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND
+        NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SOFTWARE WILL FIND EVERY
+        INCONSISTENCY, THAT ITS FINDINGS WILL BE COMPLETE OR CORRECT, OR THAT
+        ITS OPERATION WILL BE UNINTERRUPTED OR ERROR-FREE.</p>
         <p>Some jurisdictions do not allow certain warranty exclusions, so parts of
-        the paragraph above may not apply to you
+        the section above may not apply to you
         [TO BE COMPLETED WITH COUNSEL].</p>
 
         <h2 id="s12">12. Limit on liability</h2>
