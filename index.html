@@ -8,7 +8,7 @@
 <meta property="og:title" content="Confyro — Your documents make claims. We check every one.">
 <meta property="og:description" content="Self-hosted AI document checker. Every finding cited to its source, on your own server.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#0D0F10">
+<meta name="theme-color" content="#F2ECDD">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Crect x='1' y='1' width='24' height='24' fill='%23FFFDF8' stroke='%23121416' stroke-width='1.5'/%3E%3Cline x1='6' y1='8' x2='20' y2='8' stroke='%23121416' stroke-width='1.6'/%3E%3Cline x1='6' y1='13' x2='20' y2='13' stroke='%23121416' stroke-width='1.6'/%3E%3Cline x1='6' y1='16.5' x2='20' y2='16.5' stroke='%23C43B32' stroke-width='2'/%3E%3Cpath d='M6 21.5 l3 -3' stroke='%23C43B32' stroke-width='2' fill='none'/%3E%3C/svg%3E">
 <link rel="canonical" href="https://confyro.com/">
 <meta property="og:url" content="https://confyro.com/">
@@ -141,8 +141,8 @@
   --flag-bg: #F7DED8;  --hi-text: #8E251D;
   --miss-bg: #F1E4C2;  --md-text: #6F5716;  --miss-ul: #A8842A;
   --ev-bg: #E6EFE6;    --ev-text: #1C5C43;
-  --shadow-1: 0 1px 2px rgba(18,20,22,0.05), 0 10px 30px -20px rgba(18,20,22,0.22);
-  --shadow-2: 0 1px 2px rgba(18,20,22,0.05), 0 14px 40px -26px rgba(18,20,22,0.26);
+  --shadow-1: 0 1px 2px rgba(18,20,22,0.06), 0 16px 34px -16px rgba(18,20,22,0.25), 0 46px 90px -40px rgba(18,20,22,0.3);
+  --shadow-2: 0 2px 3px rgba(18,20,22,0.07), 0 22px 48px -20px rgba(18,20,22,0.3), 0 64px 120px -48px rgba(18,20,22,0.32);
   --display: "Fraunces", Charter, "Iowan Old Style", Georgia, serif;
   --serif: "Newsreader", Charter, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
   --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, Menlo, monospace;
@@ -164,7 +164,8 @@
   --card: #1C2023;
   --verdict: #DA574D;          /* red lifted for contrast on near-black */
   --ev-bg: #1C2A24; --ev-text: #9CCDB2;
-  --shadow-1: none; --shadow-2: none;
+  --shadow-1: 0 2px 4px rgba(0,0,0,0.45), 0 22px 44px -18px rgba(0,0,0,0.55);
+  --shadow-2: 0 3px 6px rgba(0,0,0,0.5), 0 30px 60px -22px rgba(0,0,0,0.6);
   color-scheme: dark;
 }
 .paperdoc {
@@ -207,35 +208,44 @@ section { scroll-margin-top: 84px; }
 }
 .skip:focus { top: 12px; }
 
-/* ---------- masthead: transparent over the dark hero, solid on scroll ---------- */
+/* ---------- masthead: paper brand bar; tall at the top of the page,
+   shrinks to a compact strip on scroll and stays pinned ---------- */
 .topbar {
-  position: sticky; top: 0; z-index: 50; background: transparent;
+  position: sticky; top: 0; z-index: 50; background: var(--sand);
   border-bottom: 1px solid transparent;
-  transition: background-color 0.25s ease, border-color 0.25s ease;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
-.topbar.scrolled { background: var(--night); border-bottom-color: var(--nightline); }
-.masthead { display: flex; align-items: center; gap: 28px; padding: 16px 0; }
+.topbar.scrolled {
+  border-bottom-color: var(--rule);
+  box-shadow: 0 8px 24px -18px rgba(18, 20, 22, 0.3);
+}
+.masthead { display: flex; align-items: center; gap: 28px; padding: 26px 0;
+  transition: padding 0.3s ease; }
+.topbar.scrolled .masthead { padding: 9px 0; }
 .wordmark {
   display: inline-flex; align-items: center; gap: 11px;
-  font: 600 20px var(--display); color: var(--ivory); text-decoration: none;
-  letter-spacing: 0.005em;
+  font: 600 21px var(--display); color: var(--ink); text-decoration: none;
+  letter-spacing: 0.005em; transition: font-size 0.3s ease;
 }
-.wordmark svg { display: block; }
-.wordmark svg rect { fill: var(--night2); stroke: var(--ivory); }
-.wordmark svg .wl { stroke: var(--ivory); }
+.topbar.scrolled .wordmark { font-size: 17.5px; }
+.wordmark svg { display: block; width: 28px; height: 28px;
+  transition: width 0.3s ease, height 0.3s ease; }
+.topbar.scrolled .wordmark svg { width: 22px; height: 22px; }
+.wordmark svg rect { fill: var(--paper); stroke: var(--ink); }
+.wordmark svg .wl { stroke: var(--ink); }
 .masthead nav { margin-left: auto; display: flex; gap: 24px; align-items: center; }
 .masthead nav a {
-  font: 500 12.5px var(--mono); color: var(--ash);
+  font: 500 12.5px var(--mono); color: var(--margin);
   text-decoration: none; letter-spacing: 0.03em; padding: 6px 0;
 }
-.masthead nav a:hover { color: var(--ivory); }
-.masthead nav a[aria-current] { color: var(--ivory); border-bottom: 2px solid #DA574D; padding-bottom: 4px; }
+.masthead nav a:hover { color: var(--verdict); }
+.masthead nav a[aria-current] { color: var(--ink); border-bottom: 2px solid var(--verdict); padding-bottom: 4px; }
 .masthead nav a.navcta {
-  color: var(--night); background: var(--ivory); border: 1px solid var(--ivory);
-  padding: 8px 14px;
+  color: var(--ink); background: transparent; border: 1px solid var(--ink);
+  padding: 8px 14px; transition: padding 0.3s ease;
 }
-.masthead nav a.navcta:hover { background: transparent; color: var(--ivory); }
-.masthead nav :focus-visible { outline-color: #B9CCEF; }
+.topbar.scrolled .masthead nav a.navcta { padding: 6px 12px; }
+.masthead nav a.navcta:hover { background: var(--ink); color: var(--sand); }
 
 /* ---------- shared primitives ---------- */
 /* spec-sheet eyebrow: N°0X in red, label in margin gray */
@@ -288,7 +298,7 @@ h3 { font: 600 19px var(--display); margin: 0 0 8px; letter-spacing: -0.005em; }
 
 /* section rhythm */
 .sect { padding: 108px 0; }
-.sect + .sect, .steps3 + .sect { border-top: 1px solid var(--rule); }
+.sect + .sect, .steps3 + .sect, .hero + .sect { border-top: 1px solid var(--rule); }
 
 /* the document sheet */
 .sheet {
@@ -370,24 +380,41 @@ html:not(.js) .f1::before { transform: none; }
 }
 .js .replay { display: inline-block; }
 
-/* ---------- hero: one dark cinematic screen ---------- */
+/* ---------- hero: one light screen, the red label leads ---------- */
 .hero {
-  margin-top: -62px;                  /* sits under the transparent topbar */
-  padding-top: 62px;
-  min-height: 100vh; min-height: 100svh;
+  min-height: calc(100vh - 82px);
+  min-height: calc(100svh - 82px);   /* 82px ≈ the tall top-of-page bar */
   display: grid; align-content: center;
-  box-sizing: border-box;
+  padding: 24px 0 48px; box-sizing: border-box;
 }
-.hero .wrap { padding-top: 30px; padding-bottom: 48px; }
-.hero h1 { font-size: clamp(46px, 6.8vw, 92px); }
+/* owner hierarchy: the red SELF-HOSTED DOCUMENT CHECKER is the giant,
+   the headline sits smaller beside the laptop, the sub under it */
 .hero .kicker {
-  font: 600 11.5px var(--mono); letter-spacing: 0.18em;
-  color: var(--verdict); margin: 0 0 18px; text-transform: uppercase;
+  font: 600 clamp(30px, 3.9vw, 60px)/1.06 var(--mono);
+  letter-spacing: 0.015em; color: var(--verdict); margin: 0 0 20px;
+  text-transform: uppercase; max-width: 14ch; text-wrap: balance;
+  text-shadow: 0 16px 30px rgba(196, 59, 50, 0.22);
 }
+.hero h1 {
+  font-size: clamp(24px, 2.5vw, 38px); line-height: 1.22;
+  max-width: 24ch; margin: 0 0 20px;
+  text-shadow: 0 10px 24px rgba(18, 20, 22, 0.16);
+}
+.hero .sub { font-size: 17px; }
 .herogrid {
-  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: 64px; align-items: center;
+  display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+  gap: 56px; align-items: stretch;
 }
+/* the left column spans exactly the right column's height: label at the
+   top edge, chips at the bottom edge — owner-requested symmetry */
+.herogrid > div:first-child {
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.herosub {
+  font-size: 15.5px; line-height: 1.62; color: var(--body2);
+  margin: 18px 0 0; max-width: 560px;
+}
+
 .trustchips { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 0; padding: 0; list-style: none; }
 .trustchips li {
   font: 500 11px var(--mono); letter-spacing: 0.07em;
@@ -401,13 +428,13 @@ html:not(.js) .f1::before { transform: none; }
 .confyro-demo .cd-mono { font-family: var(--mono); }
 .cd-status { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
 .cd-statustext { display: inline-flex; align-items: center; gap: 10px;
-  font: 500 11px var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ash); }
+  font: 500 11px var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--margin); }
 .cd-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--evidence); display: inline-block; }
-.cd-dot.busy { background: #DA574D; }
-.cd-replay { font: 500 12px var(--mono); color: var(--ash); background: none;
-  border: 1px solid var(--nightline); padding: 8px 12px; cursor: pointer; white-space: nowrap; }
-.cd-replay:hover { border-color: var(--ash); color: var(--ivory); }
-.cd-laptop { background: #1C2023; border-radius: 14px 14px 6px 6px; padding: 12px 12px 13px;
+.cd-dot.busy { background: var(--verdict); }
+.cd-replay { font: 500 12px var(--mono); color: var(--margin); background: none;
+  border: 1px solid var(--rule); padding: 8px 12px; cursor: pointer; white-space: nowrap; }
+.cd-replay:hover { border-color: var(--margin); color: var(--ink); }
+.cd-laptop { background: #1C2023; border-radius: 14px; padding: 12px 12px 13px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45); }
 .cd-screen { position: relative; background: #F2ECDD; color: #121416; border-radius: 5px;
   overflow: hidden; aspect-ratio: 1.65 / 1; display: flex; flex-direction: column; color-scheme: light; }
@@ -467,18 +494,17 @@ html:not(.js) .f1::before { transform: none; }
 .cd-fmeta { margin-left: auto; font-size: 10px; color: #65655F; }
 .cd-rfoot { margin-top: auto; padding-top: 6px; font: 500 8.5px var(--mono);
   letter-spacing: 0.04em; text-transform: uppercase; color: #8B887F; }
-.cd-base { position: relative; width: 118%; margin-left: -9%; height: 14px;
-  background: linear-gradient(180deg, #24282B, #15181A); border-radius: 0 0 12px 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); }
-.cd-base::after { content: ""; position: absolute; left: 50%; top: 0; transform: translateX(-50%);
-  width: 88px; height: 5px; background: #101314; border-radius: 0 0 6px 6px; }
 .cd-fly { display: none; position: absolute; left: 0; top: 0; pointer-events: none;
   z-index: 6; align-items: center; gap: 8px; padding: 8px 10px; background: #FFFDF8;
   border: 1px solid #121416; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35); }
 .js .cd-fly { display: flex; opacity: 0; }
 .cd-fly span { font: 500 10.5px var(--mono); color: #121416; white-space: nowrap; }
 .confyro-demo .receipt { opacity: 1; margin-top: 14px; }
-@media (max-width: 900px) { .confyro-demo { justify-self: stretch; max-width: 100%; } }
+@media (max-width: 900px) {
+  #selfhost.sect { min-height: 0; display: block; }
+  #selfhost > .wrap { display: block; }
+  .archsvg { height: auto; min-height: 0; }
+.confyro-demo { justify-self: stretch; max-width: 100%; } }
 
 /* ---------- trust problem ---------- */
 .citednote { margin: 30px 0 0; font: 500 12px var(--mono); color: var(--margin); letter-spacing: 0.04em; }
@@ -501,13 +527,16 @@ html:not(.js) .f1::before { transform: none; }
 }
 /* the pivot from fear to trust — the section's loudest line */
 .pivotline {
-  margin: 44px 0 0; font: 600 clamp(24px, 3.2vw, 34px)/1.22 var(--display);
+  margin: 28px 0 0; font: 600 clamp(21px, 2.6vw, 28px)/1.22 var(--display);
   letter-spacing: -0.012em; max-width: 26ch; text-wrap: balance;
 }
 .pivotline .pv { font-style: italic; color: var(--verdict); }
-/* compact trust band: type on background, one-line cited receipts */
-.pulls.tight .pull { padding: 18px 0; }
-.pulls.tight .pull p { font-size: 16.5px; }
+/* compact trust band: the whole N°04 section fits one screen */
+#problem.sect { padding: 60px 0 68px; }
+#problem .lede { margin-bottom: 20px; }
+.pulls.tight .pull { padding: 12px 0; }
+.pulls.tight .pull .num { font-size: clamp(30px, 3.8vw, 46px); }
+.pulls.tight .pull p { font-size: 15.5px; }
 
 /* ---------- pipeline (how it works) ---------- */
 .pipe { list-style: none; margin: 40px 0 0; padding: 0;
@@ -519,7 +548,7 @@ html:not(.js) .f1::before { transform: none; }
 }
 .pnode {
   display: block; padding: 15px 16px 14px; min-height: 118px;
-  border: 1px solid var(--rule);
+  border: 1px solid var(--rule); box-shadow: var(--shadow-1);
 }
 .pnode .pk { display: block; font: 500 10px var(--mono); letter-spacing: 0.1em; margin-bottom: 7px; }
 .pnode .pn { display: block; font: 600 15px var(--mono); letter-spacing: 0.02em; margin-bottom: 7px; }
@@ -533,7 +562,8 @@ html:not(.js) .f1::before { transform: none; }
 .pnode.val { box-shadow: inset 0 0 0 1.5px var(--evidence); }
 .pnode.val .pn::after { content: " \2713"; color: var(--evidence); }
 .failstrip {
-  margin: 26px 0 0; border: 1.5px solid var(--verdict); background: transparent;
+  margin: 26px 0 0; border: 1.5px solid var(--verdict); background: var(--paper);
+  box-shadow: var(--shadow-1);
   padding: 13px 18px; display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap;
   font: 500 12.5px var(--mono); letter-spacing: 0.05em; color: var(--verdict);
 }
@@ -566,17 +596,14 @@ html:not(.js) .f1::before { transform: none; }
 .chip.codechip { color: var(--margin); border: 1px dashed var(--margin); }
 
 /* ---------- constitution ---------- */
-.clausegrid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 34px 0 0; }
+.clausegrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 30px 0 0; }
 .clause {
   background: var(--sheet); border: 1px solid var(--rule);
-  border-top: 3px solid var(--verdict); padding: 28px 30px 26px;
+  border-top: 3px solid var(--verdict); padding: 16px 20px 15px;
+  box-shadow: var(--shadow-1);
 }
-.clause .cn {
-  display: block; font: 600 30px var(--display); color: var(--ink);
-  font-variation-settings: "opsz" 40; margin-bottom: 12px;
-}
-.clause .ct { font-weight: 700; font-size: 19px; display: block; margin-bottom: 8px; font-family: var(--display); letter-spacing: -0.005em; }
-.clause p { margin: 0; font-size: 15.5px; color: var(--body2); line-height: 1.66; }
+.clause .ct { font-weight: 700; font-size: 16.5px; display: block; margin-bottom: 5px; font-family: var(--display); letter-spacing: -0.005em; }
+.clause p { margin: 0; font-size: 14px; color: var(--body2); line-height: 1.58; }
 
 /* ---------- report still ---------- */
 .report {
@@ -662,8 +689,22 @@ html:not(.js) .f1::before { transform: none; }
    no sticky runway — dead pinned scroll felt broken) ---------- */
 .exwrap { position: relative; }
 .exstage { position: relative; padding: 8px 0 0; }
-.exgrid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 10%; align-items: start; }
-.exgrid .sheet { padding: 30px 32px 22px; }
+/* dimensional layering: the sheets float in space (owner request —
+   straight evidence line, levitating 3D feel; loops are welcome) */
+.exstage > .wrap { position: relative; }
+.exgrid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 16%;
+  align-items: start; perspective: 1400px; }
+.exgrid .exsrc { margin-top: 36px; }
+.exgrid .sheet {
+  padding: 30px 32px 22px;
+  transform: rotateY(4deg) rotateX(1.5deg);
+  box-shadow: 0 1px 2px rgba(18,20,22,0.08), 0 14px 28px -14px rgba(18,20,22,0.28),
+              0 48px 90px -36px rgba(18,20,22,0.38);
+}
+.exgrid .exsrc { transform: rotateY(-4deg) rotateX(1.5deg); }
+
+
+
 .exclaim {
   background-image: linear-gradient(var(--verdict), var(--verdict));
   background-repeat: no-repeat; background-position: 0 96%; background-size: 0% 2px;
@@ -677,15 +718,23 @@ html:not(.js) .exclaim { background-size: 100% 2px; }
   padding: 2px 5px; background: var(--ev-bg); border-bottom: 2px solid var(--evidence);
   color: var(--ev-text);
 }
-.exline { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.exline { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;
+  filter: drop-shadow(0 8px 10px rgba(196,59,50,0.28)); }
 .exline path {
   stroke: var(--verdict); stroke-width: 2; fill: none;
   stroke-dasharray: 1000; stroke-dashoffset: 1000;
 }
-.js .s2 .exline path { transition: stroke-dashoffset 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.15s; stroke-dashoffset: 0; }
+.exline .exhead { fill: var(--verdict); stroke: none; opacity: 0; stroke-dasharray: none; }
+.js .s2 .exline #exl1 { transition: stroke-dashoffset 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.15s; stroke-dashoffset: 0; }
+.js .s2 .exline #exh1 { transition: opacity 0.2s ease 1s; opacity: 1; }
+.js .s3 .exline #exl2 { transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s; stroke-dashoffset: 0; }
+.js .s3 .exline #exh2 { transition: opacity 0.2s ease 0.95s; opacity: 1; }
 html:not(.js) .exline path { stroke-dashoffset: 0; }
-.exfind { margin: 26px auto 0; max-width: 560px; opacity: 1; }
-.exfind .finding { opacity: 1; animation: none; }
+html:not(.js) .exline .exhead { opacity: 1; }
+.exfind { margin: 30px auto 0; max-width: 560px; opacity: 1; }
+.exfind .finding { opacity: 1; animation: none;
+  box-shadow: 0 2px 4px rgba(18,20,22,0.08), 0 22px 44px -18px rgba(18,20,22,0.35),
+              0 64px 120px -44px rgba(18,20,22,0.3); }
 .js .exfind { opacity: 0; transform: scale(1.04); }
 .js .s3 .exfind { opacity: 1; transform: none; transition: opacity 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1), transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1); }
 .exverified {
@@ -695,34 +744,32 @@ html:not(.js) .exline path { stroke-dashoffset: 0; }
 }
 @media (max-width: 900px) {
   .exgrid { grid-template-columns: 1fr; gap: 22px; }
+  .exgrid .exsrc { margin-top: 0; }
   .exline { display: none; }
+  .herogrid > div:first-child { display: block; }
 }
 
 /* ---------- validation gate rail ---------- */
-.gaterail { margin: 38px 0 10px; }
+.gaterail { margin: 28px 0 6px; }
 .gaterail svg { width: 100%; height: auto; display: block; }
 .gaterail .gline { stroke: var(--margin); stroke-width: 1.6; fill: none;
   stroke-dasharray: 1200; stroke-dashoffset: 1200; }
-.gaterail .greject { stroke: var(--verdict); stroke-width: 1.6; fill: none;
-  stroke-dasharray: 200; stroke-dashoffset: 200; }
 .js .gaterail.in .gline { transition: stroke-dashoffset 1.1s ease 0.1s; stroke-dashoffset: 0; }
-.js .gaterail.in .greject { transition: stroke-dashoffset 0.5s ease 1.0s; stroke-dashoffset: 0; }
-html:not(.js) .gaterail .gline, html:not(.js) .gaterail .greject { stroke-dashoffset: 0; }
-.gaterail .gate { fill: var(--sheet); stroke: var(--ivory); stroke-width: 1.4; }
+.gaterail .gate { fill: var(--night); stroke: var(--ivory); stroke-width: 1.6; }
+html:not(.js) .gaterail .gline { stroke-dashoffset: 0; }
 .gaterail text { font: 600 11px var(--mono); fill: var(--ash); letter-spacing: 0.08em; }
-.gaterail .gr { fill: #EFA49B; }
 
 /* ---------- exposure vs precaution ---------- */
-.risk { margin: 72px 0 0; display: grid; grid-template-columns: 1fr auto 1fr; gap: 34px; align-items: center; }
-.risk .rknum { font: 600 clamp(44px, 5.6vw, 84px)/1 var(--display); letter-spacing: -0.03em; display: block; }
-.risk p { margin: 10px 0 0; font-size: 16px; max-width: 34ch; }
+.risk { margin: 38px 0 0; display: grid; grid-template-columns: 1fr auto 1fr; gap: 28px; align-items: center; }
+.risk .rknum { font: 600 clamp(36px, 4.4vw, 60px)/1 var(--display); letter-spacing: -0.03em; display: block; }
+.risk p { margin: 8px 0 0; font-size: 14.5px; max-width: 34ch; }
 .risk .src { display: block; margin-top: 8px; font: 500 11.5px var(--mono); color: var(--margin); letter-spacing: 0.02em; }
 .risk .vs {
   font: 600 11px var(--mono); letter-spacing: 0.22em; color: var(--ash);
   writing-mode: vertical-rl; text-orientation: mixed; text-transform: uppercase;
   border-left: 1px solid var(--nightline); padding-left: 14px;
 }
-.risknote { margin: 26px 0 0; font: italic 400 14.5px var(--serif); color: var(--body2); max-width: 62ch; }
+.risknote { margin: 16px 0 0; font: italic 400 13.5px var(--serif); color: var(--body2); max-width: 62ch; }
 @media (max-width: 900px) {
   .risk { grid-template-columns: 1fr; gap: 20px; }
   .risk .vs { writing-mode: horizontal-tb; border-left: 0; border-top: 1px solid var(--nightline); padding: 12px 0 0; }
@@ -741,21 +788,13 @@ html:not(.js) .finline .fl { transform: none; }
   display: flex; justify-content: flex-end; margin: 0 0 8px;
   font: 500 11px var(--mono); color: var(--margin); letter-spacing: 0.09em;
 }
-.proofstrip {
-  margin: 0; padding: 14px 0; border-top: 1px solid var(--rule);
-}
-.proofstrip .wrap { display: flex; gap: 10px 34px; flex-wrap: wrap; }
-.proofstrip span {
-  font: 500 11px var(--mono); color: var(--margin); letter-spacing: 0.07em;
-}
-.proofstrip strong { color: var(--ink); font-weight: 600; }
 .marquee {
   overflow: hidden; border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule); padding: 11px 0;
 }
 .marquee .mq {
   display: flex; width: max-content;
-  animation: mqscroll 30s linear infinite;
+  animation: mqscroll 60s linear infinite;
 }
 .marquee:hover .mq { animation-play-state: paused; }
 .marquee span {
@@ -768,15 +807,21 @@ html:not(.js) .marquee .mq { animation: none; }
 
 /* ---------- personas ---------- */
 .personas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 34px 0 0; }
-.persona { border: 1px solid var(--rule); background: var(--sheet); padding: 26px 28px; display: flex; flex-direction: column; }
+.persona { border: 1px solid var(--rule); background: var(--sheet); padding: 26px 28px; display: flex; flex-direction: column; box-shadow: var(--shadow-1); }
 .persona .plabel {
-  font: 600 10.5px var(--mono); letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--margin); display: block; margin-bottom: 14px;
+  font: 600 12px var(--mono); letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--verdict); display: block; margin-bottom: 12px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--rule);
 }
 .persona p { margin: 0; font-size: 15.5px; color: var(--body2); line-height: 1.66; }
+.persona .ptake {
+  font: italic 500 16.5px/1.5 var(--display); color: var(--ink);
+  letter-spacing: -0.005em;
+}
 .persona .pmini {
   margin: 16px 0 0; border: 1px solid var(--rule); border-left: 3px solid var(--verdict);
   background: var(--card); padding: 10px 13px;
+  box-shadow: 0 8px 18px -12px rgba(18,20,22,0.28);
   font: 500 11.5px/1.6 var(--mono); color: var(--ink);
 }
 .persona .pmini .pm-doc { display: block; color: var(--margin); }
@@ -795,9 +840,24 @@ html:not(.js) .marquee .mq { animation: none; }
 }
 .step h3 { font: 600 18px var(--display); margin: 0 0 7px; }
 .step p { margin: 0; font-size: 15px; color: var(--body2); line-height: 1.62; }
-.archfig { margin: 44px 0 0; }
-.archfig figcaption { font: 500 12px var(--mono); color: var(--margin); letter-spacing: 0.05em; margin-top: 10px; }
-.archsvg { width: 100%; max-width: 660px; height: auto; display: block; }
+/* N°07 fits one screen with its caption (owner request) */
+#selfhost.sect { padding: 34px 0 22px; box-sizing: border-box;
+  height: calc(100vh - 50px); height: calc(100svh - 50px); display: flex; overflow: hidden; }
+#selfhost .slabel { margin-bottom: 10px; }
+#selfhost h2 { margin-bottom: 10px; }
+#selfhost > .wrap { display: flex; flex-direction: column; width: 100%; }
+#selfhost h2 { font-size: clamp(26px, 3vw, 38px); }
+#selfhost .lede { margin-bottom: 10px; font-size: 16px; }
+#selfhost .steps { margin-top: 8px; gap: 18px; }
+#selfhost .step h3 { font-size: 15.5px; margin-bottom: 4px; }
+#selfhost .step p { font-size: 13.5px; line-height: 1.5; }
+#selfhost .step { padding-top: 10px; }
+#selfhost .stepno { width: 24px; height: 24px; font-size: 13px; margin-bottom: 6px; }
+.archfig { margin: 10px 0 0; flex: 1 1 0; min-height: 0;
+  display: flex; flex-direction: column; }
+.archfig figcaption { font: 500 11px var(--mono); color: var(--margin); letter-spacing: 0.05em; margin-top: 8px; text-align: center; }
+.archsvg { flex: 1 1 0; min-height: 160px; width: 100%;
+  display: block; }  /* flex-basis 0: exactly the leftover space; 'meet' centers */
 .archsvg .box { fill: var(--paper); stroke: var(--ink); stroke-width: 1.4; }
 .archsvg .boxdim { fill: var(--sand); stroke: var(--margin); stroke-width: 1.2; }
 .archsvg .lbl { font: 600 13px var(--mono); fill: var(--ink); }
@@ -805,46 +865,14 @@ html:not(.js) .marquee .mq { animation: none; }
 .archsvg .flow { stroke: var(--margin); stroke-width: 1.4; fill: none; }
 .archsvg .stay { stroke: var(--evidence); stroke-width: 1.6; fill: none; }
 .archsvg .staylbl { font: 600 10.5px var(--mono); fill: var(--evidence); letter-spacing: 0.06em; }
-.specpanel { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 30px; margin: 38px 0 0; align-items: start; }
-.techinstall { margin: 0; grid-column: 1 / -1; }
-.techinstall summary {
-  cursor: pointer; font: 500 13px var(--mono); color: var(--margin);
-  letter-spacing: 0.02em; padding: 6px 0;
-}
-.techinstall summary:hover { color: var(--verdict); }
-.techinstall[open] summary { margin-bottom: 14px; }
-.inkblock {
-  background: var(--night); color: #E9E7DF; border: 1px solid var(--nightline);
-  padding: 24px 28px; margin: 0; overflow-x: auto;
-  font: 500 13.5px/1.8 var(--mono);
-  box-shadow: var(--shadow-2);
-}
-.inkblock .cm { color: #999F8E; }
-.inkblock .ok { color: #97C99D; }
-.hostlist { margin: 0; padding: 0; list-style: none; }
-.hostlist li {
-  padding: 12px 0 12px 28px; position: relative; font-size: 15.5px;
-  border-top: 1px solid var(--rule);
-}
-.hostlist li:first-child { border-top: 0; padding-top: 0; }
-.hostlist li::before {
-  content: "\00a7"; position: absolute; left: 2px; top: 12px;
-  font: 600 14px var(--mono); color: var(--margin);
-}
-.hostlist li:first-child::before { top: 0; }
 
-/* ---------- proof, not logos — open list, no boxes ---------- */
-.prooflist { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin: 34px 0 0; padding: 0; list-style: none; }
-.prooflist li { border-top: 1px solid var(--rule); padding-top: 16px; }
+/* ---------- proof band: three checkable links above the finale ---------- */
+.proofband { padding: 52px 0 56px; border-top: 1px solid var(--rule); }
+.prooflist { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin: 0; padding: 0; list-style: none; }
+.prooflist li { padding-top: 0; }
 .prooflist .pnum { font: 600 12px var(--mono); color: var(--verdict); letter-spacing: 0.1em; display: block; margin: 0 0 10px; }
 .prooflist p { margin: 0 0 12px; font-size: 15px; color: var(--body2); line-height: 1.62; }
 .prooflist .plink { font: 500 13px var(--mono); }
-.refslot {
-  border: 1px dashed var(--rule); background: transparent;
-  padding: 24px 30px; margin: 38px 0 0; text-align: center;
-}
-.refslot p { margin: 0; font: italic 500 16px var(--display); color: var(--margin); }
-.refslot .why { display: block; margin-top: 8px; font: 400 13.5px var(--serif); font-style: normal; }
 
 /* ---------- pricing ---------- */
 .rc-head {
@@ -855,7 +883,7 @@ html:not(.js) .marquee .mq { animation: none; }
 .plan {
   border: 1px solid var(--rule); background: var(--sheet);
   padding: 28px 30px; display: flex; flex-direction: column;
-  position: relative;
+  position: relative; box-shadow: var(--shadow-1);
 }
 .plan.hot { border: 1.5px solid var(--ink); background: var(--paper); }
 .plan .flag {
@@ -874,7 +902,7 @@ html:not(.js) .marquee .mq { animation: none; }
 .plan .planalt { margin: 10px 0 0; text-align: center; font: 500 11.5px var(--mono); letter-spacing: 0.04em; }
 .plan .planalt a { color: var(--margin); }
 .plan .planalt a:hover { color: var(--verdict); }
-.ratenote { margin: 24px 0 0; font-size: 15px; color: var(--margin); max-width: 70ch; }
+.ratenote { margin: 16px 0 0; font-size: 12.5px; line-height: 1.6; color: var(--margin); max-width: none; }
 
 /* ---------- FAQ ---------- */
 .faq { max-width: 76ch; margin: 14px 0 0; }
@@ -977,8 +1005,7 @@ footer { padding: 56px 0 64px; border-top: 1px solid var(--rule); }
   .personas { grid-template-columns: 1fr; }
   .prooflist { grid-template-columns: 1fr; }
   .steps3 ol { grid-template-columns: 1fr; gap: 14px; }
-  .specpanel { grid-template-columns: 1fr; }
-  .steps { grid-template-columns: 1fr; gap: 4px; }
+    .steps { grid-template-columns: 1fr; gap: 4px; }
   .step { border-top: none; padding-top: 0; padding-left: 44px; position: relative; min-height: 40px; padding-bottom: 18px; }
   .step .stepno { position: absolute; left: 0; top: 0; margin: 0; }
   .step h3 { margin-top: 2px; }
@@ -1014,9 +1041,7 @@ footer { padding: 56px 0 64px; border-top: 1px solid var(--rule); }
   .topbar, .ctas, .skip, .replay, .sectas { display: none; }
   body { border-top: 0; background: #fff; font-size: 12pt; }
   .sect { background: #fff !important; color: #000 !important; padding: 28pt 0; page-break-inside: avoid; }
-  .inkblock { background: #fff; color: #000; border: 1pt solid #000; box-shadow: none; }
-  .inkblock .cm, .inkblock .ok { color: #444; }
-}
+    }
 </style>
 <script src="assets/site.js" defer></script>
 </head>
@@ -1051,16 +1076,13 @@ footer { padding: 56px 0 64px; border-top: 1px solid var(--rule); }
 
 <main id="main">
 
-  <section class="hero dk" aria-label="Introduction">
+  <section class="hero" aria-label="Introduction">
     <div class="wrap">
       <p class="herometa">EST. 2026 &middot; PRINCETON, NJ</p>
       <div class="herogrid">
         <div>
           <p class="kicker">Self-hosted document checker</p>
           <h1 class="rvh"><span class="lmi">Your documents make claims. We check <em>every one.</em></span></h1>
-          <p class="sub">Confyro verifies drafts against your contracts, rate cards,
-          and policies. Every finding carries its exact source, on
-          infrastructure you control.</p>
           <p class="ctas">
             <a class="btn primary" href="sample-report.html">Open a live report&ensp;&rarr;</a>
             <a class="btn" href="#selfhost">Install on your server</a>
@@ -1125,34 +1147,22 @@ footer { padding: 56px 0 64px; border-top: 1px solid var(--rule); }
                 </div>
               </div>
             </div>
-            <div class="cd-base"></div>
           </div>
           <div class="cd-fly" data-fly aria-hidden="true">
             <svg width="13" height="15" viewBox="0 0 12 14" fill="none" aria-hidden="true"><path d="M1 1h6l4 4v8H1z" stroke="#121416" stroke-width="1"/><path d="M7 1v4h4" stroke="#121416" stroke-width="1"/></svg>
             <span class="cd-mono">SOW-7.docx</span>
           </div>
           <p class="receipt">THE DRAFT SAYS $185 &middot; YOUR RATE CARD SAYS $165 &middot; PROOF ATTACHED</p>
+          <p class="sub herosub">Confyro verifies drafts against your contracts, rate cards,
+          and policies. Every finding carries its exact source, on
+          infrastructure you control.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="proofstrip" role="note"><div class="wrap">
-    <span><strong>6/6 claims verifiable</strong> &mdash; SAMPLE REPORT</span>
-    <span><strong>$0.11 model cost</strong> per demo run &mdash; AUDIT BLOCK</span>
-    <span><strong>Every finding source-cited</strong> &mdash; ENFORCED IN CODE</span>
-  </div></div>
-
-  <section class="steps3" aria-label="How you use it">
-    <div class="wrap">
-      <ol>
-        <li><span class="n">1</span>Upload your reference documents &mdash; contracts, rate cards, policies.</li>
-        <li><span class="n">2</span>Drop in a draft.</li>
-        <li><span class="n">3</span>Read the findings &mdash; each one cites its proof.</li>
-      </ol>
-    </div>
-  </section>
-
+  
+  
 
   <section id="exhibit" class="sect" aria-labelledby="ex-h">
     <div class="wrap">
@@ -1180,10 +1190,13 @@ footer { padding: 56px 0 64px; border-top: 1px solid var(--rule); }
               at $165 per hour</span>. Senior review is billed at $210 per hour.</p>
               <p class="doc-foot">APPROVED SOURCE</p>
             </figure>
-            <svg class="exline" viewBox="0 0 1000 520" preserveAspectRatio="none" aria-hidden="true">
-              <path pathLength="1000" d="M 430 128 C 520 128, 520 150, 585 150"/>
-            </svg>
           </div>
+          <svg class="exline" viewBox="0 0 1000 640" preserveAspectRatio="none" aria-hidden="true">
+            <path id="exl1" pathLength="1000" d="M 415 128 L 560 170"/>
+            <path id="exh1" class="exhead" d="M 572 174 L 559 170 L 564 158 Z"/>
+            <path id="exl2" pathLength="1000" d="M 780 340 C 780 400, 520 400, 520 452"/>
+            <path id="exh2" class="exhead" d="M 520 466 L 514.5 454 L 525.5 454 Z"/>
+          </svg>
           <div class="exfind paperdoc">
             <article class="finding">
               <div class="fhead">
@@ -1197,6 +1210,16 @@ footer { padding: 56px 0 64px; border-top: 1px solid var(--rule); }
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="steps3" aria-label="How you use it">
+    <div class="wrap">
+      <ol>
+        <li><span class="n">1</span>Upload your reference documents &mdash; contracts, rate cards, policies.</li>
+        <li><span class="n">2</span>Drop in a draft.</li>
+        <li><span class="n">3</span>Read the findings &mdash; each one cites its proof.</li>
+      </ol>
     </div>
   </section>
 
@@ -1299,7 +1322,7 @@ footer { padding: 56px 0 64px; border-top: 1px solid var(--rule); }
   </section>
 
   <div class="marquee" role="presentation"><div class="mq">
-    <span>SELF-HOSTED <span class="hot">&middot;</span> SOURCE-CITED <span class="hot">&middot;</span> NO AUTOMATIC EDITS <span class="hot">&middot;</span> NO TRACKERS <span class="hot">&middot;</span> EVERY NUMBER CITED <span class="hot">&middot;</span>&nbsp;</span><span aria-hidden="true">SELF-HOSTED <span class="hot">&middot;</span> SOURCE-CITED <span class="hot">&middot;</span> NO AUTOMATIC EDITS <span class="hot">&middot;</span> NO TRACKERS <span class="hot">&middot;</span> EVERY NUMBER CITED <span class="hot">&middot;</span>&nbsp;</span>
+    <span>SELF-HOSTED <span class="hot">&middot;</span> SOURCE-CITED <span class="hot">&middot;</span> NO AUTOMATIC EDITS <span class="hot">&middot;</span> NO TRACKERS <span class="hot">&middot;</span> EVERY NUMBER CITED <span class="hot">&middot;</span>&nbsp;SELF-HOSTED <span class="hot">&middot;</span> SOURCE-CITED <span class="hot">&middot;</span> NO AUTOMATIC EDITS <span class="hot">&middot;</span> NO TRACKERS <span class="hot">&middot;</span> EVERY NUMBER CITED <span class="hot">&middot;</span>&nbsp;SELF-HOSTED <span class="hot">&middot;</span> SOURCE-CITED <span class="hot">&middot;</span> NO AUTOMATIC EDITS <span class="hot">&middot;</span> NO TRACKERS <span class="hot">&middot;</span> EVERY NUMBER CITED <span class="hot">&middot;</span>&nbsp;</span><span aria-hidden="true">SELF-HOSTED <span class="hot">&middot;</span> SOURCE-CITED <span class="hot">&middot;</span> NO AUTOMATIC EDITS <span class="hot">&middot;</span> NO TRACKERS <span class="hot">&middot;</span> EVERY NUMBER CITED <span class="hot">&middot;</span>&nbsp;SELF-HOSTED <span class="hot">&middot;</span> SOURCE-CITED <span class="hot">&middot;</span> NO AUTOMATIC EDITS <span class="hot">&middot;</span> NO TRACKERS <span class="hot">&middot;</span> EVERY NUMBER CITED <span class="hot">&middot;</span>&nbsp;SELF-HOSTED <span class="hot">&middot;</span> SOURCE-CITED <span class="hot">&middot;</span> NO AUTOMATIC EDITS <span class="hot">&middot;</span> NO TRACKERS <span class="hot">&middot;</span> EVERY NUMBER CITED <span class="hot">&middot;</span>&nbsp;</span>
   </div></div>
 
   <section id="how" class="sect" aria-labelledby="how-h">
@@ -1425,48 +1448,40 @@ footer { padding: 56px 0 64px; border-top: 1px solid var(--rule); }
       <p class="slabel rv"><span class="sn">N&deg;05</span>The trust architecture</p>
       <h2 id="con-h" class="rvh"><span class="lmi">Enforced in code. Not requested in prompts.</span></h2>
       <p class="lede rv">Four rules stand between the models and your report.</p>
-      <div class="gaterail" aria-label="A proposed finding passes four validation gates; unverbatim evidence is downgraded before the report">
+      <div class="gaterail" aria-label="A proposed finding passes four validation gates before it reaches the report">
         <svg viewBox="0 0 1200 120" role="img" aria-hidden="true">
           <path class="gline" pathLength="1200" d="M 20 46 H 1180"/>
-          <path class="greject" pathLength="200" d="M 260 46 C 300 46, 310 96, 350 96"/>
-          <rect class="gate" x="222" y="32" width="28" height="28" transform="rotate(45 236 46)"/>
-          <rect class="gate" x="512" y="32" width="28" height="28" transform="rotate(45 526 46)"/>
-          <rect class="gate" x="802" y="32" width="28" height="28" transform="rotate(45 816 46)"/>
-          <rect class="gate" x="1092" y="32" width="28" height="28" transform="rotate(45 1106 46)"/>
+          <rect class="gate" fill="#0D0F10" stroke="#F4EFE6" x="222" y="32" width="28" height="28" transform="rotate(45 236 46)"/>
+          <rect class="gate" fill="#0D0F10" stroke="#F4EFE6" x="512" y="32" width="28" height="28" transform="rotate(45 526 46)"/>
+          <rect class="gate" fill="#0D0F10" stroke="#F4EFE6" x="802" y="32" width="28" height="28" transform="rotate(45 816 46)"/>
+          <rect class="gate" fill="#0D0F10" stroke="#F4EFE6" x="1092" y="32" width="28" height="28" transform="rotate(45 1106 46)"/>
           <text x="212" y="20">GATE 01</text>
           <text x="502" y="20">GATE 02</text>
           <text x="792" y="20">GATE 03</text>
           <text x="1082" y="20">GATE 04</text>
-          <text x="362" y="101" class="gr">NOT VERBATIM &#8594; DOWNGRADED</text>
           <text x="20" y="20">PROPOSED FINDING</text>
           <text x="1030" y="101">&#8594; REACHES THE REPORT</text>
         </svg>
       </div>
       <div class="clausegrid">
         <article class="clause rv">
-          <span class="cn">&sect;1</span>
-          <span class="ct">Evidence must be verbatim.</span>
-          <p>A conflict&rsquo;s cited sentence is checked character-for-character
-          against the excerpts the verifier was shown. No match: the finding
-          is downgraded automatically.</p>
+                    <span class="ct">Evidence must be verbatim.</span>
+          <p>Cited sentences are checked character-for-character. No match:
+          downgraded automatically.</p>
         </article>
         <article class="clause rv">
-          <span class="cn">&sect;2</span>
-          <span class="ct">Unverifiable is not verified.</span>
-          <p>Claims no reference document addresses are counted and displayed on
-          every report.</p>
+                    <span class="ct">Unverifiable is not verified.</span>
+          <p>Unaddressed claims are counted on every report.</p>
         </article>
         <article class="clause rv">
-          <span class="cn">&sect;3</span>
-          <span class="ct">Injection findings outrank the model.</span>
-          <p>Instructions embedded in a document are detected by code and
-          cannot override the pipeline.</p>
+                    <span class="ct">Injection findings outrank the model.</span>
+          <p>Embedded instructions are detected by code and cannot override
+          the pipeline.</p>
         </article>
         <article class="clause rv">
-          <span class="cn">&sect;4</span>
-          <span class="ct">Malformed output fails loudly.</span>
-          <p>Every model response is validated against a strict schema. Failures
-          are retried, then surfaced on the report.</p>
+                    <span class="ct">Malformed output fails loudly.</span>
+          <p>Every response is validated against a strict schema; failures
+          surface on the report.</p>
         </article>
       </div>
     </div>
@@ -1475,13 +1490,13 @@ footer { padding: 56px 0 64px; border-top: 1px solid var(--rule); }
   <section id="who" class="sect" aria-labelledby="who-h">
     <div class="wrap">
       <p class="slabel rv"><span class="sn">N&deg;06</span>Who it&rsquo;s for</p>
-      <h2 id="who-h" class="rvh"><span class="lmi">Who uses it.</span></h2>
+      <h2 id="who-h" class="rvh"><span class="lmi">Primary customers.</span></h2>
       <div class="personas">
         <article class="persona rv">
           <span class="plabel">Legal &amp; contract teams</span>
-          <h3>The second reader that never skims.</h3>
-          <p>Every outgoing draft checked against your rate cards, MSAs, and
-          policies. It flags; your lawyer decides.</p>
+          <h3>A second review on every draft.</h3>
+          <p class="ptake">&ldquo;Works beside me, not instead of me.
+          The decision stays mine.&rdquo;</p>
           <p class="pmini"><span class="pm-doc">master_services_agreement.docx</span>
           CONFLICT &middot; HIGH &mdash; termination notice period</p>
           <p class="plink"><a href="sample-report.html">See a report on a contract &rarr;</a></p>
@@ -1489,8 +1504,8 @@ footer { padding: 56px 0 64px; border-top: 1px solid var(--rule); }
         <article class="persona rv">
           <span class="plabel">Agencies &amp; consultancies</span>
           <h3>Client deliverables, checked against client rules.</h3>
-          <p>One workspace per client. Proposals and SOWs are verified against
-          that client&rsquo;s own rate card before they go out.</p>
+          <p class="ptake">&ldquo;A wrong rate never reaches a client again.
+          One rulebook per client.&rdquo;</p>
           <p class="pmini"><span class="pm-doc">client_proposal.docx</span>
           CONFLICT &middot; HIGH &mdash; approved hourly rate</p>
           <p class="plink"><a href="#pricing">Pick a plan for your desk &rarr;</a></p>
@@ -1498,9 +1513,8 @@ footer { padding: 56px 0 64px; border-top: 1px solid var(--rule); }
         <article class="persona rv">
           <span class="plabel">Security &amp; IT</span>
           <h3>Approve it in an afternoon.</h3>
-          <p>One container behind your proxy, all state in
-          <span class="mono">./data/</span>, outbound traffic only to the model
-          API you configure &mdash; or none at all.</p>
+          <p class="ptake">&ldquo;One container, one directory, one outbound
+          connection. Approvable.&rdquo;</p>
           <p class="pmini"><span class="pm-doc">security_questionnaire.xlsx</span>
           MISSING REFERENCE &mdash; unsupported compliance claim</p>
           <p class="plink"><a href="#constitution">Read the trust architecture &rarr;</a></p>
@@ -1535,7 +1549,7 @@ footer { padding: 56px 0 64px; border-top: 1px solid var(--rule); }
         </li>
       </ol>
       <figure class="archfig rv">
-        <svg class="archsvg" viewBox="0 0 660 330" role="img" aria-label="Architecture: your browser talks to your Confyro server; your documents stay on that server; only the model provider you configure is contacted — or none at all with local models.">
+        <svg class="archsvg" viewBox="0 0 780 330" role="img" aria-label="Architecture: your browser talks to your Confyro server; your documents stay on that server; document content goes only to the model provider you configure; the license service receives a key and machine ID, never content.">
           <defs>
             <marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
               <path d="M0,0 L8,4 L0,8 z" fill="#65655F"/>
@@ -1554,89 +1568,27 @@ footer { padding: 56px 0 64px; border-top: 1px solid var(--rule); }
           <rect class="box" x="40" y="244" width="220" height="54"/>
           <text class="lbl" x="60" y="267">YOUR DOCUMENTS</text>
           <text class="sublbl" x="60" y="285">never leave this boundary</text>
-          <path class="flow" d="M300,150 H388" marker-end="url(#arr)"/>
-          <text class="sublbl" x="308" y="140">DOCUMENT CONTENT</text>
-          <rect class="boxdim" x="392" y="118" width="248" height="58"/>
-          <text class="lbl" x="410" y="142">YOUR MODEL PROVIDER</text>
-          <text class="sublbl" x="410" y="161">the key you configure &mdash; or local</text>
-          <path class="flow" d="M300,182 C 340 182, 350 232, 388 232" marker-end="url(#arr)"/>
-          <text class="sublbl" x="330" y="216">LICENSE VALIDATION</text>
-          <rect class="boxdim" x="392" y="204" width="248" height="58"/>
-          <text class="lbl" x="410" y="228">LICENSE SERVICE</text>
-          <text class="sublbl" x="410" y="247">key + machine ID &mdash; never content</text>
+          <path class="flow" d="M300,150 H494" marker-end="url(#arr)"/>
+          <text class="sublbl" x="354" y="138">DOCUMENT CONTENT</text>
+          <rect class="boxdim" x="500" y="118" width="260" height="58"/>
+          <text class="lbl" x="518" y="142">YOUR MODEL PROVIDER</text>
+          <text class="sublbl" x="518" y="161">the key you configure &mdash; or local</text>
+          <path class="flow" d="M300,182 C 370 182, 390 232, 494 232" marker-end="url(#arr)"/>
+          <text class="sublbl" x="354" y="256">LICENSE VALIDATION</text>
+          <rect class="boxdim" x="500" y="204" width="260" height="58"/>
+          <text class="lbl" x="518" y="228">LICENSE SERVICE</text>
+          <text class="sublbl" x="518" y="247">key + machine ID &mdash; never content</text>
         </svg>
         <figcaption>DOCUMENTS STAY INSIDE THE BOUNDARY. THE LICENSE CHECK CARRIES A KEY
         AND A MACHINE ID &mdash; NEVER CONTENT.</figcaption>
       </figure>
-      <div class="specpanel">
-        <details class="techinstall rv">
-          <summary>For whoever runs your servers &mdash; the commands</summary>
-          <pre class="inkblock" tabindex="0"><code><span class="cm"># the same commands your activation email carries (with your token)</span>
-echo &lt;TOKEN&gt; | docker login ghcr.io -u kisricsi5 --password-stdin
-mkdir confyro &amp;&amp; cd confyro
-curl -fsSO https://confyro.com/get/docker-compose.yml
-docker compose up -d          <span class="cm"># pull and start (private image, license-gated)</span>
-curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</span></code></pre>
-        </details>
-        <ul class="hostlist">
-          <li class="rv">Bound to localhost by default; expose via your own TLS proxy. A
-          two-line Caddy or nginx recipe ships in the kit.</li>
-          <li class="rv">Everything lives in <span class="mono">./data/</span> &mdash; that one
-          directory is your backup, your migration, and your audit scope.</li>
-          <li class="rv">AI-included plans get a dedicated model key automatically. Enterprise
-          brings its own keys or a local vLLM/Ollama server. With local
-          models, content never leaves your network.</li>
-          <li class="rv">Optional retention rule purges uploaded documents after checking;
-          reports are kept. Confyro never phones home with document content.</li>
-          <li class="rv">Licensing talks to us once per renewal &mdash; key and machine ID out,
-          signed license back, never any document content. Air-gapped
-          deployments activate from a signed license file instead.</li>
-        </ul>
-      </div>
-    </div>
+          </div>
   </section>
 
-  <section id="references" class="sect" aria-labelledby="ref-h">
-    <div class="wrap">
-      <p class="slabel rv"><span class="sn">N&deg;08</span>References</p>
-      <h2 id="ref-h" class="rvh"><span class="lmi">Proof, not logos.</span></h2>
-      <p class="lede rv">No invented testimonials, no borrowed logos.</p>
-      <ol class="prooflist">
-        <li class="rv">
-          <span class="pnum">01</span>
-          <h3>Open the sample report</h3>
-          <p>Planted inconsistencies, exact source evidence, working filters.</p>
-          <p class="plink"><a href="sample-report.html">Open the sample report &rarr;</a></p>
-        </li>
-        <li class="rv">
-          <span class="pnum">02</span>
-          <h3>Inspect the architecture</h3>
-          <p>One container on your server; documents never leave your boundary.</p>
-          <p class="plink"><a href="#selfhost">See the self-hosted design &rarr;</a></p>
-        </li>
-        <li class="rv">
-          <span class="pnum">03</span>
-          <h3>Talk to the builder</h3>
-          <p>The person who answers your email is the person who wrote the code.</p>
-          <p class="plink"><a href="team.html">Meet the founder &rarr;</a></p>
-        </li>
-      </ol>
-      <div class="refslot rv">
-        <p>This section ships without a logo wall.
-        <span class="why">When customers agree to be named, they appear here.</span></p>
-      </div>
-      <!-- ASSET SLOT: real references land here. Per entry (coffee-tech format,
-           specific and verifiable beats voluminous):
-           <blockquote class="refquote">
-             <p>"ONE quoted line, verbatim."</p>
-             <footer>NAME &mdash; ROLE &middot; CITY, COUNTRY &middot; EDITION</footer>
-           </blockquote> -->
-    </div>
-  </section>
-
+  
   <section id="pricing" class="sect" aria-labelledby="price-h">
     <div class="wrap">
-      <p class="slabel rv"><span class="sn">N&deg;09</span>Pricing</p>
+      <p class="slabel rv"><span class="sn">N&deg;08</span>Pricing</p>
       <h2 id="price-h" class="rvh"><span class="lmi">Priced like a rate card.</span></h2>
       <p class="lede rv">AI is included on Individual, Team, and Business. The
       subscription is the whole bill. Enterprise runs on your own keys.</p>
@@ -1664,7 +1616,7 @@ curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</s
             <li>AI included &mdash; no AI account needed</li>
             <li>One server, email support</li>
           </ul>
-          <a class="btn" href="https://buy.stripe.com/test_14A4grfVO7fUaTr6Ub1B603">Start Team trial &middot; 7 days</a>
+          <a class="btn" href="https://buy.stripe.com/test_14A4grfVO7fUaTr6Ub1B603">Choose Team</a>
           <p class="planalt"><a href="https://buy.stripe.com/test_fZu9AL7pidEi7Hfcev1B604">or $1,900 / year &mdash; two months free</a></p>
         </article>
         <article class="plan hot rv" aria-label="Business plan">
@@ -1677,7 +1629,7 @@ curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</s
             <li>AI included &mdash; no AI account needed</li>
             <li>Two servers, priority support</li>
           </ul>
-          <a class="btn primary" href="https://buy.stripe.com/test_7sY7sD8tmas61iRdiz1B605">Start Business trial &middot; 20 days</a>
+          <a class="btn primary" href="https://buy.stripe.com/test_7sY7sD8tmas61iRdiz1B605">Start Business trial &middot; 30 days</a>
           <p class="planalt"><a href="https://buy.stripe.com/test_cNi00bbFydEiaTr92j1B606">or $4,900 / year &mdash; two months free</a></p>
         </article>
         <article class="plan rv" aria-label="Enterprise plan">
@@ -1690,19 +1642,17 @@ curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</s
             <li>Air-gap installs, local models, offline licenses</li>
           </ul>
           <a class="btn" href="mailto:hello@confyro.com?subject=Confyro%20Enterprise%20%E2%80%94%20technical%20review">Book a technical review</a>
-          <p class="planalt"><a href="https://buy.stripe.com/test_7sY9AL24Y0Rw2mV1zR1B607">or start a 7-day trial</a></p>
         </article>
       </div>
-      <p class="ratenote rv">Checking a document uses <strong>10 credits per 25
-      pages</strong> started. A 60-page contract costs 30 credits. Monthly
-      credits reset each billing period. Top-up packs never expire and apply
-      within a minute.</p>
+      <p class="ratenote rv">Checking a document uses 10 credits per 25 pages
+      started. A 60-page contract costs 30 credits. Monthly credits reset each
+      billing period. Top-up packs never expire and apply within a minute.</p>
     </div>
   </section>
 
   <section id="faq" class="sect" aria-labelledby="faq-h">
     <div class="wrap">
-      <p class="slabel rv"><span class="sn">N&deg;10</span>Questions a careful buyer asks</p>
+      <p class="slabel rv"><span class="sn">N&deg;09</span>Questions a careful buyer asks</p>
       <h2 id="faq-h" class="rvh"><span class="lmi">Asked and answered.</span></h2>
       <div class="faq rv">
         <details>
@@ -1771,9 +1721,34 @@ curl http://127.0.0.1:8000/healthz   <span class="ok"># -&gt; {"status":"ok"}</s
     </div>
   </section>
 
+  <section class="proofband" aria-label="Proof">
+    <div class="wrap">
+      <ol class="prooflist">
+        <li class="rv">
+          <span class="pnum">01</span>
+          <h3>Open the sample report</h3>
+          <p>Planted inconsistencies, exact source evidence, working filters.</p>
+          <p class="plink"><a href="sample-report.html">Open the sample report &rarr;</a></p>
+        </li>
+        <li class="rv">
+          <span class="pnum">02</span>
+          <h3>Inspect the architecture</h3>
+          <p>One container on your server; documents never leave your boundary.</p>
+          <p class="plink"><a href="#selfhost">See the self-hosted design &rarr;</a></p>
+        </li>
+        <li class="rv">
+          <span class="pnum">03</span>
+          <h3>Talk to the builder</h3>
+          <p>The person who answers your email is the person who wrote the code.</p>
+          <p class="plink"><a href="team.html">Meet the founder &rarr;</a></p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
   <section class="finale dk" aria-labelledby="fin-h">
     <div class="wrap">
-      <p class="slabel rv"><span class="sn">N&deg;11</span>The next step</p>
+      <p class="slabel rv"><span class="sn">N&deg;10</span>The next step</p>
       <h2 id="fin-h" class="rvh"><span class="lmi">Run it on a document you already shipped.</span></h2>
       <p class="lede rv">If it catches nothing, you bought reassurance. If it
       catches something, you know exactly what it&rsquo;s worth.</p>
