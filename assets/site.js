@@ -17,7 +17,7 @@
   }
 
   // scroll reveals — content is visible without JS; this only choreographs it
-  var revealed = document.querySelectorAll(".rv");
+  var revealed = document.querySelectorAll(".rv, .rvh, .gaterail, .finline");
   if (reduced || !("IntersectionObserver" in window)) {
     revealed.forEach(function (el) { el.classList.add("in"); });
   } else {
@@ -34,57 +34,184 @@
     revealed.forEach(function (el) { io.observe(el); });
   }
 
-  // the hero evidence card performs shortly after load
-  var herodoc = document.getElementById("herodoc");
-  if (herodoc) {
-    if (reduced) {
-      herodoc.classList.add("live");
-    } else {
-      window.setTimeout(function () { herodoc.classList.add("live"); }, 350);
-    }
+  // the hero performs shortly after load (headline mask, then the card)
+  var heroH = document.querySelector(".hero .rvh");
+  if (heroH) {
+    window.setTimeout(function () { heroH.classList.add("in"); }, reduced ? 0 : 80);
   }
+  // hero laptop demo: drag-in, scan, report — loops while visible
+  // (owner request; pauses off-screen, replay restarts)
+  (function () {
+    var root = document.getElementById("confyroDemo");
+    if (!root) return;
+    var visible = false;
+    var q = function (sel) { return root.querySelector(sel); };
+    var fly = q("[data-fly]"), src = q("[data-src]"), drop = q("[data-drop]"),
+        zone = q("[data-zone]"), check = q("[data-check]"), scan = q("[data-scan]"),
+        results = q("[data-results]"), statusText = q("[data-status]"), dot = q("[data-dot]");
+    var rows = results ? results.querySelectorAll("[data-row]") : [];
+    var timers = [], EASE = "cubic-bezier(.2,.7,.2,1)";
+    var setStatus = function (t, busy) {
+      if (statusText) statusText.textContent = t;
+      if (dot) dot.classList.toggle("busy", !!busy);
+    };
+    var play = function () {
+      if (reduced || !fly || !results) return;
+      timers.forEach(clearTimeout); timers = [];
+      [fly, zone, check, scan, results, src].forEach(function (el) {
+        if (el && el.getAnimations) el.getAnimations().forEach(function (a) { a.cancel(); });
+      });
+      rows.forEach(function (r) { r.style.opacity = "0"; r.style.transform = "translateY(8px)"; });
+      fly.style.opacity = "0"; zone.style.opacity = "1"; check.style.opacity = "0";
+      scan.style.opacity = "0"; results.style.opacity = "0"; src.style.opacity = "1";
+      setStatus("Opening SOW-7.docx…", true);
+      var dx = 240, dy = -20;
+      if (src && drop && fly.offsetParent) {
+        var pr = fly.offsetParent.getBoundingClientRect(),
+            sr = src.getBoundingClientRect(), dr = drop.getBoundingClientRect();
+        fly.style.left = (sr.left - pr.left) + "px"; fly.style.top = (sr.top - pr.top) + "px";
+        dx = (dr.left + dr.width / 2) - (sr.left + sr.width / 2) - fly.offsetWidth / 2 + sr.width / 2;
+        dy = (dr.top + dr.height / 2) - (sr.top + sr.height / 2);
+      }
+      src.animate([{ opacity: 1 }, { opacity: 0.32 }],
+        { duration: 320, delay: 300, easing: EASE, fill: "forwards" });
+      fly.animate([
+        { opacity: 0, transform: "translate(0,0) scale(.9)" },
+        { opacity: 1, transform: "translate(0,0) scale(1.06)", offset: 0.14 },
+        { opacity: 1, transform: "translate(" + (dx * 0.5) + "px," + (dy * 0.5 - 30) + "px) scale(1)", offset: 0.55 },
+        { opacity: 1, transform: "translate(" + dx + "px," + dy + "px) scale(.82)", offset: 0.92 },
+        { opacity: 0, transform: "translate(" + dx + "px," + dy + "px) scale(.7)" }
+      ], { duration: 1000, delay: 200, easing: EASE, fill: "forwards" });
+      zone.animate([{ opacity: 1 }, { opacity: 0 }],
+        { duration: 260, delay: 1080, easing: EASE, fill: "forwards" });
+      check.animate([{ opacity: 0, transform: "scale(.96)" }, { opacity: 1, transform: "scale(1)" }],
+        { duration: 320, delay: 1120, easing: EASE, fill: "forwards" });
+      timers.push(window.setTimeout(function () { setStatus("Checking 19 claims…", true); }, 1420));
+      var h = Math.max(60, (check.clientHeight || 120) - 8);
+      scan.animate([
+        { transform: "translateY(0)", opacity: 0 },
+        { opacity: 1, offset: 0.06 },
+        { transform: "translateY(" + h + "px)", opacity: 1, offset: 0.42 },
+        { transform: "translateY(0)", opacity: 1, offset: 0.84 },
+        { transform: "translateY(" + h + "px)", opacity: 1, offset: 0.97 },
+        { transform: "translateY(" + h + "px)", opacity: 0 }
+      ], { duration: 1600, delay: 1360, easing: "ease-in-out", fill: "forwards" });
+      check.animate([{ opacity: 1 }, { opacity: 0 }],
+        { duration: 300, delay: 3120, easing: EASE, fill: "forwards" });
+      results.animate([{ opacity: 0, transform: "translateY(12px)" }, { opacity: 1, transform: "none" }],
+        { duration: 420, delay: 3180, easing: EASE, fill: "forwards" });
+      rows.forEach(function (r, idx) {
+        r.animate([{ opacity: 0, transform: "translateY(8px)" }, { opacity: 1, transform: "none" }],
+          { duration: 380, delay: 3340 + idx * 100, easing: EASE, fill: "forwards" });
+      });
+      timers.push(window.setTimeout(function () { setStatus("Report ready · 2 conflicts", false); }, 3900));
+      timers.push(window.setTimeout(function () { if (visible) play(); }, 7800));
+    };
+    var cdReplay = q("[data-cdreplay]");
+    if (cdReplay) cdReplay.addEventListener("click", play);
+    if (!reduced && "IntersectionObserver" in window) {
+      var dio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          var was = visible;
+          visible = entry.isIntersecting;
+          if (visible && !was) play();
+        });
+      }, { threshold: 0.25 });
+      dio.observe(root);
+    }
+  })();
 
-  // Exhibit A performs when it scrolls into view (it lives below the fold)
-  var perform = document.getElementById("perform");
-  if (perform) {
+  document.querySelectorAll(".js-only").forEach(function (el) { el.hidden = false; });
+
+  // Exhibit A: plays once as it enters — underline, line, source, stamp
+  var exwrap = document.getElementById("exwrap");
+  if (exwrap) {
     if (reduced || !("IntersectionObserver" in window)) {
-      perform.classList.add("live");
+      exwrap.classList.add("s1", "s2", "s3");
     } else {
-      var pio = new IntersectionObserver(function (entries) {
+      var xio = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
-          perform.classList.add("live");
-          pio.disconnect();
+          xio.disconnect();
+          exwrap.classList.add("s1");
+          window.setTimeout(function () { exwrap.classList.add("s2"); }, 650);
+          window.setTimeout(function () { exwrap.classList.add("s3"); }, 1650);
         });
-      }, { threshold: 0.3 });
-      pio.observe(perform);
+      }, { threshold: 0.35 });
+      xio.observe(exwrap);
     }
   }
 
-  // the report demo is functional: a finding jumps to its highlight
-  document.querySelectorAll(".js-only").forEach(function (el) { el.hidden = false; });
-  document.querySelectorAll(".rp-card[data-hl]").forEach(function (card) {
-    card.addEventListener("click", function () {
-      var hl = document.getElementById(card.getAttribute("data-hl"));
-      if (!hl) return;
-      hl.scrollIntoView({ block: "center", behavior: reduced ? "auto" : "smooth" });
-      hl.classList.remove("lit");
-      void hl.offsetWidth;
-      hl.classList.add("lit");
-    });
+  // findings jump to their highlight — delegated, so tab swaps keep working
+  document.addEventListener("click", function (event) {
+    var card = event.target.closest ? event.target.closest(".rp-card[data-hl]") : null;
+    if (!card) return;
+    var hl = document.getElementById(card.getAttribute("data-hl"));
+    if (!hl) return;
+    hl.scrollIntoView({ block: "center", behavior: reduced ? "auto" : "smooth" });
+    hl.classList.remove("lit");
+    void hl.offsetWidth;
+    hl.classList.add("lit");
   });
 
-  // replay buttons re-run their stage's keyframes
-  document.querySelectorAll("[data-replay]").forEach(function (btn) {
-    if (reduced) return;
-    btn.addEventListener("click", function () {
-      var stage = document.getElementById(btn.getAttribute("data-replay"));
-      if (!stage) return;
-      stage.querySelectorAll(".u, .finding, .receipt").forEach(function (el) {
-        el.style.animation = "none";
-        void el.offsetWidth;
-        el.style.animation = "";
+  // demo tabs: swap document, findings, filename and count in place
+  var doc = document.getElementById("rp-doc");
+  var findings = document.getElementById("rp-findings");
+  var fileLabel = document.getElementById("rp-file");
+  var countLabel = document.getElementById("rp-count");
+  var body = doc ? doc.closest(".rp-body") : null;
+  var tabs = Array.prototype.slice.call(
+    document.querySelectorAll(".demotabs button[data-demo]"));
+  if (doc && findings && tabs.length) {
+    var fixtures = {
+      contract: {
+        file: fileLabel ? fileLabel.textContent : "",
+        count: countLabel ? countLabel.textContent : "",
+        doc: doc.innerHTML,
+        findings: findings.innerHTML
+      }
+    };
+    document.querySelectorAll("template[data-demo]").forEach(function (tpl) {
+      fixtures[tpl.getAttribute("data-demo")] = {
+        file: tpl.getAttribute("data-file"),
+        count: tpl.getAttribute("data-count") || "",
+        doc: tpl.content.querySelector(".t-doc").innerHTML,
+        findings: tpl.content.querySelector(".t-findings").innerHTML
+      };
+    });
+    tabs.forEach(function (tab) {
+      // counts live on the buttons for the non-contract fixtures
+      var fx = fixtures[tab.getAttribute("data-demo")];
+      if (fx && !fx.count) fx.count = tab.getAttribute("data-count") || "";
+    });
+    var select = function (tab) {
+      var fx = fixtures[tab.getAttribute("data-demo")];
+      if (!fx) return;
+      tabs.forEach(function (t) {
+        t.setAttribute("aria-selected", t === tab ? "true" : "false");
+      });
+      var apply = function () {
+        doc.innerHTML = fx.doc;
+        findings.innerHTML = fx.findings;
+        if (fileLabel) fileLabel.textContent = fx.file;
+        if (countLabel) countLabel.textContent = fx.count;
+        if (body) body.classList.remove("rp-swap");
+      };
+      if (reduced || !body) { apply(); return; }
+      body.classList.add("rp-swap");
+      window.setTimeout(apply, 150);
+    };
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener("click", function () { select(tab); });
+      tab.addEventListener("keydown", function (event) {
+        var d = event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
+        if (!d) return;
+        event.preventDefault();
+        var next = tabs[(i + d + tabs.length) % tabs.length];
+        next.focus();
+        select(next);
       });
     });
-  });
+  }
+
 })();
