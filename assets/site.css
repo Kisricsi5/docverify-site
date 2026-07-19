@@ -420,11 +420,7 @@ html:not(.js) .f1::before { transform: none; }
 .cd-check { display: none; position: absolute; inset: 12px; background: #FFFDF8;
   border: 1px solid #D8D1C4; padding: 13px 15px; overflow: hidden; }
 .js .cd-check { display: block; }
-.cd-scan { position: absolute; left: 0; right: 0; top: 0; height: 3px;
-  background: linear-gradient(90deg, transparent, #C43B32 18%, #C43B32 82%, transparent);
-  box-shadow: 0 0 14px 2px rgba(196, 59, 50, 0.45); }
-.js .cd-scan { opacity: 0; }
-.cd-docmeta { display: flex; justify-content: space-between; white-space: nowrap;
+.js .cd-docmeta { display: flex; justify-content: space-between; white-space: nowrap;
   font: 600 8.5px var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: #65655F; }
 .cd-doctitle { font-weight: 700; font-size: 15px; line-height: 1.3; margin: 12px 0 7px; }
 .cd-docp { font-size: 12.5px; line-height: 1.55; margin: 0; }

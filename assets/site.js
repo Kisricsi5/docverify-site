@@ -39,7 +39,7 @@
   if (heroH) {
     window.setTimeout(function () { heroH.classList.add("in"); }, reduced ? 0 : 80);
   }
-  // hero laptop demo: drag-in, scan, report — loops while visible
+  // hero laptop demo: drag-in, check, report — loops while visible
   // (owner request; pauses off-screen, replay restarts)
   (function () {
     var root = document.getElementById("confyroDemo");
@@ -47,7 +47,7 @@
     var visible = false;
     var q = function (sel) { return root.querySelector(sel); };
     var fly = q("[data-fly]"), src = q("[data-src]"), drop = q("[data-drop]"),
-        zone = q("[data-zone]"), check = q("[data-check]"), scan = q("[data-scan]"),
+        zone = q("[data-zone]"), check = q("[data-check]"),
         results = q("[data-results]"), statusText = q("[data-status]"), dot = q("[data-dot]");
     var rows = results ? results.querySelectorAll("[data-row]") : [];
     var timers = [], EASE = "cubic-bezier(.2,.7,.2,1)";
@@ -58,12 +58,12 @@
     var play = function () {
       if (reduced || !fly || !results) return;
       timers.forEach(clearTimeout); timers = [];
-      [fly, zone, check, scan, results, src].forEach(function (el) {
+      [fly, zone, check, results, src].forEach(function (el) {
         if (el && el.getAnimations) el.getAnimations().forEach(function (a) { a.cancel(); });
       });
       rows.forEach(function (r) { r.style.opacity = "0"; r.style.transform = "translateY(8px)"; });
       fly.style.opacity = "0"; zone.style.opacity = "1"; check.style.opacity = "0";
-      scan.style.opacity = "0"; results.style.opacity = "0"; src.style.opacity = "1";
+      results.style.opacity = "0"; src.style.opacity = "1";
       setStatus("Opening SOW-7.docx…", true);
       var dx = 240, dy = -20;
       if (src && drop && fly.offsetParent) {
@@ -87,15 +87,6 @@
       check.animate([{ opacity: 0, transform: "scale(.96)" }, { opacity: 1, transform: "scale(1)" }],
         { duration: 320, delay: 1120, easing: EASE, fill: "forwards" });
       timers.push(window.setTimeout(function () { setStatus("Checking 19 claims…", true); }, 1420));
-      var h = Math.max(60, (check.clientHeight || 120) - 8);
-      scan.animate([
-        { transform: "translateY(0)", opacity: 0 },
-        { opacity: 1, offset: 0.06 },
-        { transform: "translateY(" + h + "px)", opacity: 1, offset: 0.42 },
-        { transform: "translateY(0)", opacity: 1, offset: 0.84 },
-        { transform: "translateY(" + h + "px)", opacity: 1, offset: 0.97 },
-        { transform: "translateY(" + h + "px)", opacity: 0 }
-      ], { duration: 1600, delay: 1360, easing: "ease-in-out", fill: "forwards" });
       check.animate([{ opacity: 1 }, { opacity: 0 }],
         { duration: 300, delay: 3120, easing: EASE, fill: "forwards" });
       results.animate([{ opacity: 0, transform: "translateY(12px)" }, { opacity: 1, transform: "none" }],
