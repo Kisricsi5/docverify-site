@@ -254,3 +254,98 @@
   }
 
 })();
+
+/* ============================================================================
+   CONFYRO — "Live verification" section  ·  JS BLOCK
+   Append inside the existing IIFE in assets/site.js (or paste as its own
+   IIFE at the end of the file). No dependencies, ES5, ~55 lines.
+
+   Drives two attributes on .lv-stage; all visuals live in CSS:
+     data-step  1..6  — which pipeline stage the scroll has reached
+     data-focus -1..2 — which exhibit is currently leading
+
+   Without JS, or under reduced motion, or below 901px, the markup already
+   carries the completed state and this never runs.
+============================================================================ */
+
+(function () {
+  var stage = document.querySelector(".lv-stage");
+  var runway = document.querySelector(".lv-runway");
+  if (!stage || !runway) return;
+
+  var CLASSES = ["s-claims", "s-refs", "s-eval", "s-validate", "s-report"];
+  var reduced =
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function complete() {
+    for (var i = 0; i < CLASSES.length; i++) stage.classList.add(CLASSES[i]);
+    stage.setAttribute("data-step", "6");
+    stage.setAttribute("data-focus", "-1");
+  }
+
+  // desktop only: the sticky sequence needs room and a pointer-ish viewport
+  function active() {
+    return !reduced && window.innerWidth > 900;
+  }
+
+  var lastStep = -1;
+  var lastFocus = "x";
+  var ticking = false;
+
+  function update() {
+    ticking = false;
+    if (!active()) return;
+
+    var total = runway.offsetHeight - window.innerHeight;
+    if (total <= 0) return;
+    var p = -runway.getBoundingClientRect().top / total;
+    if (p < 0) p = 0;
+    if (p > 1) p = 1;
+
+    var step = Math.floor(p * 6) + 1;
+    if (step > 6) step = 6;
+    if (step !== lastStep) {
+      lastStep = step;
+      for (var i = 0; i < CLASSES.length; i++) stage.classList.remove(CLASSES[i]);
+      for (var j = 0; j < step - 1; j++) stage.classList.add(CLASSES[j]);
+      stage.setAttribute("data-step", String(step));
+    }
+
+    // second half of the runway walks the three exhibits, one at a time
+    var focus = -1;
+    if (p > 0.5) {
+      focus = Math.floor((p - 0.5) / 0.166);
+      if (focus > 2) focus = 2;
+    }
+    if (String(focus) !== lastFocus) {
+      lastFocus = String(focus);
+      stage.setAttribute("data-focus", lastFocus);
+    }
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }
+  }
+
+  function start() {
+    if (!active()) {
+      complete();
+      return;
+    }
+    // take over from the resolved markup and rewind to the first stage
+    for (var i = 0; i < CLASSES.length; i++) stage.classList.remove(CLASSES[i]);
+    stage.setAttribute("data-step", "1");
+    stage.setAttribute("data-focus", "-1");
+    lastStep = -1;
+    lastFocus = "x";
+    update();
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", start, { passive: true });
+  start();
+})();

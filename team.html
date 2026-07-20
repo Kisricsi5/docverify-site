@@ -1028,6 +1028,287 @@ footer { padding: 56px 0 64px; border-top: 1px solid var(--rule); }
   body { border-top: 0; background: #fff; font-size: 12pt; }
   .sect { background: #fff !important; color: #000 !important; padding: 28pt 0; page-break-inside: avoid; }
     }
+
+/* ============================================================================
+   CONFYRO — "Live verification" section  ·  CSS BLOCK
+   Paste at the end of the <style data-site-css> block in index.html,
+   and into assets/site.css so other pages share it.
+
+   Uses ONLY existing site tokens (--sand, --paper, --card, --ink, --body2,
+   --margin, --rule, --verdict, --evidence, --warn, --flag-bg, --hi-text,
+   --miss-bg, --ev-bg, --ev-text, --shadow-1, --display, --serif, --mono).
+   Every class is .lv- prefixed — no collisions with existing rules.
+============================================================================ */
+
+/* ---- the scroll runway: 6 stages of vertical travel, one sticky screen ---- */
+.lv { padding: 0; }                        /* the runway supplies the rhythm */
+.lv-runway { position: relative; height: 340vh; }
+.lv-stage {
+  position: sticky; top: 0;
+  min-height: 100vh; min-height: 100svh;
+  display: flex; align-items: center;
+  padding: 46px 0 26px; box-sizing: border-box; overflow: hidden;
+}
+.lv-stage > .wrap { width: 100%; }
+.lv-lede {
+  font-size: 15.5px; color: var(--body2); margin: 0 0 18px; max-width: 78ch;
+}
+.lv-inline-ex {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 16px; height: 16px; margin: 0 1px; vertical-align: -2px;
+  font: 600 10px var(--mono); color: var(--verdict);
+  border: 1px solid var(--verdict); border-radius: 50%;
+}
+
+.lv-grid {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: auto auto; gap: 22px 22px; align-items: stretch;
+}
+/* one-screen fit: the section header stays compact and the panes never
+   push the six-stage track below the fold */
+.lv .slabel { margin-bottom: 8px; }
+.lv h2 { font-size: clamp(26px, 3.1vw, 40px); margin-bottom: 10px; }
+
+/* ---- LEFT: the draft (paper island) ---- */
+.lv-doc {
+  grid-column: 1; grid-row: 1;
+  position: relative; overflow: hidden; margin: 0; height: 100%;
+  background: var(--paper); border: 1px solid var(--rule);
+  box-shadow: var(--shadow-1); padding: 18px 22px 20px;
+}
+.lv-doc-kicker {
+  display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  font: 500 10.5px var(--mono); letter-spacing: .09em; color: var(--margin);
+  padding-bottom: 14px; margin-bottom: 12px; border-bottom: 1px solid var(--rule);
+}
+.lv-doc-state { color: var(--verdict); opacity: 0; }
+.lv-stage.s-claims .lv-doc-state { opacity: 1; transition: opacity .4s ease; }
+.lv-stage.s-report .lv-doc-state { opacity: 0; }
+/* transient status: correctly absent in the resolved/no-JS state */
+html:not(.js) .lv-doc-state { opacity: 0; }
+.lv-doc-h { font: 700 14px var(--serif); margin: 11px 0 3px; color: var(--ink); }
+.lv-doc-p { margin: 0; font-size: 13.8px; line-height: 1.62; color: var(--body2); }
+
+/* claim highlights: neutral → flagged as the stages advance */
+.lv-c {
+  background: transparent; color: inherit; padding: 0 1px;
+  transition: background .35s ease, color .35s ease, box-shadow .35s ease;
+}
+.lv-stage.s-claims .lv-c-0,
+.lv-stage.s-claims .lv-c-1 { background: var(--miss-bg); box-shadow: inset 0 -2px 0 var(--warn); }
+.lv-stage.s-eval .lv-c-0,
+.lv-stage.s-eval .lv-c-1 { background: var(--flag-bg); box-shadow: inset 0 -2px 0 var(--verdict); color: var(--hi-text); }
+.lv-stage.s-eval .lv-c-2 { background: var(--flag-bg); color: var(--hi-text); box-shadow: inset 0 -2px 0 var(--verdict); }
+
+/* the embedded-instruction line */
+.lv-inj {
+  position: relative; margin: 18px 0 0; padding: 10px 12px;
+  background: var(--sand); border: 1px dashed var(--rule);
+  font: 500 11px/1.6 var(--mono); color: var(--margin);
+}
+
+/* exhibit number beside each claim — the link to its finding */
+.lv-ex {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 15px; height: 15px; margin-left: 5px; vertical-align: 3px;
+  font: 600 9.5px var(--mono); line-height: 1;
+  color: var(--verdict); border: 1px solid var(--verdict); border-radius: 50%;
+  opacity: 0; transform: scale(.6);
+}
+.lv-stage.s-claims .lv-ex {
+  opacity: .8; transform: none;
+  transition: opacity .4s ease, transform .4s cubic-bezier(.2,.9,.3,1.2);
+}
+.lv-stage.s-claims .lv-ex-1 { transition-delay: .1s; }
+.lv-stage.s-claims .lv-ex-2 { transition-delay: .2s; }
+.lv-stage[data-focus="0"] .lv-ex-0,
+.lv-stage[data-focus="1"] .lv-ex-1,
+.lv-stage[data-focus="2"] .lv-ex-2 {
+  opacity: 1; background: var(--verdict); color: #fff;
+  box-shadow: 0 0 0 4px rgba(196,59,50,.16);
+}
+
+/* character offsets — the forensic tell */
+.lv-off {
+  display: inline-block; margin-left: 8px; vertical-align: 1px;
+  font: 500 9.5px var(--mono); letter-spacing: .06em; color: var(--margin);
+  opacity: 0; transform: translateX(-4px);
+}
+.lv-stage.s-claims .lv-off {
+  opacity: .9; transform: none; transition: opacity .5s ease .2s, transform .5s ease .2s;
+}
+
+/* the scanning sweep during parse */
+.lv-scan {
+  position: absolute; left: 0; right: 0; top: 0; height: 120px; z-index: 3;
+  pointer-events: none; opacity: 0;
+  background: linear-gradient(180deg, transparent, rgba(196,59,50,.10), transparent);
+}
+.lv-stage.s-claims .lv-scan { animation: lvscan 1.5s cubic-bezier(.4,0,.3,1) forwards; }
+@keyframes lvscan {
+  0%   { opacity: 0; transform: translateY(-120px); }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(560px); }
+}
+
+/* ---- RIGHT: references and findings ---- */
+.lv-panel { grid-column: 2; grid-row: 1; display: flex; flex-direction: column; }
+.lv-done { grid-column: 2; grid-row: 2; margin-top: 0; align-self: center; }
+.lv-foot { grid-column: 1; grid-row: 2; margin: 0; align-self: center; }
+.lv-status {
+  display: flex; align-items: center; gap: 10px;
+  font: 500 10.5px var(--mono); letter-spacing: .08em; text-transform: uppercase;
+  color: var(--margin); padding-bottom: 12px; margin: 0 0 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.lv-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--verdict); }
+.lv-stage.s-report .lv-dot { background: var(--evidence); }
+.lv-count { margin-left: auto; }
+.lv-stepno { color: var(--verdict); }
+.lv-stepno::before { content: "06"; }
+.lv-stage[data-step="1"] .lv-stepno::before { content: "01"; }
+.lv-stage[data-step="2"] .lv-stepno::before { content: "02"; }
+.lv-stage[data-step="3"] .lv-stepno::before { content: "03"; }
+.lv-stage[data-step="4"] .lv-stepno::before { content: "04"; }
+.lv-stage[data-step="5"] .lv-stepno::before { content: "05"; }
+
+.lv-refs { display: grid; gap: 10px; }
+.lv-ref {
+  opacity: 0; transform: translateX(10px);
+  border-left: 3px solid var(--evidence); background: var(--ev-bg);
+  padding: 8px 12px;
+}
+.lv-stage.s-refs .lv-ref {
+  opacity: 1; transform: none; transition: opacity .45s ease, transform .45s ease;
+}
+.lv-stage.s-refs .lv-ref + .lv-ref { transition-delay: .12s; }
+.lv-ref-src {
+  display: block; font: 600 10px var(--mono); letter-spacing: .06em;
+  text-transform: uppercase; color: var(--ev-text);
+}
+.lv-ref-q { margin: 4px 0 0; font: 500 12px var(--mono); color: var(--ink); }
+
+.lv-finds { display: grid; gap: 12px; margin-top: 16px; }
+.lv-find {
+  position: relative; opacity: 0; transform: translateY(10px);
+  background: var(--card); border: 1px solid var(--rule);
+  border-left: 3px solid var(--verdict); padding: 12px 15px;
+  box-shadow: var(--shadow-1);
+  transition: opacity .35s ease, transform .4s cubic-bezier(.2,.8,.2,1),
+              box-shadow .35s ease, border-color .3s ease;
+}
+.lv-stage.s-eval .lv-find { opacity: 1; transform: none; }
+.lv-stage.s-eval .lv-find-1 { transition-delay: .08s; }
+.lv-stage.s-eval .lv-find-2 { transition-delay: .16s; }
+/* one exhibit leads at a time */
+.lv-stage.s-eval[data-focus="0"] .lv-find:not(.lv-find-0),
+.lv-stage.s-eval[data-focus="1"] .lv-find:not(.lv-find-1),
+.lv-stage.s-eval[data-focus="2"] .lv-find:not(.lv-find-2) { opacity: .45; }
+.lv-stage[data-focus="0"] .lv-find-0,
+.lv-stage[data-focus="1"] .lv-find-1,
+.lv-stage[data-focus="2"] .lv-find-2 {
+  opacity: 1; transform: translateX(-5px);
+  box-shadow: 0 2px 6px rgba(18,20,22,.10), -5px 0 22px -12px rgba(196,59,50,.55);
+}
+.lv-find-head {
+  display: flex; align-items: center; gap: 9px; flex-wrap: wrap; margin: 0 0 7px;
+}
+.lv-exno {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 17px; height: 17px; flex: none;
+  font: 600 10px var(--mono); line-height: 1;
+  color: var(--verdict); border: 1px solid var(--verdict); border-radius: 50%;
+  transition: background .3s ease, color .3s ease, box-shadow .3s ease;
+}
+.lv-stage[data-focus="0"] .lv-find-0 .lv-exno,
+.lv-stage[data-focus="1"] .lv-find-1 .lv-exno,
+.lv-stage[data-focus="2"] .lv-find-2 .lv-exno {
+  background: var(--verdict); color: #fff; box-shadow: 0 0 0 4px rgba(196,59,50,.16);
+}
+.lv-chip {
+  font: 600 10px var(--mono); letter-spacing: .08em;
+  background: var(--flag-bg); color: var(--hi-text); padding: 3px 8px;
+}
+.lv-loc { margin-left: auto; font: 500 10.5px var(--mono); color: var(--margin); }
+.lv-find-q { margin: 0 0 5px; font: italic 500 14.5px var(--serif); color: var(--ink); }
+.lv-find-ev {
+  margin: 0; padding: 7px 10px; border-left: 3px solid var(--evidence);
+  background: var(--ev-bg); font: 500 11.5px/1.6 var(--mono); color: var(--ev-text);
+}
+
+.lv-done {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin: 16px 0 0; font: 500 11px var(--mono); color: var(--margin); opacity: 0;
+}
+.lv-stage.s-report .lv-done { opacity: 1; transition: opacity .5s ease .25s; }
+.lv-done-chip {
+  font: 600 10px var(--mono); letter-spacing: .08em;
+  background: var(--ev-bg); color: var(--ev-text); padding: 3px 8px;
+}
+
+/* ---- the stage track ---- */
+.lv-track {
+  list-style: none; margin: 20px 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px;
+}
+.lv-step { position: relative; padding-top: 10px; opacity: .38; transition: opacity .35s ease; }
+.lv-bar { position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--rule); overflow: hidden; }
+.lv-bar::after {
+  content: ""; position: absolute; inset: 0; background: var(--verdict);
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform .5s cubic-bezier(.3,.8,.3,1);
+}
+.lv-step[data-kind="code"] .lv-bar {
+  background: repeating-linear-gradient(90deg, var(--rule) 0 5px, transparent 5px 9px);
+}
+.lv-n { display: block; font: 600 11px var(--mono); color: var(--margin); }
+.lv-name { display: block; font: 600 12px var(--mono); color: var(--ink); margin-top: 2px; }
+.lv-kind { display: block; font: 500 9.5px var(--mono); letter-spacing: .08em; color: var(--margin); margin-top: 3px; }
+
+.lv-stage[data-step="1"] .lv-s1,
+.lv-stage[data-step="2"] .lv-s1, .lv-stage[data-step="2"] .lv-s2,
+.lv-stage[data-step="3"] .lv-s1, .lv-stage[data-step="3"] .lv-s2, .lv-stage[data-step="3"] .lv-s3,
+.lv-stage[data-step="4"] .lv-s1, .lv-stage[data-step="4"] .lv-s2, .lv-stage[data-step="4"] .lv-s3, .lv-stage[data-step="4"] .lv-s4,
+.lv-stage[data-step="5"] .lv-s1, .lv-stage[data-step="5"] .lv-s2, .lv-stage[data-step="5"] .lv-s3, .lv-stage[data-step="5"] .lv-s4, .lv-stage[data-step="5"] .lv-s5,
+.lv-stage[data-step="6"] .lv-step { opacity: 1; }
+
+.lv-stage[data-step="1"] .lv-s1 .lv-bar::after,
+.lv-stage[data-step="2"] .lv-s1 .lv-bar::after, .lv-stage[data-step="2"] .lv-s2 .lv-bar::after,
+.lv-stage[data-step="3"] .lv-s1 .lv-bar::after, .lv-stage[data-step="3"] .lv-s2 .lv-bar::after, .lv-stage[data-step="3"] .lv-s3 .lv-bar::after,
+.lv-stage[data-step="4"] .lv-s1 .lv-bar::after, .lv-stage[data-step="4"] .lv-s2 .lv-bar::after, .lv-stage[data-step="4"] .lv-s3 .lv-bar::after, .lv-stage[data-step="4"] .lv-s4 .lv-bar::after,
+.lv-stage[data-step="5"] .lv-s1 .lv-bar::after, .lv-stage[data-step="5"] .lv-s2 .lv-bar::after, .lv-stage[data-step="5"] .lv-s3 .lv-bar::after, .lv-stage[data-step="5"] .lv-s4 .lv-bar::after, .lv-stage[data-step="5"] .lv-s5 .lv-bar::after,
+.lv-stage[data-step="6"] .lv-bar::after { transform: scaleX(1); }
+
+.lv-foot { margin: 18px 0 0; font: 500 11px var(--mono); color: var(--margin); letter-spacing: .04em; }
+
+/* ---- no JS: no runway, no sticky, everything already resolved ---- */
+html:not(.js) .lv-runway { height: auto; }
+html:not(.js) .lv-stage { position: static; min-height: 0; padding: 96px 0; }
+html:not(.js) .lv-scan { display: none; }
+
+/* ---- tablet / mobile: flat stack, no sticky sequence ---- */
+@media (max-width: 900px) {
+  .lv-runway { height: auto; }
+  .lv-stage { position: static; min-height: 0; padding: 84px 0; display: block; }
+  .lv-grid { grid-template-columns: 1fr; grid-template-rows: none; gap: 20px; }
+  .lv-doc, .lv-panel, .lv-done, .lv-foot { grid-column: 1; grid-row: auto; }
+  .lv-doc { height: auto; }
+  .lv-track { grid-template-columns: repeat(3, 1fr); gap: 12px 8px; }
+  .lv-scan { display: none; }
+}
+@media (max-width: 520px) {
+  .lv-track { grid-template-columns: repeat(2, 1fr); }
+  .lv-doc { padding: 22px 20px 24px; }
+}
+
+/* ---- reduced motion: show the resolved state, no movement ---- */
+@media (prefers-reduced-motion: reduce) {
+  .lv-runway { height: auto; }
+  .lv-stage { position: static; min-height: 0; padding: 96px 0; }
+  .lv-scan { display: none; }
+  .lv-c, .lv-ex, .lv-off, .lv-ref, .lv-find, .lv-done, .lv-step { transition: none !important; }
+}
 </style>
 <script src="assets/site.js" defer></script>
 </head>
