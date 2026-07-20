@@ -179,10 +179,13 @@ section { scroll-margin-top: 84px; }
 /* ---------- masthead: paper brand bar; tall at the top of the page,
    shrinks to a compact strip on scroll and stays pinned ---------- */
 .topbar {
-  position: sticky; top: 0; z-index: 50; background: var(--sand);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: var(--sand);
   border-bottom: 1px solid transparent;
+  overflow-anchor: none;              /* never let anchoring chase the resize */
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
+/* the bar is out of flow, so its space is reserved once and never moves */
+body { padding-top: 82px; }
 .topbar.scrolled {
   border-bottom-color: var(--rule);
   box-shadow: 0 8px 24px -18px rgba(18, 20, 22, 0.3);

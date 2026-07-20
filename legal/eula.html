@@ -179,10 +179,13 @@ section { scroll-margin-top: 84px; }
 /* ---------- masthead: paper brand bar; tall at the top of the page,
    shrinks to a compact strip on scroll and stays pinned ---------- */
 .topbar {
-  position: sticky; top: 0; z-index: 50; background: var(--sand);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: var(--sand);
   border-bottom: 1px solid transparent;
+  overflow-anchor: none;              /* never let anchoring chase the resize */
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
+/* the bar is out of flow, so its space is reserved once and never moves */
+body { padding-top: 82px; }
 .topbar.scrolled {
   border-bottom-color: var(--rule);
   box-shadow: 0 8px 24px -18px rgba(18, 20, 22, 0.3);
@@ -1332,9 +1335,14 @@ html:not(.js) .lv-scan { display: none; }
         we make available to you.</p>
         <p><strong>&ldquo;Server&rdquo;</strong> means one machine, physical or
         virtual, running one activated installation of the Software.</p>
-        <p><strong>&ldquo;Check&rdquo;</strong> is the metering unit. A check covers
-        one document up to 25 pages &mdash; a 60-page document is three checks;
-        documents up to 200 pages per check on AI-included plans.</p>
+        <p><strong>&ldquo;Check&rdquo;</strong> is the internal metering unit. A check
+        covers one document up to 25 pages started &mdash; a 60-page document is
+        three checks; documents up to 200 pages per check on AI-included plans.</p>
+        <p><strong>&ldquo;Credits&rdquo;</strong> are the customer-facing
+        expression of the same quota, at a fixed ten Credits per Check. Checking a
+        document of up to 25 pages uses 10 Credits; a 60-page document uses 30.
+        Credits and Checks measure one quota &mdash; neither is sold separately of
+        the other, and converting between them changes nothing you receive.</p>
         <p><strong>&ldquo;AI-included plans&rdquo;</strong> means the Individual,
         Team, and Business editions, where model access is included in the
         subscription. <strong>&ldquo;Enterprise&rdquo;</strong> is
@@ -1350,10 +1358,10 @@ html:not(.js) .lv-scan { display: none; }
         Software for your own business use on up to the number of Servers your
         edition allows:</p>
         <ul>
-          <li><strong>Individual</strong> &mdash; $50 per month &mdash; 1 Server</li>
-          <li><strong>Team</strong> &mdash; $190 per month &mdash; 1 Server</li>
-          <li><strong>Business</strong> &mdash; $490 per month &mdash; 2 Servers</li>
-          <li><strong>Enterprise</strong> &mdash; $1,490 per month &mdash; 5 Servers, bring-your-own-key</li>
+          <li><strong>Individual</strong> &mdash; $50 per month &mdash; 1 Server &mdash; 200 Credits/month</li>
+          <li><strong>Team</strong> &mdash; $190 per month &mdash; 1 Server &mdash; 500 Credits/month</li>
+          <li><strong>Business</strong> &mdash; $490 per month &mdash; 2 Servers &mdash; 2,000 Credits/month</li>
+          <li><strong>Enterprise</strong> &mdash; $1,490 per month &mdash; 5 Servers &mdash; unmetered, bring-your-own-key</li>
         </ul>
         <p>Annual terms cost ten times the monthly price. Each Server needs its own
         activation, and every license is machine-bound as described in section 8.
@@ -1361,13 +1369,15 @@ html:not(.js) .lv-scan { display: none; }
         and its prompts, remains ours.</p>
 
         <h2 id="s4">4. Trials</h2>
-        <p>Trials run 7 days (Business: 20 days) and are capped at 15 checks. Trial
-        installations are for evaluation, and the same rules in this Agreement apply
-        to them. What happens when a trial ends is covered in the
+        <p>Trial length and quota are stated at checkout, and the checkout record
+        controls over any figure printed elsewhere. As of this draft: Individual
+        trials run 7 days and Business trials 30 days, each capped at 150 Credits
+        (15 Checks). Trial installations are for evaluation, and the same rules in
+        this Agreement apply to them. What happens when a trial ends is covered in the
         <a href="trial-refund.html">Trial &amp; Refund Policy</a>.</p>
 
-        <h2 id="s5">5. Checks, metering, and top-ups</h2>
-        <p>Monthly included checks reset each billing period. Top-up packs never
+        <h2 id="s5">5. Credits, metering, and top-ups</h2>
+        <p>Monthly included Credits reset each billing period and do not roll over. Top-up packs never
         expire. On AI-included plans the Software reports numeric usage counters for
         metering &mdash; counters, never content; the
         <a href="privacy.html">Privacy Policy</a> lists them exactly.</p>

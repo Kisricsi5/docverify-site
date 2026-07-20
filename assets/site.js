@@ -9,8 +9,12 @@
   // masthead hairline appears once the page is in motion
   var topbar = document.getElementById("topbar");
   if (topbar) {
+    // hysteresis: a single threshold at the top of the page let the header
+    // toggle-fight the scroll position when scrolling back up
     var onScroll = function () {
-      topbar.classList.toggle("scrolled", window.scrollY > 8);
+      var y = window.scrollY;
+      if (y > 120) topbar.classList.add("scrolled");
+      else if (y < 40) topbar.classList.remove("scrolled");
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();

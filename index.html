@@ -211,10 +211,13 @@ section { scroll-margin-top: 84px; }
 /* ---------- masthead: paper brand bar; tall at the top of the page,
    shrinks to a compact strip on scroll and stays pinned ---------- */
 .topbar {
-  position: sticky; top: 0; z-index: 50; background: var(--sand);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: var(--sand);
   border-bottom: 1px solid transparent;
+  overflow-anchor: none;              /* never let anchoring chase the resize */
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
+/* the bar is out of flow, so its space is reserved once and never moves */
+body { padding-top: 82px; }
 .topbar.scrolled {
   border-bottom-color: var(--rule);
   box-shadow: 0 8px 24px -18px rgba(18, 20, 22, 0.3);
@@ -1819,8 +1822,8 @@ html:not(.js) .lv-scan { display: none; }
         <article class="persona rv">
           <span class="plabel">Agencies &amp; consultancies</span>
           <h3>Client deliverables, checked against client rules.</h3>
-          <p class="ptake">&ldquo;A wrong rate never reaches a client again.
-          One rulebook per client.&rdquo;</p>
+          <p class="ptake">&ldquo;Every proposal gets checked against that
+          client&rsquo;s own rates. One rulebook per client.&rdquo;</p>
           <p class="pmini"><span class="pm-doc">client_proposal.docx</span>
           CONFLICT &middot; HIGH &mdash; approved hourly rate</p>
           <p class="plink"><a href="#pricing">Pick a plan for your desk &rarr;</a></p>
@@ -1828,8 +1831,8 @@ html:not(.js) .lv-scan { display: none; }
         <article class="persona rv">
           <span class="plabel">Security &amp; IT</span>
           <h3>Approve it in an afternoon.</h3>
-          <p class="ptake">&ldquo;One container, one directory, one outbound
-          connection. Approvable.&rdquo;</p>
+          <p class="ptake">&ldquo;One container, one directory, two outbound
+          calls I can name. Approvable.&rdquo;</p>
           <p class="pmini"><span class="pm-doc">security_questionnaire.xlsx</span>
           MISSING REFERENCE &mdash; unsupported compliance claim</p>
           <p class="plink"><a href="#constitution">Read the trust architecture &rarr;</a></p>
@@ -1841,8 +1844,8 @@ html:not(.js) .lv-scan { display: none; }
   <section id="selfhost" class="sect" aria-labelledby="host-h">
     <div class="wrap">
       <p class="slabel rv"><span class="sn">N&deg;05</span>Self-hosted &mdash; in plain English</p>
-      <h2 id="host-h" class="rvh"><span class="lmi">Your server. Your keys. Your documents stay home.</span></h2>
-      <p class="lede rv">Confyro runs on a computer your company controls.</p>
+      <h2 id="host-h" class="rvh"><span class="lmi">Your server. Your keys. Your documents never reach us.</span></h2>
+      <p class="lede rv">Confyro runs on a computer your company controls. The text being checked reaches the model provider; nothing reaches us.</p>
       <ol class="steps rv">
         <li class="step">
           <span class="stepno">1</span>
@@ -1864,7 +1867,7 @@ html:not(.js) .lv-scan { display: none; }
         </li>
       </ol>
       <figure class="archfig rv">
-        <svg class="archsvg" viewBox="0 0 780 330" role="img" aria-label="Architecture: your browser talks to your Confyro server; your documents stay on that server; document content goes only to the model provider you configure; the license service receives a key and machine ID, never content.">
+        <svg class="archsvg" viewBox="0 0 780 330" role="img" aria-label="Architecture: your browser talks to your Confyro server; your documents are stored only on that server; the text being checked goes only to the model provider you configure; the license service receives a key and machine ID, never content.">
           <defs>
             <marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
               <path d="M0,0 L8,4 L0,8 z" fill="#65655F"/>
@@ -1882,7 +1885,7 @@ html:not(.js) .lv-scan { display: none; }
           <path class="flow" d="M140,196 V240" marker-end="url(#arr)"/>
           <rect class="box" x="40" y="244" width="220" height="54"/>
           <text class="lbl" x="60" y="267">YOUR DOCUMENTS</text>
-          <text class="sublbl" x="60" y="285">never leave this boundary</text>
+          <text class="sublbl" x="60" y="285">stored only on your server</text>
           <path class="flow" d="M300,150 H494" marker-end="url(#arr)"/>
           <text class="sublbl" x="354" y="138">DOCUMENT CONTENT</text>
           <rect class="boxdim" x="500" y="118" width="260" height="58"/>
@@ -2051,7 +2054,7 @@ html:not(.js) .lv-scan { display: none; }
         <li class="rv">
           <span class="pnum">02</span>
           <h3>Inspect the architecture</h3>
-          <p>One container on your server; documents never leave your boundary.</p>
+          <p>One container on your server; your documents never reach us.</p>
           <p class="plink"><a href="#selfhost">See the self-hosted design &rarr;</a></p>
         </li>
         <li class="rv">
