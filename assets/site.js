@@ -17,7 +17,7 @@
   }
 
   // scroll reveals — content is visible without JS; this only choreographs it
-  var revealed = document.querySelectorAll(".rv, .rvh, .gaterail, .finline");
+  var revealed = document.querySelectorAll(".rv, .rvh, .gaterail");
   if (reduced || !("IntersectionObserver" in window)) {
     revealed.forEach(function (el) { el.classList.add("in"); });
   } else {
