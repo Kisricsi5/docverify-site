@@ -1320,6 +1320,69 @@ html:not(.js) .lv-scan { display: none; }
   .lv-scan { display: none; }
   .lv-c, .lv-ex, .lv-off, .lv-ref, .lv-find, .lv-done, .lv-step { transition: none !important; }
 }
+
+/* ============================================================================
+   N°03 trust architecture: scroll-synced gate highlight.
+   Source of truth — scripts/sync_site_css.py inlines this into every page.
+   Scoped to #constitution, inert elsewhere. Uses existing tokens only:
+   --verdict (red) for the active gate/card, --ev-text (green on dark) for the
+   revealed reason line. Static (all visible) with no JS / reduced motion / ≤760px.
+============================================================================ */
+#constitution.sect { padding: 0; }
+.ta-runway { position: relative; }
+.ta-stage { position: static; }
+
+/* the pinned, scroll-driven behaviour only on a real desktop with motion on */
+@media (min-width: 761px) and (prefers-reduced-motion: no-preference) {
+  html.js .ta-runway { height: 320vh; }
+  html.js .ta-stage {
+    position: sticky; top: 0; min-height: 100vh;
+    display: flex; align-items: center; padding: 92px 0 40px; box-sizing: border-box;
+  }
+}
+html:not(.js) #constitution.sect { padding: 108px 0; }
+@media (max-width: 760px) { #constitution.sect { padding: 84px 0; } }
+
+/* the red progress line drawn along the rail up to the active gate */
+.ta-fill {
+  stroke: var(--verdict); stroke-width: 2.6; fill: none;
+  stroke-dasharray: 1200; stroke-dashoffset: 1200;
+  transition: stroke-dashoffset 0.5s cubic-bezier(0.3, 0.8, 0.3, 1);
+}
+html:not(.js) .ta-fill { display: none; }
+
+/* active + passed gates on the rail */
+.gaterail .gate { transition: fill 0.3s ease, stroke 0.3s ease; }
+.gaterail .gate.ta-passed { stroke: var(--verdict); }
+.gaterail .gate.ta-on { fill: var(--verdict); stroke: var(--verdict); }
+.gaterail text { transition: fill 0.3s ease; }
+.gaterail text.ta-on { fill: var(--ivory); }
+
+/* the leading clause card; the others recede */
+#constitution .clause {
+  transition: opacity 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease, border-color 0.4s ease;
+}
+.ta-stage[data-active="0"] .clause:not(.ta-on),
+.ta-stage[data-active="1"] .clause:not(.ta-on),
+.ta-stage[data-active="2"] .clause:not(.ta-on),
+.ta-stage[data-active="3"] .clause:not(.ta-on) { opacity: 0.4; }
+#constitution .clause.ta-on {
+  opacity: 1; transform: translateY(-2px);
+  box-shadow: 0 0 0 1px rgba(218, 87, 77, 0.45), 0 22px 46px -22px rgba(0, 0, 0, 0.65);
+}
+
+/* the plain-language reason, revealed on the leading clause */
+.ta-reason {
+  /* !important on colour too: .clause p (0,1,1) outranks .ta-reason (0,1,0),
+     so without it the reason line renders in body text, not evidence green —
+     the drop-in flagged margin/font but missed this one. */
+  margin: 12px 0 0 !important; font: 500 12px var(--mono) !important;
+  color: var(--ev-text) !important; letter-spacing: 0.02em;
+  opacity: 0; transform: translateY(4px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+#constitution .clause.ta-on .ta-reason { opacity: 1; transform: none; }
+html:not(.js) .ta-reason { opacity: 1; transform: none; }
 </style>
 <script src="assets/site.js" defer></script>
 </head>

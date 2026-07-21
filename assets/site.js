@@ -317,3 +317,78 @@
   })();
 
 })();
+
+/* ============================================================================
+   N°03 trust architecture: scroll-synced gate highlight. Self-contained IIFE,
+   no deps. Drives one attribute (data-active on .ta-stage) + a few classes;
+   all visuals live in CSS. Inert without JS, under reduced motion, or <=760px.
+============================================================================ */
+(function () {
+  var sec = document.getElementById("constitution");
+  if (!sec) return;
+  var stage = sec.querySelector(".ta-stage");
+  var runway = sec.querySelector(".ta-runway");
+  var gates = sec.querySelectorAll(".gaterail .gate");
+  var glabels = sec.querySelectorAll(".gaterail text");
+  var clauses = sec.querySelectorAll(".clause");
+  var fill = sec.querySelector(".ta-fill");
+  if (!stage || !runway || gates.length !== 4 || clauses.length !== 4) return;
+
+  var GATEX = [236, 526, 816, 1106], L0 = 20, L1 = 1180;
+  var reduced = window.matchMedia
+    && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var last = -2, ticking = false;
+
+  function active() { return !reduced && window.innerWidth > 760; }
+
+  function apply(i) {
+    if (i === last) return;
+    last = i;
+    stage.setAttribute("data-active", String(i));
+    for (var g = 0; g < gates.length; g++) {
+      gates[g].classList.toggle("ta-on", g === i);
+      gates[g].classList.toggle("ta-passed", g < i);
+      if (glabels[g]) glabels[g].classList.toggle("ta-on", g === i);
+    }
+    for (var c = 0; c < clauses.length; c++) {
+      clauses[c].classList.toggle("ta-on", c === i);
+    }
+    if (fill && i >= 0) {
+      var frac = (GATEX[i] - L0) / (L1 - L0);
+      fill.style.strokeDashoffset = String(1200 - 1200 * frac);
+    }
+  }
+
+  function reset() {
+    last = -2;
+    stage.setAttribute("data-active", "all");
+    for (var g = 0; g < gates.length; g++) {
+      gates[g].classList.remove("ta-on", "ta-passed");
+      if (glabels[g]) glabels[g].classList.remove("ta-on");
+    }
+    for (var c = 0; c < clauses.length; c++) clauses[c].classList.remove("ta-on");
+    if (fill) fill.style.strokeDashoffset = "1200";
+  }
+
+  function measure() {
+    if (!active()) return;
+    var total = runway.offsetHeight - window.innerHeight;
+    if (total <= 0) return;
+    var p = -runway.getBoundingClientRect().top / total;
+    if (p < 0) p = 0;
+    if (p > 0.9999) p = 0.9999;
+    apply(Math.min(3, Math.floor(p * 4)));
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(function () { ticking = false; measure(); });
+    }
+  }
+  function start() { if (!active()) { reset(); } else { last = -2; measure(); } }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", start, { passive: true });
+  start();
+})();
