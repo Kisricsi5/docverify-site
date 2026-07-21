@@ -1417,9 +1417,65 @@ html:not(.js) .ta-fill { display: none; }
 html:not(.js) .ta-reason { opacity: 1; transform: none; }
 </style>
 <script src="assets/site.js" defer></script>
+<!-- Cinematic hero intro — progressive enhancement, gated by html.ci-on.
+     Added only when JS is on AND motion is allowed; a 5s fallback strips it
+     if hero-intro.js never runs, so a visitor is never trapped behind the cover. -->
+<link rel="stylesheet" href="assets/hero-intro.css">
+<script>(function(){var d=document.documentElement;try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('ci-on');window.__ciFallback=setTimeout(function(){d.classList.remove('ci-on');},5000);}}catch(e){}})();</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
+
+<!-- ===== Cinematic hero intro (poster → dive → white bloom → real hero) =====
+     Overlay only; reveals the real <section class="hero"> in <main> below.
+     Styling/behaviour in assets/hero-intro.{css,js}; gated by html.ci-on. -->
+<div class="ci-cover" id="ci-cover" aria-hidden="true">
+  <div class="ci-diver" id="ci-diver">
+    <div class="ci-fx">
+      <div class="ci-veil"></div>
+      <div class="ci-rays ci-anim"></div>
+      <div class="ci-glow ci-anim"></div>
+    </div>
+    <div class="ci-stage">
+      <div class="ci-top"><p class="ci-kicker ci-anim">Self-hosted document checker</p></div>
+      <div class="ci-laptop ci-anim">
+        <div class="ci-laptop-in">
+          <div class="ci-screenwrap">
+            <span class="ci-notch"></span>
+            <div class="ci-screen">
+              <div class="ci-chrome"><span class="ci-lights"><i></i><i></i><i></i></span><span class="ci-url">&#926;&nbsp; confyro.local</span></div>
+              <div class="ci-bodyv">
+                <aside class="ci-side"><span class="ci-h">Workspace</span>
+                  <div class="ci-files">
+                    <span class="ci-file ci-file-on"><span class="ci-dot"></span>SOW-7.docx</span>
+                    <span class="ci-file"><span class="ci-dot"></span>msa.pdf</span>
+                    <span class="ci-file"><span class="ci-dot"></span>rate_c.txt</span>
+                    <span class="ci-file"><span class="ci-dot"></span>nda.txt</span>
+                  </div><span class="ci-foot">3 references &middot; local</span></aside>
+                <div class="ci-work">
+                  <div class="ci-wtop"><span>SOW-7.docx</span><span class="ci-sum">2 conflicts &middot; 1 gap</span></div>
+                  <div class="ci-rows">
+                    <div class="ci-row ci-conflict"><span class="ci-tag">Conflict</span><span class="ci-rnum">2.</span><span class="ci-rlabel">Fees</span><span class="ci-rval"><span class="ci-r">$185</span> vs $165</span></div>
+                    <div class="ci-row"><span class="ci-sw ci-hi"></span><span class="ci-rnum">9.</span><span class="ci-rlabel">Liability cap</span><span class="ci-rval">6 vs 12&nbsp;mo</span></div>
+                    <div class="ci-row"><span class="ci-sw ci-md"></span><span class="ci-rnum">12.</span><span class="ci-rlabel">Governing law</span><span class="ci-rval">missing</span></div>
+                    <div class="ci-row"><span class="ci-sw ci-ok"></span><span class="ci-rnum">5.</span><span class="ci-rlabel">Payment terms</span><span class="ci-rval"><span class="ci-g">match</span></span></div>
+                  </div><span class="ci-wfoot">Every finding cites its source</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ci-base"></div>
+        </div>
+      </div>
+      <div class="ci-bottom">
+        <p class="ci-headline ci-anim">Your documents make claims.<br>We check <em>every one.</em></p>
+      </div>
+    </div>
+  </div>
+  <div class="ci-flash" id="ci-flash"></div>
+  <div class="ci-cue" id="ci-cue"><span>Scroll to enter</span><span class="ci-arw"></span></div>
+</div>
+<div class="ci-spacer" aria-hidden="true"></div>
 
 <div class="topbar" id="topbar">
   <div class="wrap">
@@ -2244,10 +2300,11 @@ html:not(.js) .ta-reason { opacity: 1; transform: none; }
     <a href="mailto:hello@confyro.com">hello@confyro.com</a> &middot;
     <a href="team.html">the founder</a> &middot;
     <a href="legal/">legal</a><br>
-    No trackers, no analytics, no cookies. About 390 lines of JavaScript,
+    No trackers, no analytics, no cookies. About 490 lines of JavaScript,
     none of it required.<br>
     &copy; 2026 Confyro. All rights reserved.</p>
   </div>
 </footer>
+<script src="assets/hero-intro.js" defer></script>
 </body>
 </html>
