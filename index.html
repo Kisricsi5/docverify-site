@@ -828,11 +828,10 @@ html:not(.js) .gaterail .gline { stroke-dashoffset: 0; }
 .step h3 { font: 600 18px var(--display); margin: 0 0 7px; }
 .step p { margin: 0; font-size: 15px; color: var(--body2); line-height: 1.62; }
 /* N°07 fits one screen with its caption (owner request) */
-#selfhost.sect { padding: 34px 0 22px; box-sizing: border-box;
-  height: calc(100vh - 50px); height: calc(100svh - 50px); display: flex; overflow: hidden; }
+#selfhost.sect { padding: 80px 0; box-sizing: border-box; }
 #selfhost .slabel { margin-bottom: 10px; }
 #selfhost h2 { margin-bottom: 10px; }
-#selfhost > .wrap { display: flex; flex-direction: column; width: 100%; }
+#selfhost > .wrap { display: block; width: 100%; }
 #selfhost h2 { font-size: clamp(26px, 3vw, 38px); }
 #selfhost .lede { margin-bottom: 10px; font-size: 16px; }
 #selfhost .steps { margin-top: 8px; gap: 18px; }
@@ -840,11 +839,10 @@ html:not(.js) .gaterail .gline { stroke-dashoffset: 0; }
 #selfhost .step p { font-size: 13.5px; line-height: 1.5; }
 #selfhost .step { padding-top: 10px; }
 #selfhost .stepno { width: 24px; height: 24px; font-size: 13px; margin-bottom: 6px; }
-.archfig { margin: 10px 0 0; flex: 1 1 0; min-height: 0;
-  display: flex; flex-direction: column; }
+.archfig { margin: 30px 0 0; display: block; }
 .archfig figcaption { font: 500 11px var(--mono); color: var(--margin); letter-spacing: 0.05em; margin-top: 8px; text-align: center; }
-.archsvg { flex: 1 1 0; min-height: 160px; width: 100%;
-  display: block; }  /* flex-basis 0: exactly the leftover space; 'meet' centers */
+.archsvg { width: 100%; max-width: 820px; height: auto; aspect-ratio: 780 / 330;
+  margin: 4px auto 0; display: block; }  /* width-driven so it's the same big size at any viewport height */
 .archsvg .box { fill: var(--paper); stroke: var(--ink); stroke-width: 1.4; }
 .archsvg .boxdim { fill: var(--sand); stroke: var(--margin); stroke-width: 1.2; }
 .archsvg .lbl { font: 600 13px var(--mono); fill: var(--ink); }
