@@ -1416,10 +1416,11 @@ html:not(.js) .ta-reason { opacity: 1; transform: none; }
 </style>
 <script src="assets/site.js" defer></script>
 <!-- Cinematic hero intro — progressive enhancement, gated by html.ci-on.
-     Added only when JS is on AND motion is allowed; a 5s fallback strips it
-     if hero-intro.js never runs, so a visitor is never trapped behind the cover. -->
+     Owner decision 2026-07-22: shown to EVERYONE with JS on (reduced-motion
+     included). A 5s fallback strips ci-on if hero-intro.js never runs, so a
+     visitor is never trapped behind the cover. -->
 <link rel="stylesheet" href="assets/hero-intro.css">
-<script>(function(){var d=document.documentElement;try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('ci-on');window.__ciFallback=setTimeout(function(){d.classList.remove('ci-on');},5000);}}catch(e){}})();</script>
+<script>(function(){var d=document.documentElement;try{d.classList.add('ci-on');window.__ciFallback=setTimeout(function(){d.classList.remove('ci-on');},5000);}catch(e){}})();</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
