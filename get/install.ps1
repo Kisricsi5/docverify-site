@@ -47,20 +47,25 @@ Set-Location "confyro"
 Write-Host "Downloading docker-compose.yml from $BaseUrl ..."
 Invoke-WebRequest -UseBasicParsing -Uri "$BaseUrl/docker-compose.yml" -OutFile "docker-compose.yml"
 
-# 4. Local admin password (kept only in .\confyro\.env on this machine)
+# 4. Your login password (kept only in .\confyro\.env on this machine)
 $needPassword = $true
 if (Test-Path ".env") {
     $envText = Get-Content ".env" -Raw
     if ($envText -match "CONFYRO_ADMIN_PASSWORD=") { $needPassword = $false }
 }
 if ($needPassword) {
-    $bytes = New-Object byte[] 16
-    [System.Security.Cryptography.RNGCryptoServiceProvider]::new().GetBytes($bytes)
-    $password = ($bytes | ForEach-Object { $_.ToString("x2") }) -join ""
-    Add-Content -Path ".env" -Value "CONFYRO_ADMIN_PASSWORD=$password" -Encoding ascii
     Write-Host ""
-    Write-Host "  Confyro admin login  ->  user: admin   password: $password"
-    Write-Host "  (saved in .\confyro\.env — you will not see it printed again)"
+    Write-Host "Choose a password to log in to Confyro (the username is always 'admin')."
+    Write-Host "Pick something you'll remember — you can just press Enter to have one made for you."
+    $password = Read-Host "   Your Confyro password"
+    if ([string]::IsNullOrWhiteSpace($password)) {
+        $bytes = New-Object byte[] 12
+        [System.Security.Cryptography.RNGCryptoServiceProvider]::new().GetBytes($bytes)
+        $password = ($bytes | ForEach-Object { $_.ToString("x2") }) -join ""
+        Write-Host "   (No password typed — we made one for you: $password)"
+    }
+    Add-Content -Path ".env" -Value "CONFYRO_ADMIN_PASSWORD=$password" -Encoding ascii
+    Write-Host "   Saved. Log in with  user: admin   and the password you chose."
     Write-Host ""
 }
 
@@ -71,6 +76,34 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
+# 6. A desktop / Start-menu icon that opens Confyro in an app-style window.
+$confyroDir = (Get-Location).Path
+try {
+    Invoke-WebRequest -UseBasicParsing -Uri "$BaseUrl/Open-Confyro.ps1" -OutFile "Open-Confyro.ps1"
+    Invoke-WebRequest -UseBasicParsing -Uri "$BaseUrl/confyro.ico"     -OutFile "confyro.ico"
+
+    $ps = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe"
+    $launcher = Join-Path $confyroDir "Open-Confyro.ps1"
+    $icon = Join-Path $confyroDir "confyro.ico"
+    $wsh = New-Object -ComObject WScript.Shell
+    foreach ($dir in @([Environment]::GetFolderPath("Desktop"),
+                       [Environment]::GetFolderPath("Programs"))) {
+        $lnk = $wsh.CreateShortcut((Join-Path $dir "Confyro.lnk"))
+        $lnk.TargetPath = $ps
+        $lnk.Arguments = "-WindowStyle Hidden -ExecutionPolicy Bypass -File `"$launcher`""
+        $lnk.WorkingDirectory = $confyroDir
+        $lnk.IconLocation = $icon
+        $lnk.Description = "Open Confyro"
+        $lnk.Save()
+    }
+    Write-Host "A 'Confyro' icon is now on your Desktop and in the Start menu."
+    Write-Host "(Right-click it -> Pin to taskbar to keep it handy.)"
+} catch {
+    Write-Host "Confyro is installed; the desktop icon could not be created ($($_.Exception.Message))."
+    Write-Host "You can always open it at http://localhost:8000"
+}
+
 Write-Host ""
 Write-Host "Confyro is starting."
-Write-Host "Open  http://localhost:8000  and paste your activation key (from your email)."
+Write-Host "Click the new Confyro icon, or open  http://localhost:8000 , then paste"
+Write-Host "your activation key from your email."

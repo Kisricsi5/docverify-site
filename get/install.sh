@@ -47,13 +47,19 @@ cd confyro
 echo "Downloading docker-compose.yml from ${BASE_URL} ..."
 curl -fsS -o docker-compose.yml "${BASE_URL}/docker-compose.yml"
 
-# 4. Local admin password (kept only in ./confyro/.env on this machine)
+# 4. Your login password (kept only in ./confyro/.env on this machine)
 if [ ! -f .env ] || ! grep -q '^CONFYRO_ADMIN_PASSWORD=' .env 2>/dev/null; then
-    PASSWORD="$(head -c 16 /dev/urandom | od -An -tx1 | tr -d ' \n')"
-    printf 'CONFYRO_ADMIN_PASSWORD=%s\n' "$PASSWORD" >> .env
     echo
-    echo "  Confyro admin login  ->  user: admin   password: $PASSWORD"
-    echo "  (saved in ./confyro/.env — you will not see it printed again)"
+    echo "Choose a password to log in to Confyro (the username is always 'admin')."
+    echo "Pick something you'll remember — or just press Enter to have one made for you."
+    printf '   Your Confyro password: '
+    read -r PASSWORD
+    if [ -z "$PASSWORD" ]; then
+        PASSWORD="$(head -c 12 /dev/urandom | od -An -tx1 | tr -d ' \n')"
+        echo "   (No password typed — we made one for you: $PASSWORD)"
+    fi
+    printf 'CONFYRO_ADMIN_PASSWORD=%s\n' "$PASSWORD" >> .env
+    echo "   Saved. Log in with  user: admin  and the password you chose."
     echo
 fi
 
