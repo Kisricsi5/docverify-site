@@ -10,13 +10,18 @@
 services:
   confyro:
     image: ${CONFYRO_IMAGE:-ghcr.io/kisricsi5/confyro:latest}
+    # The published image is linux/amd64 only. Naming it here is what lets an
+    # Apple Silicon Mac pull and run it under Rosetta; without this line Docker
+    # asks for a linux/arm64 build that does not exist and the pull fails with
+    # "no matching manifest". Harmless everywhere else.
+    platform: linux/amd64
     restart: unless-stopped
     # Bound to THIS machine only. To share it on your intranet, keep this
     # binding and put a TLS reverse proxy in front (https://confyro.com/#selfhost).
     ports:
       - "127.0.0.1:8000:8000"
     environment:
-      # UI password (username: admin). Optional while the app is only
+      # The password for the sign-in page. Optional while the app is only
       # reachable from this machine; REQUIRED before you expose it further.
       # Put CONFYRO_ADMIN_PASSWORD=... in a .env file next to this one.
       CONFYRO_ADMIN_PASSWORD: ${CONFYRO_ADMIN_PASSWORD:-}
