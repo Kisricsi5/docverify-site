@@ -14,7 +14,6 @@ services:
     # Apple Silicon Mac pull and run it under Rosetta; without this line Docker
     # asks for a linux/arm64 build that does not exist and the pull fails with
     # "no matching manifest". Harmless everywhere else.
-    platform: linux/amd64
     restart: unless-stopped
     # Bound to THIS machine only. To share it on your intranet, keep this
     # binding and put a TLS reverse proxy in front (https://confyro.com/#selfhost).
