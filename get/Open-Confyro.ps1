@@ -49,9 +49,16 @@ function Open-Confyro {
 #    start - just open the window and get out of the way.
 if (Test-Port) { Open-Confyro; exit }
 
-# 2. Not running. Find docker.exe: PATH is the normal answer but not a reliable
-#    one, because Docker Desktop installs per-user into AppData and only adds
-#    itself to the user PATH, so a shell opened before that cannot see it.
+# 2. Not running. This is the rare path - usually a click made during the first
+#    minute after a restart, before Docker has finished waking up. The window is
+#    on screen either way, so from here on it says what it is waiting for: a
+#    black rectangle that sits there for a minute reads as a hung program.
+Write-Host ""
+Write-Host "  Confyro is not running yet."
+
+# PATH is the normal way to find docker.exe but not a reliable one: Docker
+# Desktop installs per-user into AppData and only adds itself to the user PATH,
+# so a shell opened before that cannot see it.
 function Get-DockerExe {
     $cmd = Get-Command docker -ErrorAction SilentlyContinue
     if ($cmd) { return $cmd.Source }
@@ -61,27 +68,42 @@ function Get-DockerExe {
            Where-Object { Test-Path $_ } | Select-Object -First 1
 }
 $docker = Get-DockerExe
-if (-not $docker) { Start-Process $Url; exit }
+if (-not $docker) {
+    Write-Host "  Could not find Docker. Opening $Url anyway."
+    Start-Process $Url
+    exit
+}
 
-# 3. Is the engine up? If not, start Docker Desktop and wait for it.
 & $docker info *> $null
 if ($LASTEXITCODE -ne 0) {
+    Write-Host "  Starting Docker Desktop. Right after a restart this takes a minute."
     $dd = @("$env:ProgramFiles\Docker\Docker\Docker Desktop.exe",
             "$env:LOCALAPPDATA\Programs\DockerDesktop\Docker Desktop.exe",
             "$env:LOCALAPPDATA\Programs\Docker\Docker\Docker Desktop.exe",
             "$env:LOCALAPPDATA\Docker\Docker Desktop.exe") |
           Where-Object { Test-Path $_ } | Select-Object -First 1
     if ($dd) { Start-Process $dd }
-    for ($i = 0; $i -lt 150; $i++) {
-        & $docker info *> $null
-        if ($LASTEXITCODE -eq 0) { break }
-        Start-Sleep -Seconds 1
-    }
 }
 
-# 4. Bring the Confyro container up (idempotent - no-op if already running).
-& $docker compose up -d *> $null
+# 3. Wait on the port, not on Docker. The container is set to restart with the
+#    engine, so in the usual case it comes back by itself and we open the moment
+#    it answers - without spending another two Docker round trips first. Only if
+#    the engine is up and the port still is not do we conclude the container was
+#    genuinely stopped, and start it.
+$composeTried = $false
+for ($i = 0; $i -lt 180; $i++) {
+    if (Test-Port) { break }
+    if (-not $composeTried -and $i -ge 3 -and ($i % 5) -eq 0) {
+        & $docker info *> $null
+        if ($LASTEXITCODE -eq 0) {
+            Write-Host "  Docker is ready. Starting Confyro..."
+            & $docker compose up -d *> $null
+            $composeTried = $true
+        }
+    }
+    Start-Sleep -Milliseconds 500
+}
 
-# 5. Wait for the web server, then open it.
-for ($i = 0; $i -lt 100; $i++) { if (Test-Port) { break }; Start-Sleep -Milliseconds 300 }
+if (Test-Port) { Write-Host "  Ready. Opening Confyro." }
+else { Write-Host "  Confyro did not answer. Opening $Url so you can see the error." }
 Open-Confyro
